@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
@@ -17,6 +19,7 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
 
+@Component
 public class GameLogDAO implements GameLogInterface {
 
     private Conn connCls = null;
@@ -219,42 +222,111 @@ public class GameLogDAO implements GameLogInterface {
 
     @Override
     public RaceLog getRaceInfo(int raceID) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            RaceLog returnLog = null;
+            String query = 
+            """
+            SELECT * from racelog
+            INNER JOIN boostatt on racelog.raceid = boostatt.raceid
+            INNER JOIN collision on racelog.raceid = collision.raceid
+            INNER JOIN offsensestat on racelog.raceid = offsensestat.raceid
+            INNER JOIN trapatt on racelog.raceid = trapatt.raceid
+            WHERE racelog.raceid = ?;     
+            """;
+
+
+            PreparedStatement stmt = this.conn.prepareStatement(query);
+            stmt.setInt(1, raceID);
+
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                //init all of the related attribue before the main one
+                BoostUsage boostAtt = new BoostUsage(
+                result.getInt("boostitem1"),
+                result.getInt("boostitem2"),
+                result.getInt("boostitem3"),
+                result.getInt("boostitem4"));
+                CollisionStat collisionAtt = new CollisionStat(
+                    result.getInt("wallcol"), result.getInt("playercol"));
+                OffenseUsage offenseAtt = new OffenseUsage(
+                    result.getInt("offenseitem1"),
+                    result.getInt("offenseitem2"), 
+                    result.getInt("offenseitem3"),
+                    result.getInt("offenseitem4"));
+
+                TrapUsage trapAtt = new TrapUsage(
+                    result.getInt("trapitem1"),
+                    result.getInt("trapitem2"),
+                    result.getInt("trapitem3"),
+                    result.getInt("trapitem4")
+                );
+
+                RaceLog raceLog = new RaceLog(
+                    result.getInt("racelog.raceid"),
+                    result.getTimestamp("racestarttime"),
+                    result.getTime("racetime"), 
+                    result.getInt("racepos"),
+                    result.getInt("mapraced"),
+                    result.getInt("characterused"),
+                    boostAtt,
+                    collisionAtt,
+                    offenseAtt,
+                    trapAtt);
+
+                returnLog = raceLog;
+            }
+            return returnLog;
+        } catch (SQLException e) {
+            System.err.println("There is an error query the database: " + e);
+            return null;
+        }
     }
 
 
     public static void main(String[] args) {
         //Testing for the new race insertion
-        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-        CollisionStat collisiontest = new CollisionStat(1, 2);
-        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
+        // BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
+        // CollisionStat collisiontest = new CollisionStat(1, 2);
+        // OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
+        // TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
-        Date date = new Date();
-        Timestamp raceStartTime = new Timestamp(date.getTime());
-        Time raceTime = Time.valueOf("01:22:30"); 
+        // Date date = new Date();
+        // Timestamp raceStartTime = new Timestamp(date.getTime());
+        // Time raceTime = Time.valueOf("01:22:30"); 
 
-        RaceLog checker = new RaceLog(1, raceStartTime, raceTime, 1, 2, 4, 
-        boostTest, collisiontest, offenseTest, trapTest);
-
-
-        GameLogDAO test = new GameLogDAO();
-
-        System.out.println(test.addGameLog(checker));
-        test.closeConnection();
-        test = null;   
+        // RaceLog checker = new RaceLog(1, raceStartTime, raceTime, 1, 2, 4, 
+        // boostTest, collisiontest, offenseTest, trapTest);
 
 
-        //Print all of the race log from a player
-        GameLogDAO test2 = new GameLogDAO();
+        // GameLogDAO test = new GameLogDAO();
 
-        ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer(1);
-        for(RaceLog race : raceLogs){
-            System.out.println(race);
-        }
+        // System.out.println(test.addGameLog(checker));
+        // test.closeConnection();
+        // test = null;   
+
+
+        // //Print all of the race log from a player
+        // GameLogDAO test2 = new GameLogDAO();
+
+        // ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer(1);
+        // for(RaceLog race : raceLogs){
+        //     System.out.println(race);
+        // }
         
-        test2.closeConnection();
-        test2 = null;  
+        // test2.closeConnection();
+        // test2 = null;  
+
+
+        //Lookup race by raceID
+
+        GameLogDAO test3 = new GameLogDAO();
+
+        RaceLog data =  test3.getRaceInfo(6);
+        System.out.println(data);
+        
+        test3.closeConnection();
+        test3 = null;  
+
     }
 }
