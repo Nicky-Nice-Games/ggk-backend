@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class PlayerInfoTest {
     private String expected_email = "test@test.com";
-    private Integer expected_pid = 20;
+    private String expected_pid = "20";
     private String expected_pw = "tester";
     private Integer expected_uid = 20;
     private String expected_username = "test_person";
@@ -51,7 +51,7 @@ public class PlayerInfoTest {
 
     @Test
     void testSetPid() {
-        expected_pid = 25;
+        expected_pid = "25";
         playerinfo.setPid(expected_pid);
         assertEquals(expected_pid,playerinfo.getPid());
     }

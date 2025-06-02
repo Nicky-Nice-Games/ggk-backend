@@ -157,6 +157,7 @@ public class RaceLog {
         this.collisionStat, this.offenseStat, this.trapUsage);
     }
 
+    /*
     public static void main(String[] args) {
         BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
         CollisionStat collisiontest = new CollisionStat(1, 2);
@@ -172,6 +173,6 @@ public class RaceLog {
         boostTest, collisiontest, offenseTest, trapTest);
 
         System.out.println(log);
-    }    
+    } */   
 
 }
