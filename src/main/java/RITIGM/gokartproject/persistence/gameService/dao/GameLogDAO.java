@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 
 import RITIGM.gokartproject.connection.Conn;
@@ -154,9 +155,66 @@ public class GameLogDAO implements GameLogInterface {
     }
 
     @Override
-    public RaceLog[] getRaceByPlayer(int pid) {
-        // TODO Auto-generated method stub
-        return null;
+    public ArrayList<RaceLog> getRaceByPlayer(int pid) {
+        try {
+            ArrayList<RaceLog> returnLog = new ArrayList<>();
+            String query = 
+            """
+            SELECT * from racelog
+            INNER JOIN boostatt on racelog.raceid = boostatt.raceid
+            INNER JOIN collision on racelog.raceid = collision.raceid
+            INNER JOIN offsensestat on racelog.raceid = offsensestat.raceid
+            INNER JOIN trapatt on racelog.raceid = trapatt.raceid
+            WHERE pid = ?;      
+            """;
+
+
+            PreparedStatement stmt = this.conn.prepareStatement(query);
+            stmt.setInt(1, pid);
+
+            ResultSet result = stmt.executeQuery();
+
+            while(result.next()){
+                //init all of the related attribue before the main one
+                BoostUsage boostAtt = new BoostUsage(
+                result.getInt("boostitem1"),
+                result.getInt("boostitem2"),
+                result.getInt("boostitem3"),
+                result.getInt("boostitem4"));
+                CollisionStat collisionAtt = new CollisionStat(
+                    result.getInt("wallcol"), result.getInt("playercol"));
+                OffenseUsage offenseAtt = new OffenseUsage(
+                    result.getInt("offenseitem1"),
+                    result.getInt("offenseitem2"), 
+                    result.getInt("offenseitem3"),
+                    result.getInt("offenseitem4"));
+
+                TrapUsage trapAtt = new TrapUsage(
+                    result.getInt("trapitem1"),
+                    result.getInt("trapitem2"),
+                    result.getInt("trapitem3"),
+                    result.getInt("trapitem4")
+                );
+
+                RaceLog raceLog = new RaceLog(
+                    result.getInt("racelog.raceid"),
+                    result.getTimestamp("racestarttime"),
+                    result.getTime("racetime"), 
+                    result.getInt("racepos"),
+                    result.getInt("mapraced"),
+                    result.getInt("characterused"),
+                    boostAtt,
+                    collisionAtt,
+                    offenseAtt,
+                    trapAtt);
+
+                returnLog.add(raceLog);
+            }
+            return returnLog;
+        } catch (SQLException e) {
+            System.err.println("There is an error query the database: " + e);
+            return null;
+        }
     }
 
     @Override
@@ -185,8 +243,18 @@ public class GameLogDAO implements GameLogInterface {
 
         System.out.println(test.addGameLog(checker));
         test.closeConnection();
-        test = null;
+        test = null;   
 
+
+        //Print all of the race log from a player
+        GameLogDAO test2 = new GameLogDAO();
+
+        ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer(1);
+        for(RaceLog race : raceLogs){
+            System.out.println(race);
+        }
         
+        test2.closeConnection();
+        test2 = null;  
     }
 }

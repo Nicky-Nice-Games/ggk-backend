@@ -3,6 +3,7 @@ package RITIGM.gokartproject.view.gameService;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.persistence.gameService.interfaces.*;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,12 +92,12 @@ public class GameLogService {
      * @return all of the race instance of that player
      */
     @GetMapping("/player/{PID}")
-    public ResponseEntity<RaceLog[]> getByPlayerID(@PathVariable int id){
+    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@PathVariable int id){
         log.info("GET /gameserivce/gamelog/player/" + id);
         try {
-            RaceLog[] raceLogs = this.gameLogDAO.getRaceByPlayer(id);
+            ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(id);
             if (raceLogs != null){
-                return new ResponseEntity<RaceLog[]>(raceLogs, HttpStatus.OK);
+                return new ResponseEntity<ArrayList<RaceLog>>(raceLogs, HttpStatus.OK);
             } else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
