@@ -12,7 +12,7 @@ public class PlayerStat extends PlayerInfo{
     private CollisionStat collisionStat;
 
 
-    public PlayerStat(Integer pid, String email, String pw, Integer uid, String username, OffenseUsage offenseUsage,
+    public PlayerStat(String pid, String email, String pw, Integer uid, String username, OffenseUsage offenseUsage,
     TrapUsage trapUsage, CollisionStat collisionStat, BoostUsage boostUsage){
         super(pid,email,pw,uid,username);
         this.offenseUsage = offenseUsage;
@@ -70,7 +70,7 @@ public class PlayerStat extends PlayerInfo{
         TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
 
-        PlayerStat test = new PlayerStat(1234, "diego@gmail.com", "HelloWorld", 1234, "DIEGO IS SMART",
+        PlayerStat test = new PlayerStat("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350", "diego@gmail.com", "HelloWorld", 1234, "DIEGO IS SMART",
          offenseTest, trapTest, collisiontest, boostTest);
         System.out.println(test);
     }

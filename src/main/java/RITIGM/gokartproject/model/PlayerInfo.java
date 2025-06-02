@@ -2,29 +2,29 @@ package RITIGM.gokartproject.model;
 
 public class PlayerInfo {
 
-    private Integer pid;
+    private String pid;
     private String email;
     private String pw;
     private Integer uid;
     private String username;
 
     private static final String TO_STRING_FORMAT = "\nPlayer Info:\r\n" + //
-                                                        "\tPID = %d,\r\n" + //
+                                                        "\tPID = %s,\r\n" + //
                                                         "\tEmail = %s,\r\n" + //
                                                         "\tpw = %s,\r\n" + //
                                                         "\tUID = %d,\r\n" + //
                                                         "\tUsername = %s,";
-    public PlayerInfo(Integer pid, String email, String pw, Integer uid, String username){
+    public PlayerInfo(String pid, String email, String pw, Integer uid, String username){
         this.pid = pid;
         this.email = email;
         this.pw = pw;
         this.uid = uid;
         this.username = username;
     }
-    public int getPid() {
+    public String getPid() {
         return pid;
     }
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
     public String getEmail() {
@@ -57,7 +57,7 @@ public class PlayerInfo {
         return String.format(TO_STRING_FORMAT, this.pid, this.email, this.pw, this.uid, this.username);
     }
     public static void main(String[] args) {
-        PlayerInfo test = new PlayerInfo(1, "hello", "PW", 1234, "username");
+        PlayerInfo test = new PlayerInfo("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350", "hello", "PW", 1234, "username");
         System.out.println(test);
     }
 }
