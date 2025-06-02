@@ -56,8 +56,11 @@ public class PlayerInfo {
     public String toString() {
         return String.format(TO_STRING_FORMAT, this.pid, this.email, this.pw, this.uid, this.username);
     }
+
+    /*
     public static void main(String[] args) {
         PlayerInfo test = new PlayerInfo(1, "hello", "PW", 1234, "username");
         System.out.println(test);
     }
+        */
 }
