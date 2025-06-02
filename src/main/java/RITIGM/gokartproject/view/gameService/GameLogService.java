@@ -33,12 +33,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("gameserivce/gamelog")
-public class GameLog {
-    private static final Logger log = Logger.getLogger(GameLog.class.getName());
+public class GameLogService {
+    private static final Logger log = Logger.getLogger(GameLogService.class.getName());
     private GameLogInterface gameLogDAO;
 
 
-    public GameLog(GameLogInterface gameLogDAO){
+    public GameLogService(GameLogInterface gameLogDAO){
         this.gameLogDAO = gameLogDAO;
     }
 
