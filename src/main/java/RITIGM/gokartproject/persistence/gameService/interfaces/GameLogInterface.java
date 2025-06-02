@@ -27,5 +27,5 @@ public interface GameLogInterface {
      * null if playerID is not exsits,
      * emtpy if there is not race corresponding to that account.
      */
-    ArrayList<RaceLog> getRaceByPlayer(int pid);
+    ArrayList<RaceLog> getRaceByPlayer(String pid);
 }

@@ -56,7 +56,7 @@ public class GameLogDAO implements GameLogInterface {
                                 (?,?,?,?,?,?);
                             """;
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
-            stmtUpdateMainLog.setInt(1,raceLog.getPid());
+            stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
             stmtUpdateMainLog.setTime(3, raceLog.getRaceTime());
             stmtUpdateMainLog.setInt(4,raceLog.getRacePos());
@@ -73,7 +73,7 @@ public class GameLogDAO implements GameLogInterface {
             //Get the most recent ID of the race for the other table foreign key
 
             PreparedStatement stmtGetRaceID = conn.prepareStatement(
-                "SELECT LAST_INSERT_ID() as 'raceId' from racelog LIMIT 1");
+                "SELECT LAST_INSERT_ID() as 'raceId' from racelog LIMIT 1;");
             ResultSet raceIDResultSet = stmtGetRaceID.executeQuery();
 
             if (raceIDResultSet.next()){
@@ -158,7 +158,7 @@ public class GameLogDAO implements GameLogInterface {
     }
 
     @Override
-    public ArrayList<RaceLog> getRaceByPlayer(int pid) {
+    public ArrayList<RaceLog> getRaceByPlayer(String pid) {
         try {
             ArrayList<RaceLog> returnLog = new ArrayList<>();
             String query = 
@@ -173,7 +173,7 @@ public class GameLogDAO implements GameLogInterface {
 
 
             PreparedStatement stmt = this.conn.prepareStatement(query);
-            stmt.setInt(1, pid);
+            stmt.setString(1, pid);
 
             ResultSet result = stmt.executeQuery();
 
@@ -200,7 +200,7 @@ public class GameLogDAO implements GameLogInterface {
                 );
 
                 RaceLog raceLog = new RaceLog(
-                    result.getInt("racelog.raceid"),
+                    result.getString("racelog.raceid"),
                     result.getTimestamp("racestarttime"),
                     result.getTime("racetime"), 
                     result.getInt("racepos"),
@@ -263,7 +263,7 @@ public class GameLogDAO implements GameLogInterface {
                 );
 
                 RaceLog raceLog = new RaceLog(
-                    result.getInt("racelog.raceid"),
+                    result.getString("racelog.raceid"),
                     result.getTimestamp("racestarttime"),
                     result.getTime("racetime"), 
                     result.getInt("racepos"),
@@ -285,48 +285,48 @@ public class GameLogDAO implements GameLogInterface {
 
 
     public static void main(String[] args) {
-        //Testing for the new race insertion
-        // BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-        // CollisionStat collisiontest = new CollisionStat(1, 2);
-        // OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-        // TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
+        // Testing for the new race insertion
+        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
+        CollisionStat collisiontest = new CollisionStat(1, 2);
+        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
+        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
-        // Date date = new Date();
-        // Timestamp raceStartTime = new Timestamp(date.getTime());
-        // Time raceTime = Time.valueOf("01:22:30"); 
+        Date date = new Date();
+        Timestamp raceStartTime = new Timestamp(date.getTime());
+        Time raceTime = Time.valueOf("01:22:30"); 
 
-        // RaceLog checker = new RaceLog(1, raceStartTime, raceTime, 1, 2, 4, 
-        // boostTest, collisiontest, offenseTest, trapTest);
-
-
-        // GameLogDAO test = new GameLogDAO();
-
-        // System.out.println(test.addGameLog(checker));
-        // test.closeConnection();
-        // test = null;   
+        RaceLog checker = new RaceLog("26ec3c183fe511f08cc9ac1f6bbcd350", raceStartTime, raceTime, 1, 2, 4, 
+        boostTest, collisiontest, offenseTest, trapTest);
 
 
-        // //Print all of the race log from a player
-        // GameLogDAO test2 = new GameLogDAO();
+        GameLogDAO test = new GameLogDAO();
 
-        // ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer(1);
-        // for(RaceLog race : raceLogs){
-        //     System.out.println(race);
-        // }
+        System.out.println(test.addGameLog(checker));
+        test.closeConnection();
+        test = null;   
+
+
+        //Print all of the race log from a player
+        GameLogDAO test2 = new GameLogDAO();
+
+        ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer("26ec3c183fe511f08cc9ac1f6bbcd350");
+        for(RaceLog race : raceLogs){
+            System.out.println(race);
+        }
         
-        // test2.closeConnection();
-        // test2 = null;  
+        test2.closeConnection();
+        test2 = null;  
 
 
         //Lookup race by raceID
 
-        GameLogDAO test3 = new GameLogDAO();
+        // GameLogDAO test3 = new GameLogDAO();
 
-        RaceLog data =  test3.getRaceInfo(6);
-        System.out.println(data);
+        // RaceLog data =  test3.getRaceInfo(6);
+        // System.out.println(data);
         
-        test3.closeConnection();
-        test3 = null;  
+        // test3.closeConnection();
+        // test3 = null;  
 
     }
 }

@@ -91,8 +91,8 @@ public class GameLogService {
      * @param id the ID of that player
      * @return all of the race instance of that player
      */
-    @GetMapping("/player/{pid}")
-    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@PathVariable int pid){
+    @GetMapping("/player")
+    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@RequestBody String pid){
         log.info("GET /gameserivce/gamelog/player/" + pid);
         try {
             ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(pid);

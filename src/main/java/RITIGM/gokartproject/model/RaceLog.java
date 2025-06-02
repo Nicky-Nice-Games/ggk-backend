@@ -10,7 +10,7 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
 public class RaceLog {
-    private Integer pid;
+    private String pid;
     private Timestamp raceStartTime;
     private Time raceTime;
     private Integer racePos;
@@ -22,7 +22,7 @@ public class RaceLog {
     private TrapUsage trapUsage;
 
     private static final String TO_STRING_FORMAT = "Race Log Info:\r\n" + //
-                "\tPID: %d,\r\n" + //
+                "\tPID: %S,\r\n" + //
                 "\tRace Start Time: %s,\r\n" + //
                 "\tRace Length: %s,\r\n" + //
                 "\tMap Raced: %d,\r\n" + //
@@ -34,7 +34,7 @@ public class RaceLog {
                 "\t%s";
 
 
-    public RaceLog(Integer pid, Timestamp raceStartTime, Time raceTime, Integer racePos, Integer mapRaced,
+    public RaceLog(String pid, Timestamp raceStartTime, Time raceTime, Integer racePos, Integer mapRaced,
             Integer characterUsed, BoostUsage boostStat, CollisionStat collisionStat, OffenseUsage offenseStat,
             TrapUsage trapUsage) {
         this.pid = pid;
@@ -50,12 +50,12 @@ public class RaceLog {
     }
 
 
-    public int getPid() {
+    public String getPid() {
         return pid;
     }
 
 
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 
@@ -167,7 +167,8 @@ public class RaceLog {
         Timestamp raceStartTime = new Timestamp(date.getTime());
         Time raceTime = Time.valueOf("01:22:30"); 
 
-        RaceLog log = new RaceLog(123, raceStartTime, raceTime, 1, 2, 4, 
+        RaceLog log = new RaceLog("    public void setPid(Stroing pid) {\r\n" + //
+                        "", raceStartTime, raceTime, 1, 2, 4, 
         boostTest, collisiontest, offenseTest, trapTest);
 
         System.out.println(log);
