@@ -9,5 +9,5 @@ public interface PlayerInfoInterface {
      * @return the player information corresponding to the ID provided. returns null if ID does not correspond
      * an existing player
      */
-    PlayerInfo getPlayerInfo(int playerID);
+    PlayerInfo getPlayerInfo(String playerID);
 }

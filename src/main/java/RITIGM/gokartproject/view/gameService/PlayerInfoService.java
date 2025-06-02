@@ -27,7 +27,7 @@ public class PlayerInfoService {
      * 
      */
     @GetMapping("/{pid}")
-    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable int pid){
+    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         log.info("GET /playerservice/playerinfo/" + pid);
         try{
             PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(pid);
