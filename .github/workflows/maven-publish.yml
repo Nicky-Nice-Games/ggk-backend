@@ -1,0 +1,40 @@
+name: Java Maven Build & Publish Artifact
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build_test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo sshUser = ${{ secrets.SSHUSER }} >> .env
+        echo sshPassword = ${{ secrets.SSHPORT }} >> .env
+        echo sshHost = ${{ secrets.SSHPASSWORD }} >> .env
+        echo sshPort = ${{ secrets.SSHHOST }} >> .env     
+        echo remoteMySQLHost = ${{ secrets.REMOTEMYSQLHOST }} >> .env
+        echo remoteMySQLPort = ${{ secrets.REMOTEMYSQLPORT }} >> .env
+        echo localPort = ${{ secrets.LOCALPORT }} >> .env
+        echo dbUser = ${{ secrets.DBUSER }} >> .env
+        echo dbPassword = ${{ secrets.DBPASSWORD }} >> .env
+        echo dbName = ${{ secrets.DBNAME }} >> .env
+        cat .env
+
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
