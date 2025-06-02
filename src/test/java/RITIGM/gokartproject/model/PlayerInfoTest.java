@@ -2,10 +2,10 @@ package RITIGM.gokartproject.model;
 
 import org.junit.jupiter.api.Test;
 
-public class PlayerModelTest {
+public class PlayerInfoTest {
     @Test
     void testGetEmail() {
-
+        
     }
 
     @Test
