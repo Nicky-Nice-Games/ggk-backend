@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("gameserivce/gamelog")
-public class PlayerInfo {
+public class PlayerInfoService {
     
 
 

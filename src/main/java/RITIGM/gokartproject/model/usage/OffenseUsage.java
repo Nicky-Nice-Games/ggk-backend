@@ -7,10 +7,10 @@ public class OffenseUsage {
                                                     "\t\tItem 3 = %d, \r\n" + //
                                                     "\t\tItem 4 = %d,";
 
-    private Integer boostItem1;
-    private Integer boostItem2;
-    private Integer boostItem3;
-    private Integer boostItem4;
+    private int boostItem1;
+    private int boostItem2;
+    private int boostItem3;
+    private int boostItem4;
 
     public OffenseUsage(Integer boostItem1, Integer boostItem2, Integer boostItem3, Integer boostItem4){
         this.boostItem1 = boostItem1;
@@ -19,7 +19,7 @@ public class OffenseUsage {
         this.boostItem4 = boostItem4;
     }
 
-    public Integer getBoostItem1() {
+    public int getBoostItem1() {
         return boostItem1;
     }
 
@@ -27,7 +27,7 @@ public class OffenseUsage {
         this.boostItem1 = boostItem1;
     }
 
-    public Integer getBoostItem2() {
+    public int getBoostItem2() {
         return boostItem2;
     }
 
@@ -35,7 +35,7 @@ public class OffenseUsage {
         this.boostItem2 = boostItem2;
     }
 
-    public Integer getBoostItem3() {
+    public int getBoostItem3() {
         return boostItem3;
     }
 
@@ -43,7 +43,7 @@ public class OffenseUsage {
         this.boostItem3 = boostItem3;
     }
 
-    public Integer getBoostItem4() {
+    public int getBoostItem4() {
         return boostItem4;
     }
 

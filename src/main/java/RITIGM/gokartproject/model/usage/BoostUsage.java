@@ -1,10 +1,10 @@
 package RITIGM.gokartproject.model.usage;
 
 public class BoostUsage {
-    private Integer boostItem1;
-    private Integer boostItem2;
-    private Integer boostItem3;
-    private Integer boostItem4;
+    private int boostItem1;
+    private int boostItem2;
+    private int boostItem3;
+    private int boostItem4;
 
 
     public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
@@ -19,19 +19,19 @@ public class BoostUsage {
         this.boostItem4 = boostItem4;
     }
 
-    public Integer getBoostItem1() {
+    public int getBoostItem1() {
         return boostItem1;
     }
 
-    public Integer getBoostItem2() {
+    public int getBoostItem2() {
         return boostItem2;
     }
 
-    public Integer getBoostItem3() {
+    public int getBoostItem3() {
         return boostItem3;
     }
 
-    public Integer getBoostItem4() {
+    public int getBoostItem4() {
         return boostItem4;
     }
 
