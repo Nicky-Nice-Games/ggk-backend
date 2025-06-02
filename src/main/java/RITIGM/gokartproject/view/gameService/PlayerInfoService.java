@@ -26,11 +26,11 @@ public class PlayerInfoService {
     /**
      * 
      */
-    @GetMapping("/{playerID}")
-    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable int id){
-        log.info("GET /playerservice/playerinfo/" + id);
+    @GetMapping("/{pid}")
+    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable int pid){
+        log.info("GET /playerservice/playerinfo/" + pid);
         try{
-            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(id);
+            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(pid);
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }

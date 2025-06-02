@@ -70,11 +70,11 @@ public class GameLogService {
      * @param id the raceId that needed to lookup
      * @return the race corresponding to that id
      */
-    @GetMapping("/{raceID}")
-    public ResponseEntity<RaceLog> getByRaceID(@PathVariable int id){
-        log.info("GET /gameserivce/gamelog/" + id);
+    @GetMapping("/{rid}")
+    public ResponseEntity<RaceLog> getByRaceID(@PathVariable int rid){
+        log.info("GET /gameserivce/gamelog/" + rid);
         try {
-            RaceLog raceLog = this.gameLogDAO.getRaceInfo(id);
+            RaceLog raceLog = this.gameLogDAO.getRaceInfo(rid);
             if(raceLog != null){
                 return new ResponseEntity<RaceLog>(raceLog, HttpStatus.OK);
             } else {
@@ -91,11 +91,11 @@ public class GameLogService {
      * @param id the ID of that player
      * @return all of the race instance of that player
      */
-    @GetMapping("/player/{PID}")
-    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@PathVariable int id){
-        log.info("GET /gameserivce/gamelog/player/" + id);
+    @GetMapping("/player/{pid}")
+    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@PathVariable int pid){
+        log.info("GET /gameserivce/gamelog/player/" + pid);
         try {
-            ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(id);
+            ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(pid);
             if (raceLogs != null){
                 return new ResponseEntity<ArrayList<RaceLog>>(raceLogs, HttpStatus.OK);
             } else{
