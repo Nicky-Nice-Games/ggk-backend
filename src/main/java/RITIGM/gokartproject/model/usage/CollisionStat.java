@@ -1,8 +1,8 @@
 package RITIGM.gokartproject.model.usage;
 
 public class CollisionStat {
-    private Integer wallCollision;
-    private Integer playerCollision;
+    private int wallCollision;
+    private int playerCollision;
 
     public static final String TO_STRING_FORMAT = "Collision stat: \r\n" + //
                                                     "\t\tWall Collision = %d, \r\n" + //
@@ -13,7 +13,7 @@ public class CollisionStat {
         this.wallCollision = wallCollision;
     }    
 
-    public Integer getWallCollision() {
+    public int getWallCollision() {
         return wallCollision;
     }
 
@@ -21,7 +21,7 @@ public class CollisionStat {
         this.wallCollision = wallCollision;
     }
 
-    public Integer getPlayerCollision() {
+    public int getPlayerCollision() {
         return playerCollision;
     }
 

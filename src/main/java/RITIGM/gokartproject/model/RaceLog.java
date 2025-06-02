@@ -50,7 +50,7 @@ public class RaceLog {
     }
 
 
-    public Integer getPid() {
+    public int getPid() {
         return pid;
     }
 
@@ -80,7 +80,7 @@ public class RaceLog {
     }
 
 
-    public Integer getRacePos() {
+    public int getRacePos() {
         return racePos;
     }
 
@@ -90,7 +90,7 @@ public class RaceLog {
     }
 
 
-    public Integer getMapRaced() {
+    public int getMapRaced() {
         return mapRaced;
     }
 
@@ -100,7 +100,7 @@ public class RaceLog {
     }
 
 
-    public Integer getCharacterUsed() {
+    public int getCharacterUsed() {
         return characterUsed;
     }
 

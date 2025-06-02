@@ -21,7 +21,7 @@ public class PlayerInfo {
         this.uid = uid;
         this.username = username;
     }
-    public Integer getPid() {
+    public int getPid() {
         return pid;
     }
     public void setPid(Integer pid) {
@@ -39,7 +39,7 @@ public class PlayerInfo {
     public void setPw(String pw) {
         this.pw = pw;
     }
-    public Integer getUid() {
+    public int getUid() {
         return uid;
     }
     public void setUid(Integer uid) {

@@ -7,10 +7,10 @@ public class TrapUsage {
                                                     "\t\tItem 2 = %d, \r\n" + //
                                                     "\t\tItem 3 = %d, \r\n" + //
                                                     "\t\tItem 4 = %d,";
-    private Integer trapItem1;
-    private Integer trapItem2;
-    private Integer trapItem3;
-    private Integer trapItem4;
+    private int trapItem1;
+    private int trapItem2;
+    private int trapItem3;
+    private int trapItem4;
 
     public TrapUsage(Integer trapItem1, Integer trapItem2, Integer trapItem3, Integer trapItem4){
         this.trapItem1 = trapItem1;
@@ -19,7 +19,7 @@ public class TrapUsage {
         this.trapItem4 = trapItem4;
     }
 
-    public Integer getTrapItem1() {
+    public int getTrapItem1() {
         return trapItem1;
     }
 
@@ -27,7 +27,7 @@ public class TrapUsage {
         this.trapItem1 = trapItem1;
     }
 
-    public Integer getTrapItem2() {
+    public int getTrapItem2() {
         return trapItem2;
     }
 
@@ -35,7 +35,7 @@ public class TrapUsage {
         this.trapItem2 = trapItem2;
     }
 
-    public Integer getTrapItem3() {
+    public int getTrapItem3() {
         return trapItem3;
     }
 
@@ -43,7 +43,7 @@ public class TrapUsage {
         this.trapItem3 = trapItem3;
     }
 
-    public Integer getTrapItem4() {
+    public int getTrapItem4() {
         return trapItem4;
     }
 
