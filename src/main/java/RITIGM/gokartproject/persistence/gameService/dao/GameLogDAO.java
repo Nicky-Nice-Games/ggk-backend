@@ -26,12 +26,9 @@ public class GameLogDAO implements GameLogInterface {
     private Connection conn = null;
 
     public GameLogDAO() {
-        try {
-            this.connCls = new Conn();
-            this.conn = this.connCls.getConnection();
-        } catch (Exception e) {
-            System.err.println("Error in init a new connection: " + e);
-        }
+        this.connCls = new Conn();
+        this.conn = this.connCls.getConnection();
+
     }
 
     private void closeConnection(){
@@ -42,19 +39,13 @@ public class GameLogDAO implements GameLogInterface {
      * {@inheritDoc}
      */
     @Override
-    public boolean addGameLog(RaceLog raceLog) {
-        try{
+    public boolean addGameLog(RaceLog raceLog) throws SQLException{
 
             Integer raceID = -1; // race ID for the function
 
             // Update the main table of race log
 
-            String query = """
-                            INSERT INTO racelog
-                                (pid, racestarttime, racetime, racepos, mapraced, characterused)
-                            VALUES
-                                (?,?,?,?,?,?);
-                            """;
+            String query = "INSERT INTO racelog (pid, racestarttime, racetime, racepos, mapraced, characterused) VALUES (?,?,?,?,?,?);";
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
@@ -64,9 +55,8 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(6, raceLog.getCharacterUsed());
 
             Integer updateCheck = stmtUpdateMainLog.executeUpdate();
-            Boolean check = (updateCheck == 1) ? true : false;
             
-            if (!check){
+            if (updateCheck != 1){
                 return false;
             }
 
@@ -78,15 +68,14 @@ public class GameLogDAO implements GameLogInterface {
 
             if (raceIDResultSet.next()){
                 raceID = raceIDResultSet.getInt("raceId");
-            } else{
+            } else {
                 return false;
             }
+            
 
             // Insert boost from race data into table
 
-            String queryInsertBoostStat = """
-                    INSERT INTO boostatt VALUES (?,?,?,?,?);
-                    """;
+            String queryInsertBoostStat = "INSERT INTO boostatt VALUES (?,?,?,?,?);";
 
             PreparedStatement stmtBoostStat = this.conn.prepareStatement(queryInsertBoostStat);
             stmtBoostStat.setInt(1, raceID);
@@ -104,7 +93,7 @@ public class GameLogDAO implements GameLogInterface {
             // Insert collision from race data into table
 
             String queryInsertCollision = "INSERT INTO collision VALUES (?,?,?);";
-
+            
             PreparedStatement stmtCollision = this.conn.prepareStatement(queryInsertCollision);
             stmtCollision.setInt(1, raceID);
             stmtCollision.setInt(2, raceLog.getCollisionStat().getWallCollision());
@@ -126,7 +115,6 @@ public class GameLogDAO implements GameLogInterface {
             stmtOffense.setInt(4,raceLog.getOffenseStat().getBoostItem3());
             stmtOffense.setInt(5,raceLog.getOffenseStat().getBoostItem4());
 
-
             Integer offenseCheck = stmtOffense.executeUpdate();
             
             if(offenseCheck != 1){
@@ -142,19 +130,20 @@ public class GameLogDAO implements GameLogInterface {
             stmtTrap.setInt(4,raceLog.getTrapUsage().getTrapItem3());
             stmtTrap.setInt(5,raceLog.getTrapUsage().getTrapItem4());
 
-
             Integer trapCheck = stmtTrap.executeUpdate();
             
             if(trapCheck != 1){
                 return false;
             }
 
+            System.out.println(stmtUpdateMainLog);
+            System.out.println(stmtGetRaceID);
+            System.out.println(stmtBoostStat);
+            System.out.println(stmtCollision);
+            System.out.println(stmtOffense);
+            System.out.println(stmtTrap);
             return true;
             
-        } catch(SQLException e){
-            System.err.println("Error insert into SQL: "+ e);
-            return false;
-        }
     }
 
     @Override
@@ -248,7 +237,8 @@ public class GameLogDAO implements GameLogInterface {
                 result.getInt("boostitem3"),
                 result.getInt("boostitem4"));
                 CollisionStat collisionAtt = new CollisionStat(
-                    result.getInt("wallcol"), result.getInt("playercol"));
+                    result.getInt("wallcol"),
+                    result.getInt("playercol"));
                 OffenseUsage offenseAtt = new OffenseUsage(
                     result.getInt("offenseitem1"),
                     result.getInt("offenseitem2"), 
@@ -285,37 +275,37 @@ public class GameLogDAO implements GameLogInterface {
 
 
     public static void main(String[] args) {
-        // Testing for the new race insertion
-        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-        CollisionStat collisiontest = new CollisionStat(1, 2);
-        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
+    // //     // Testing for the new race insertion
+    //     BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
+    //     CollisionStat collisiontest = new CollisionStat(1, 2);
+    //     OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
+    //     TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
-        Date date = new Date();
-        Timestamp raceStartTime = new Timestamp(date.getTime());
-        Time raceTime = Time.valueOf("01:22:30"); 
+    //     Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
+    //     Time raceTime = Time.valueOf("01:22:30"); 
 
-        RaceLog checker = new RaceLog("26ec3c183fe511f08cc9ac1f6bbcd350", raceStartTime, raceTime, 1, 2, 4, 
-        boostTest, collisiontest, offenseTest, trapTest);
-
-
-        GameLogDAO test = new GameLogDAO();
-
-        System.out.println(test.addGameLog(checker));
-        test.closeConnection();
-        test = null;   
+    //     RaceLog checker = new RaceLog("26ec3c183fe511f08cc9ac1f6bbcd350",
+    //     raceStartTime, raceTime, 1, 2, 4, 
+    //     boostTest, collisiontest, offenseTest, trapTest);
 
 
-        //Print all of the race log from a player
-        GameLogDAO test2 = new GameLogDAO();
+    //     GameLogDAO test = new GameLogDAO();
 
-        ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer("26ec3c183fe511f08cc9ac1f6bbcd350");
-        for(RaceLog race : raceLogs){
-            System.out.println(race);
-        }
+    //     System.out.println(test.addGameLog(checker));
+    //     test.closeConnection();
+    //     test = null;   
+
+
+        // // Print all of the race log from a player
+        // GameLogDAO test2 = new GameLogDAO();
+
+        // ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer("26ec3c183fe511f08cc9ac1f6bbcd350");
+        // for(RaceLog race : raceLogs){
+        //     System.out.println(race);
+        // }
         
-        test2.closeConnection();
-        test2 = null;  
+        // test2.closeConnection();
+        // test2 = null;  
 
 
         //Lookup race by raceID

@@ -62,7 +62,7 @@ public class BoostUsageTest {
     @Test
     void testToString() {
         String expected_string = "Boost Usage: \r\n" + //
-                                "\t\tItem 1 = "+ boostItem1 +", \r\n" + //
+                                "\t\tItem 1 = "+ boostItem1 +",\r\n" + //
                                 "\t\tItem 2 = "+ boostItem2 +", \r\n" + //
                                 "\t\tItem 3 = "+ boostItem3 +", \r\n" + //
                                 "\t\tItem 4 = "+ boostItem4 +",";

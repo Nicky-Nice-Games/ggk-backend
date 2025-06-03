@@ -1,5 +1,6 @@
 package RITIGM.gokartproject.persistence.gameService.interfaces;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import RITIGM.gokartproject.model.RaceLog;
@@ -11,7 +12,7 @@ public interface GameLogInterface {
      * @param raceLog the game info of the player
      * @return if the game added successfully
      */
-    boolean addGameLog(RaceLog raceLog);
+    boolean addGameLog(RaceLog raceLog) throws SQLException;
 
     /**
      * Get the raceLog by raceID

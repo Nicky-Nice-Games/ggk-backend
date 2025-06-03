@@ -9,7 +9,7 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 
 public class PlayerStatTest {
     private OffenseUsage expected_offenseUsage = new OffenseUsage(0, 0, 0, 0);
-    private TrapUsage expected_trapUsage = new TrapUsage(0, 0, 0, );
+    private TrapUsage expected_trapUsage = new TrapUsage(0, 0, 0, 0);
     private BoostUsage expected_boostUsage;
     private CollisionStat expected_collisionStat;
     @Test
