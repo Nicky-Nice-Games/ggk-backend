@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class BoostUsageTest {
-   private int boostItem1 = 0;
+    private int boostItem1 = 0;
     private int boostItem2 = 0;
     private int boostItem3 = 0;
     private int boostItem4 = 0;
