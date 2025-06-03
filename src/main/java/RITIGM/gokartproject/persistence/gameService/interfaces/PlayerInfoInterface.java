@@ -9,5 +9,33 @@ public interface PlayerInfoInterface {
      * @return the player information corresponding to the ID provided. returns null if ID does not correspond
      * an existing player
      */
-    PlayerInfo getPlayerInfo(int playerID);
+    PlayerInfo getPlayerInfo(String playerID);
+
+    /**
+     * Get the Player Info by Username and Password
+     * @param username The player username
+     * @param pw The Player Password
+     * @return the player information corresponding to the info. returns null if the credential doesn't corr. to an account
+     */
+    PlayerInfo getPlayerInfoWithUsername(String username, String pw);
+
+    /**
+     * Create a user for the game
+     * @param email email for the account
+     * @param pw password for the account
+     * @param username username for the account
+     * @return the player info created
+     */
+    PlayerInfo createUser(String email, String pw, String username);
+
+    /**
+     * Create a user for the game
+     * @param email email for the account
+     * @param pw password for the account
+     * @param username username for the account
+     * @param uid uid for the account
+     * @return the player info created
+     */
+    PlayerInfo createUser(String email, String pw,int uid, String username);
+
 }
