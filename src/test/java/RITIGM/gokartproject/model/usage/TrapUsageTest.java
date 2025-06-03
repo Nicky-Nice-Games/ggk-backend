@@ -64,7 +64,7 @@ public class TrapUsageTest {
 
     @Test
     void testToString() {
-        String expected_string = "Trap Usage:\r\n" + //
+        String expected_string = "Trap Usage: \r\n" + //
                                 "\t\tItem 1 = "+ trapItem1 +", \r\n" + //
                                 "\t\tItem 2 = "+ trapItem2 +", \r\n" + //
                                 "\t\tItem 3 = "+ trapItem3 +", \r\n" + //
