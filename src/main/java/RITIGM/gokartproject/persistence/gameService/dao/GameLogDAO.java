@@ -147,8 +147,8 @@ public class GameLogDAO implements GameLogInterface {
     }
 
     @Override
-    public ArrayList<RaceLog> getRaceByPlayer(String pid) {
-        try {
+    public ArrayList<RaceLog> getRaceByPlayer(String pid) throws SQLException{
+        // try {
             ArrayList<RaceLog> returnLog = new ArrayList<>();
             String query = 
             """
@@ -203,10 +203,11 @@ public class GameLogDAO implements GameLogInterface {
                 returnLog.add(raceLog);
             }
             return returnLog;
-        } catch (SQLException e) {
-            System.err.println("There is an error query the database: " + e);
-            return null;
-        }
+        // } 
+        // catch (SQLException e) {
+        //     System.err.println("There is an error query the database: " + e);
+        //     return null;
+        // }
     }
 
     @Override

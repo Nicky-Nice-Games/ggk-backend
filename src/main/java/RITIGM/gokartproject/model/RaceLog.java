@@ -157,6 +157,23 @@ public class RaceLog {
         this.collisionStat, this.offenseStat, this.trapUsage);
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (!(obj instanceof RaceLog)) return false;
+
+        RaceLog other = (RaceLog) obj;
+
+        return 
+        this.pid.equals(other.pid) &&
+        this.raceStartTime.equals(other.raceStartTime) &&
+        this.raceTime.equals(other.raceTime) &&
+        this.racePos.equals(other.racePos) &&
+        this.mapRaced.equals(other.mapRaced) &&
+        this.characterUsed.equals(other.characterUsed);
+    }
+
     /*
     public static void main(String[] args) {
         BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);

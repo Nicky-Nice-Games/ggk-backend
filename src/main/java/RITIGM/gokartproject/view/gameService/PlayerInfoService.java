@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Diego Velez
  */
 @RestController
-@RequestMapping("gameserivce/gamelog")
+@RequestMapping("gameserivce/gameservice")
 public class PlayerInfoService {
     private static final Logger log = Logger.getLogger(GameLogService.class.getName());
     private PlayerInfoInterface playerInfoDAO;
