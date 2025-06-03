@@ -107,7 +107,7 @@ public class PlayerInfoService {
      * @param username username
      * @return the new user if they were successfully added
      */
-    @PostMapping("")
+    @PostMapping("/uid")
     public ResponseEntity<PlayerInfo> createUser(@PathVariable String email, @PathVariable String password, @PathVariable int uid, @PathVariable String username ){
         log.info("POST /gameservice/playerinfo/" + username);
         try {
