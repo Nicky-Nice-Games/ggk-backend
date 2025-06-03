@@ -13,6 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Handle any accesing of player data on the website side
+ * 
+ * {@literal @}RestController Spring annotation identifies this class as a REST API
+ * method handler to the Spring framework
+ * 
+ * @author Diego Velez
+ */
 @RestController
 @RequestMapping("gameserivce/gamelog")
 public class PlayerInfoService {
