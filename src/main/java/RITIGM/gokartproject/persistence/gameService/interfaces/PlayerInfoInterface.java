@@ -1,5 +1,7 @@
 package RITIGM.gokartproject.persistence.gameService.interfaces;
 
+import java.sql.SQLException;
+
 import RITIGM.gokartproject.model.PlayerInfo;
 
 public interface PlayerInfoInterface {
@@ -9,7 +11,7 @@ public interface PlayerInfoInterface {
      * @return the player information corresponding to the ID provided. returns null if ID does not correspond
      * an existing player
      */
-    PlayerInfo getPlayerInfo(String playerID);
+    PlayerInfo getPlayerInfo(String playerID) throws SQLException;
 
     /**
      * Get the Player Info by Username and Password
@@ -17,7 +19,7 @@ public interface PlayerInfoInterface {
      * @param pw The Player Password
      * @return the player information corresponding to the info. returns null if the credential doesn't corr. to an account
      */
-    PlayerInfo getPlayerInfoWithUsername(String username, String pw);
+    PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException;
 
     /**
      * Create a user for the game
@@ -26,7 +28,7 @@ public interface PlayerInfoInterface {
      * @param username username for the account
      * @return the player info created
      */
-    PlayerInfo createUser(String email, String pw, String username);
+    PlayerInfo createUser(String email, String pw, String username) throws SQLException;
 
     /**
      * Create a user for the game
@@ -36,6 +38,6 @@ public interface PlayerInfoInterface {
      * @param uid uid for the account
      * @return the player info created
      */
-    PlayerInfo createUser(String email, String pw,int uid, String username);
+    PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
 
 }

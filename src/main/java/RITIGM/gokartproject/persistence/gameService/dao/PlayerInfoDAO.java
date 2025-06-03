@@ -31,8 +31,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
     }
 
     @Override
-    public PlayerInfo getPlayerInfo(String playerID) {
-        try {
+    public PlayerInfo getPlayerInfo(String playerID) throws SQLException{
+       
             PlayerInfo player = null;
             
             String query = "SELECT * FROM players WHERE pid = ?";
@@ -53,16 +53,11 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
 
             return player;
-
-        } catch (Exception e) {
-            System.err.println("Something wrong while fetching player info: " + e);
-            return null;
-        }
     }
 
     @Override
-    public PlayerInfo createUser(String email, String pw, String username) {
-        try {
+    public PlayerInfo createUser(String email, String pw, String username) throws SQLException{
+        
             String checkpw = Integer.toString(pw.hashCode());
             PlayerInfo returnPlayer = null;
 
@@ -95,15 +90,12 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
 
             return returnPlayer;
-        } catch (SQLException e) {
-            System.err.println("Something gone wrong while create the user: " + e);
-            return null;
-        }
+      
     }
 
     @Override
-    public PlayerInfo createUser(String email, String pw, int uid, String username) {
-        try {
+    public PlayerInfo createUser(String email, String pw, int uid, String username) throws SQLException{
+
             String checkpw = Integer.toString(pw.hashCode());
             PlayerInfo returnPlayer = null;
 
@@ -136,15 +128,11 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
 
             return returnPlayer;
-        } catch (SQLException e) {
-            System.err.println("Something gone wrong while create the user: " + e);
-            return null;
-        }
     }
 
     @Override
-    public PlayerInfo getPlayerInfoWithUsername(String username, String pw) {
-        try {
+    public PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException {
+        
             PlayerInfo returnInfo = null;
             String hashedPw = Integer.toString(pw.hashCode());
             String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
@@ -163,18 +151,14 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getString("username"));
             }
             return returnInfo;
-        } catch (Exception e) {
-            System.out.println("Something some wrong while fetching the player: " + e);
-            return null;
-        }
     }
 
-    public static void main(String[] args) {
-        //Test crete new player
-        PlayerInfoDAO check = new PlayerInfoDAO();
-        System.out.println(check.getPlayerInfoWithUsername("PstormQT", "kito"));
-        // check.createUser("hatsunemiku@gmail.com", "kito",123, "PstormQT")
-        check.closeConnection();
-    }
+    // public static void main(String[] args) {
+    //     //Test crete new player
+    //     PlayerInfoDAO check = new PlayerInfoDAO();
+    //     System.out.println(check.getPlayerInfoWithUsername("PstormQT", "kito"));
+    //     // check.createUser("hatsunemiku@gmail.com", "kito",123, "PstormQT")
+    //     check.closeConnection();
+    // }
     
 }
