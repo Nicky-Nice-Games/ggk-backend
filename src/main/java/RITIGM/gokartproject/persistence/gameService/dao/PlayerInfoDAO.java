@@ -144,15 +144,36 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
 
     @Override
     public PlayerInfo getPlayerInfoWithUsername(String username, String pw) {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            PlayerInfo returnInfo = null;
+            String hashedPw = Integer.toString(pw.hashCode());
+            String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
+            PreparedStatement stmt = this.conn.prepareStatement(query);
+            stmt.setString(1, username);
+            stmt.setString(2, hashedPw);
+
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                returnInfo = new PlayerInfo(
+                    result.getString("pid"),
+                    result.getString("Email"),
+                    result.getString("Password"),
+                    result.getInt("uid"),
+                    result.getString("username"));
+            }
+            return returnInfo;
+        } catch (Exception e) {
+            System.out.println("Something some wrong while fetching the player: " + e);
+            return null;
+        }
     }
 
-
     public static void main(String[] args) {
-        //Test get player by PID
+        //Test crete new player
         PlayerInfoDAO check = new PlayerInfoDAO();
-
+        System.out.println(check.getPlayerInfoWithUsername("PstormQT", "kito"));
+        // check.createUser("hatsunemiku@gmail.com", "kito",123, "PstormQT")
         check.closeConnection();
     }
     
