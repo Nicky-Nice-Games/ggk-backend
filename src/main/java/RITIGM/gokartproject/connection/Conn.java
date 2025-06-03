@@ -74,33 +74,33 @@ public class Conn {
     }
 
 
-    public void testConnection(){
-        try {
-            String query = "SELECT * FROM test WHERE checkid = 1;";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
-            ResultSet result = stmt.executeQuery();
-            if(result.next()){
-                Integer idCheck = result.getInt("checkid");
-                String stringCheck = result.getString("checkstring");
-                Integer intcheck = result.getInt("checkint");
-                Timestamp timeCheck = result.getTimestamp("checktime");
-                String stringTime = timeCheck.toString();
+    // public void testConnection(){
+    //     try {
+    //         String query = "SELECT * FROM test WHERE checkid = 1;";
+    //         PreparedStatement stmt = this.conn.prepareStatement(query);
+    //         ResultSet result = stmt.executeQuery();
+    //         if(result.next()){
+    //             Integer idCheck = result.getInt("checkid");
+    //             String stringCheck = result.getString("checkstring");
+    //             Integer intcheck = result.getInt("checkint");
+    //             Timestamp timeCheck = result.getTimestamp("checktime");
+    //             String stringTime = timeCheck.toString();
 
-                System.out.println("TEST RETRIEVE DATA");
-                System.out.println("check id : " + idCheck);
-                System.out.println("check string : " + stringCheck);
-                System.out.println("check int : " + intcheck);
-                System.out.println("check time : " + stringTime);
-            }
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-    }
-    public static void main(String[] args) {
+    //             System.out.println("TEST RETRIEVE DATA");
+    //             System.out.println("check id : " + idCheck);
+    //             System.out.println("check string : " + stringCheck);
+    //             System.out.println("check int : " + intcheck);
+    //             System.out.println("check time : " + stringTime);
+    //         }
+    //     } catch (Exception e) {
+    //         System.err.println(e);
+    //     }
+    // }
+    // public static void main(String[] args) {
         
-        Conn test = new Conn();
-        test.testConnection();
-        test.closeConnection();
+    //     Conn test = new Conn();
+    //     test.testConnection();
+    //     test.closeConnection();
         
-    }
+    // }
 }

@@ -32,7 +32,6 @@ public class PlayerInfoDAOTest {
         when(stmt.executeUpdate()).thenReturn(2);
         PlayerInfo player = playerInfoDAO.createUser("test@email.com", "password", "username");
         assertNull(player);
-
         when(stmt.executeUpdate()).thenReturn(1);
         when(check.next()).thenReturn(false);
         player = playerInfoDAO.createUser("test@email.com", "password", "username");

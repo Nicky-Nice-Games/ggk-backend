@@ -1,6 +1,7 @@
 package RITIGM.gokartproject.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -160,5 +161,33 @@ public class RaceLogTest {
                 "\t" + expected_offenseStat + "\r\n" + //
                 "\t" + expected_trapUsage;
         assertEquals(expected_string, raceLog.toString());
+    }
+
+
+    @Test
+    void testRaceLog(){
+    String expected_pid = "20";
+    Timestamp expected_raceStartTime = new Timestamp(2);
+    Time expected_raceTime = new Time(1);
+    Integer expected_racePos = 1;
+    Integer expected_mapRaced = 3;
+    Integer expected_characterUsed = 4;
+    BoostUsage expected_boostStat = new BoostUsage(1, 1, 1, 1);
+    CollisionStat expected_collisionStat = new CollisionStat(2, 3);
+    OffenseUsage expected_offenseStat = new OffenseUsage(1, 1, 1, 1);
+    TrapUsage expected_trapUsage = new TrapUsage(1, 1, 1, 1);
+
+    RaceLog raceLog1 = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
+    expected_mapRaced, expected_characterUsed, expected_boostStat, expected_collisionStat, expected_offenseStat, expected_trapUsage);
+    
+    RaceLog raceLog2 = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
+    expected_mapRaced, expected_characterUsed, expected_boostStat, expected_collisionStat, expected_offenseStat, expected_trapUsage);
+
+    RaceLog raceLog3 = new RaceLog(expected_pid +"1", expected_raceStartTime, expected_raceTime, expected_racePos, 
+    expected_mapRaced, expected_characterUsed, expected_boostStat, expected_collisionStat, expected_offenseStat, expected_trapUsage);
+
+
+    assertEquals(raceLog1, raceLog2); 
+    assertNotEquals(raceLog1, raceLog3);
     }
 }

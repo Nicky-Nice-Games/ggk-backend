@@ -45,7 +45,7 @@ public class GameLogDAOTest {
         Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
         Time raceTime = Time.valueOf("01:22:30"); 
 
-        sampleEntry = new RaceLog("26ec3c183fe511f08cc9ac1f6bbcd350",
+        sampleEntry = new RaceLog("Checker",
         raceStartTime, raceTime, 1, 2, 4, 
         boostTest, collisiontest, offenseTest, trapTest);
     }
@@ -66,7 +66,8 @@ public class GameLogDAOTest {
         when(resultSet.next()).thenReturn(true);
         when(resultSet.getInt("raceId")).thenReturn(31);
 
-        String queryInsert = "INSERT INTO racelog (pid, racestarttime, racetime, racepos, mapraced, characterused) VALUES (?,?,?,?,?,?);"; 
+        String queryInsert = 
+        "INSERT INTO racelog (pid, racestarttime, racetime, racepos, mapraced, characterused) VALUES (?,?,?,?,?,?);"; 
                             
         when(this.mockConn.prepareStatement(queryInsert))
         .thenReturn(stmtUpdateMainLog);
@@ -133,19 +134,69 @@ public class GameLogDAOTest {
         when(setCheck.getInt("trapitem2")).thenReturn(4);
         when(setCheck.getInt("trapitem3")).thenReturn(2);
         when(setCheck.getInt("trapitem4")).thenReturn(3);
-        when(setCheck.getString("racelog.raceid")).thenReturn("26EC3C183FE511F08CC9AC1F6BBCD350");
-        when(setCheck.getTimestamp("racestarttime")).thenReturn(Timestamp.valueOf("2025-06-02 15:23:14.0"));
-        when(setCheck.getTime("racetime")).thenReturn(Time.valueOf("01:22:30"));
+        when(setCheck.getString("racelog.raceid"))
+        .thenReturn("Checker");
+        when(setCheck.getTimestamp("racestarttime"))
+        .thenReturn(Timestamp.valueOf("2025-06-02 15:23:14.0"));
+        when(setCheck.getTime("racetime"))
+        .thenReturn(Time.valueOf("01:22:30"));
         when(setCheck.getInt("racepos")).thenReturn(1);
         when(setCheck.getInt("mapraced")).thenReturn(2);
         when(setCheck.getInt("characterused")).thenReturn(4);
 
-        assertEquals(sample.get(0), this.testDAO.getRaceByPlayer("26ec3c183fe511f08cc9ac1f6bbcd350").get(0));
+        assertEquals(sample.get(0),
+         this.testDAO.getRaceByPlayer("Checker").get(0));
     }
 
     @Test
-    void testGetRaceInfo() {
+    void testGetRaceInfo() throws SQLException{
+        ArrayList<RaceLog> sample = new ArrayList<>();
+        sample.add(this.sampleEntry);
 
+        String query = 
+        """
+            SELECT * from racelog
+            INNER JOIN boostatt on racelog.raceid = boostatt.raceid
+            INNER JOIN collision on racelog.raceid = collision.raceid
+            INNER JOIN offsensestat on racelog.raceid = offsensestat.raceid
+            INNER JOIN trapatt on racelog.raceid = trapatt.raceid
+            WHERE racelog.raceid = ?;     
+            """;
+        PreparedStatement checker = Mockito.mock(PreparedStatement.class);
+        ResultSet setCheck = Mockito.mock(ResultSet.class);
+
+        when(this.mockConn.prepareStatement(query)).thenReturn(checker);
+        when(checker.executeQuery()).thenReturn(setCheck);
+
+        when(setCheck.next()).thenReturn(true).thenReturn(false);
+        
+
+        when(setCheck.getInt("boostitem1")).thenReturn(1);
+        when(setCheck.getInt("boostitem2")).thenReturn(2);
+        when(setCheck.getInt("boostitem3")).thenReturn(3);
+        when(setCheck.getInt("boostitem4")).thenReturn(4);
+        when(setCheck.getInt("offenseitem1")).thenReturn(1);
+        when(setCheck.getInt("offenseitem2")).thenReturn(2);
+        when(setCheck.getInt("offenseitem3")).thenReturn(3);
+        when(setCheck.getInt("offenseitem4")).thenReturn(4);
+        when(setCheck.getInt("wallcol")).thenReturn(1);
+        when(setCheck.getInt("playercol")).thenReturn(2);
+        when(setCheck.getInt("trapitem1")).thenReturn(1);
+        when(setCheck.getInt("trapitem2")).thenReturn(4);
+        when(setCheck.getInt("trapitem3")).thenReturn(2);
+        when(setCheck.getInt("trapitem4")).thenReturn(3);
+        when(setCheck.getString("racelog.raceid"))
+        .thenReturn("Checker");
+        when(setCheck.getTimestamp("racestarttime"))
+        .thenReturn(Timestamp.valueOf("2025-06-02 15:23:14.0"));
+        when(setCheck.getTime("racetime"))
+        .thenReturn(Time.valueOf("01:22:30"));
+        when(setCheck.getInt("racepos")).thenReturn(1);
+        when(setCheck.getInt("mapraced")).thenReturn(2);
+        when(setCheck.getInt("characterused")).thenReturn(4);
+
+        assertEquals(sample.get(0),
+         this.testDAO.getRaceInfo(0));
     }
 
 

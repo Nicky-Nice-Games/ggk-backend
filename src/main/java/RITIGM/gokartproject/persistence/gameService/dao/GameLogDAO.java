@@ -31,9 +31,9 @@ public class GameLogDAO implements GameLogInterface {
 
     }
 
-    private void closeConnection(){
-        this.connCls.closeConnection();
-    }
+    // private void closeConnection(){
+    //     this.connCls.closeConnection();
+    // }
 
     /**
      * {@inheritDoc}
@@ -272,52 +272,5 @@ public class GameLogDAO implements GameLogInterface {
             System.err.println("There is an error query the database: " + e);
             return null;
         }
-    }
-
-
-    public static void main(String[] args) {
-    // //     // Testing for the new race insertion
-    //     BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-    //     CollisionStat collisiontest = new CollisionStat(1, 2);
-    //     OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-    //     TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
-
-    //     Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
-    //     Time raceTime = Time.valueOf("01:22:30"); 
-
-    //     RaceLog checker = new RaceLog("26ec3c183fe511f08cc9ac1f6bbcd350",
-    //     raceStartTime, raceTime, 1, 2, 4, 
-    //     boostTest, collisiontest, offenseTest, trapTest);
-
-
-    //     GameLogDAO test = new GameLogDAO();
-
-    //     System.out.println(test.addGameLog(checker));
-    //     test.closeConnection();
-    //     test = null;   
-
-
-        // // Print all of the race log from a player
-        // GameLogDAO test2 = new GameLogDAO();
-
-        // ArrayList<RaceLog> raceLogs =  test2.getRaceByPlayer("26ec3c183fe511f08cc9ac1f6bbcd350");
-        // for(RaceLog race : raceLogs){
-        //     System.out.println(race);
-        // }
-        
-        // test2.closeConnection();
-        // test2 = null;  
-
-
-        //Lookup race by raceID
-
-        // GameLogDAO test3 = new GameLogDAO();
-
-        // RaceLog data =  test3.getRaceInfo(6);
-        // System.out.println(data);
-        
-        // test3.closeConnection();
-        // test3 = null;  
-
     }
 }

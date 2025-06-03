@@ -169,9 +169,9 @@ public class RaceLog {
         this.pid.equals(other.pid) &&
         this.raceStartTime.equals(other.raceStartTime) &&
         this.raceTime.equals(other.raceTime) &&
-        this.racePos.equals(other.racePos) &&
-        this.mapRaced.equals(other.mapRaced) &&
-        this.characterUsed.equals(other.characterUsed);
+        this.racePos == other.racePos &&
+        this.mapRaced == other.mapRaced &&
+        this.characterUsed == other.characterUsed;
     }
 
     /*
