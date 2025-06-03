@@ -55,7 +55,7 @@ public class GameLogService {
         try {
             Boolean check = this.gameLogDAO.addGameLog(raceLog);
             if (check){
-                return new ResponseEntity<Void>(HttpStatus.CREATED);
+                return new ResponseEntity<>(HttpStatus.CREATED);
             } else{
                 return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
             }
