@@ -8,7 +8,7 @@ public class BoostUsage {
 
 
     public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
-                                                    "\t\tItem 1 = %d,\r\n" + //
+                                                    "\t\tItem 1 = %d, \r\n" + //
                                                     "\t\tItem 2 = %d, \r\n" + //
                                                     "\t\tItem 3 = %d, \r\n" + //
                                                     "\t\tItem 4 = %d,";

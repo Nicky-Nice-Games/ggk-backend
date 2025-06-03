@@ -62,17 +62,17 @@ public class PlayerStat extends PlayerInfo{
                                 + "\n\t" + this.collisionStat;
     }
 
-    
-    public static void main(String[] args) {
-        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-        CollisionStat collisiontest = new CollisionStat(1, 2);
-        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
+   
+    // public static void main(String[] args) {
+    //     BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
+    //     CollisionStat collisiontest = new CollisionStat(1, 2);
+    //     OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
+    //     TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
 
-        PlayerStat test = new PlayerStat("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350", "diego@gmail.com", "HelloWorld", 1234, "DIEGO IS SMART",
-         offenseTest, trapTest, collisiontest, boostTest);
-        System.out.println(test);
-    }
+    //     PlayerStat test = new PlayerStat("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350", "diego@gmail.com", "HelloWorld", 1234, "DIEGO IS SMART",
+    //      offenseTest, trapTest, collisiontest, boostTest);
+    //     System.out.println(test);
+    // }
     
 }
