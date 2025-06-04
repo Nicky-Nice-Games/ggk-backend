@@ -3,6 +3,7 @@ package RITIGM.gokartproject.view.gameService;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.persistence.gameService.interfaces.*;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("gameserivce/gamelog")
-public class GameLog {
-    private static final Logger log = Logger.getLogger(GameLog.class.getName());
+public class GameLogService {
+    private static final Logger log = Logger.getLogger(GameLogService.class.getName());
     private GameLogInterface gameLogDAO;
 
 
-    public GameLog(GameLogInterface gameLogDAO){
+    public GameLogService(GameLogInterface gameLogDAO){
         this.gameLogDAO = gameLogDAO;
     }
 
@@ -54,7 +55,7 @@ public class GameLog {
         try {
             Boolean check = this.gameLogDAO.addGameLog(raceLog);
             if (check){
-                return new ResponseEntity<Void>(HttpStatus.CREATED);
+                return new ResponseEntity<>(HttpStatus.CREATED);
             } else{
                 return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
             }
@@ -69,11 +70,11 @@ public class GameLog {
      * @param id the raceId that needed to lookup
      * @return the race corresponding to that id
      */
-    @GetMapping("/{raceID}")
-    public ResponseEntity<RaceLog> getByRaceID(@PathVariable int id){
-        log.info("GET /gameserivce/gamelog/" + id);
+    @GetMapping("/{rid}")
+    public ResponseEntity<RaceLog> getByRaceID(@PathVariable int rid){
+        log.info("GET /gameserivce/gamelog/" + rid);
         try {
-            RaceLog raceLog = this.gameLogDAO.getRaceInfo(id);
+            RaceLog raceLog = this.gameLogDAO.getRaceInfo(rid);
             if(raceLog != null){
                 return new ResponseEntity<RaceLog>(raceLog, HttpStatus.OK);
             } else {
@@ -90,13 +91,13 @@ public class GameLog {
      * @param id the ID of that player
      * @return all of the race instance of that player
      */
-    @GetMapping("/player/{PID}")
-    public ResponseEntity<RaceLog[]> getByPlayerID(@PathVariable int id){
-        log.info("GET /gameserivce/gamelog/player/" + id);
+    @GetMapping("/player")
+    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@RequestBody String pid){
+        log.info("GET /gameserivce/gamelog/player/" + pid);
         try {
-            RaceLog[] raceLogs = this.gameLogDAO.getRaceByPlayer(id);
+            ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(pid);
             if (raceLogs != null){
-                return new ResponseEntity<RaceLog[]>(raceLogs, HttpStatus.OK);
+                return new ResponseEntity<ArrayList<RaceLog>>(raceLogs, HttpStatus.OK);
             } else{
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
