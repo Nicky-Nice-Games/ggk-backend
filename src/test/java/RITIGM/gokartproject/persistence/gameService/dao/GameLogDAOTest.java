@@ -26,15 +26,16 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
 public class GameLogDAOTest {
-    Connection mockConn = null;
-    GameLogDAO testDAO = null;
-    RaceLog sampleEntry = null;
+    Connection mockConn;
+    GameLogDAO testDAO;
+    RaceLog sampleEntry;
 
 
     @BeforeEach
     public void setUpFileDAO(){
-        this.testDAO = new GameLogDAO();
         this.mockConn = mock(Connection.class);
+        this.testDAO = new GameLogDAO();
+        
         ReflectUtils.setField(this.testDAO, "conn", mockConn);
 
         BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
