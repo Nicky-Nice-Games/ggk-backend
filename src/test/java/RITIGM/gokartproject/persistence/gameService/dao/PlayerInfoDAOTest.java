@@ -17,6 +17,11 @@ import org.junit.jupiter.api.Test;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerInfo;
 
+/**
+ * Test for playerInfoDAO in persistence
+ * 
+ * @author Diego Velez
+ */
 public class PlayerInfoDAOTest {
     private Connection mockConn = null;
     private PlayerInfoDAO playerInfoDAO;
@@ -29,6 +34,10 @@ public class PlayerInfoDAOTest {
         ReflectUtils.setField(this.playerInfoDAO, "conn", mockConn);
     }
 
+    /**
+     * Test for Create user without UID
+     * @throws SQLException
+     */
     @Test
     void testCreateUser() throws SQLException{
         PreparedStatement stmt = mock(PreparedStatement.class);
@@ -40,11 +49,14 @@ public class PlayerInfoDAOTest {
         when(mockConn.prepareStatement(query)).thenReturn(stmt);
         when(mockConn.prepareStatement(queryLookUp)).thenReturn(stmtCheck);
 
+        //Case: player creation failed
         when(stmt.executeUpdate()).thenReturn(1);
         when(stmtCheck.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(false);
         PlayerInfo player = playerInfoDAO.createUser("test@email.com", "password", "username");
         assertNull(player);
+
+        //case: player creation successful
         when(stmt.executeUpdate()).thenReturn(1);
         when(stmtCheck.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(true);
@@ -63,6 +75,10 @@ public class PlayerInfoDAOTest {
 
     }
 
+    /**
+     * Test for Creating user with UID
+     * @throws SQLException
+     */
     @Test
     void testCreateUser2() throws SQLException {
         PreparedStatement stmt = mock(PreparedStatement.class);
@@ -74,12 +90,14 @@ public class PlayerInfoDAOTest {
         when(mockConn.prepareStatement(query)).thenReturn(stmt);
         when(mockConn.prepareStatement(queryLookUp)).thenReturn(stmtCheck);
 
+        //creation failed
         when(stmt.executeUpdate()).thenReturn(1);
         when(stmtCheck.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(false);
         PlayerInfo player = playerInfoDAO.createUser("test@email.com", "password",1234, "username");
         assertNull(player);
 
+        //creation succesful
         when(stmt.executeUpdate()).thenReturn(1);
         when(stmtCheck.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(true);
@@ -96,6 +114,10 @@ public class PlayerInfoDAOTest {
         assertEquals("username", player.getUsername());
     }
 
+    /**
+     * Test for retriveal of player information using player ID
+     * @throws SQLException
+     */
     @Test
     void testGetPlayerInfo() throws SQLException{
         PreparedStatement stmt = mock(PreparedStatement.class);
@@ -104,11 +126,13 @@ public class PlayerInfoDAOTest {
 
         when(mockConn.prepareStatement(query)).thenReturn(stmt);
 
+        //case: retreival failed
         when(stmt.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(false);
         PlayerInfo player = playerInfoDAO.getPlayerInfo("20");
         assertNull(player);
 
+        //case: retrieval successful
         when(stmt.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(true);
         when(resultSet.getString("pid")).thenReturn("20");
@@ -125,6 +149,10 @@ public class PlayerInfoDAOTest {
 
     }
 
+    /**
+     * Test for retreival of player information using username and password
+     * @throws SQLException
+     */
     @Test
     void testGetPlayerInfoWithUsername() throws SQLException {
         PreparedStatement stmt = mock(PreparedStatement.class);
@@ -133,11 +161,13 @@ public class PlayerInfoDAOTest {
 
         when(mockConn.prepareStatement(query)).thenReturn(stmt);
 
+        //case: retreival failed
         when(stmt.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(false);
         PlayerInfo player = playerInfoDAO.getPlayerInfoWithUsername("username", "password");
         assertNull(player);
 
+        //Case: reteival successful
         when(stmt.executeQuery()).thenReturn(resultSet);
         when(resultSet.next()).thenReturn(true);
         when(resultSet.getString("pid")).thenReturn("20");
