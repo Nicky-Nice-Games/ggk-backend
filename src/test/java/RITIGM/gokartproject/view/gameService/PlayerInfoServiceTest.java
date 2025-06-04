@@ -17,16 +17,31 @@ import RITIGM.gokartproject.persistence.gameService.dao.PlayerInfoDAO;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 import RITIGM.gokartproject.model.PlayerInfo;
 
+/**
+ * Test for playerInfoService in view
+ * 12 total test cases
+ * 
+ * @author Diego Velez
+ */
 public class PlayerInfoServiceTest {
     private PlayerInfoInterface mockPlayerDAO;
     private PlayerInfoService  playerInfoService;
 
+    /**
+     * Creates a mock object to test with
+     * with mocked parameters
+     */
     @BeforeEach
     public void setupPlayerInfoDAO(){
         mockPlayerDAO = mock(PlayerInfoInterface.class);
         playerInfoService = new PlayerInfoService(mockPlayerDAO);
     }
 
+    /**
+     * Tests user creation without uid
+     * @throws Exception
+     * 3 test cases
+     */
     @Test
     void testCreateUser() throws Exception {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
@@ -50,6 +65,11 @@ public class PlayerInfoServiceTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Tests user creation with UID
+     * @throws Exception
+     * 3 tests cases
+     */
     @Test
     void testCreateUser2() throws Exception {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username");
@@ -73,6 +93,11 @@ public class PlayerInfoServiceTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * tests player information retreival using ID
+     * @throws Exception
+     * 3 test cases
+     */
     @Test
     void testGetPlayerByID() throws Exception {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
@@ -98,6 +123,11 @@ public class PlayerInfoServiceTest {
 
     }
 
+    /**
+     * Tests player information retreival using login information
+     * @throws Exception
+     * 3 test cases
+     */
     @Test
     void testGetPlayerByUsername() throws Exception {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");

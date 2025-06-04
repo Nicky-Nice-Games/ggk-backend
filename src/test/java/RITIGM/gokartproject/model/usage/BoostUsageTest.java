@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * tests the functions of the Boost Usage Objects
+ */
 public class BoostUsageTest {
     private int boostItem1 = 0;
     private int boostItem2 = 0;
@@ -11,26 +14,41 @@ public class BoostUsageTest {
     private int boostItem4 = 0;
 
     private BoostUsage boostUsage = new BoostUsage(boostItem1, boostItem2, boostItem3, boostItem4);
+    /**
+     * tests getter for boost item
+     */
     @Test
     void testGetBoostItem1() {
         assertEquals(boostItem1,boostUsage.getBoostItem1());
     }
 
+    /**
+     * tests getter for boost item
+     */
     @Test
     void testGetBoostItem2() {
         assertEquals(boostItem2,boostUsage.getBoostItem2());
     }
 
+    /**
+     * tests getter for boost item
+     */
     @Test
     void testGetBoostItem3() {
         assertEquals(boostItem3,boostUsage.getBoostItem3());
     }
-
+    
+    /**
+     * tests getter for boost item
+     */
     @Test
     void testGetBoostItem4() {
         assertEquals(boostItem4,boostUsage.getBoostItem4());
     }
 
+    /**
+     * tests setter for boost item
+     */
     @Test
     void testSetBoostItem1() {
         boostItem1 = 9;
@@ -38,6 +56,9 @@ public class BoostUsageTest {
         assertEquals(boostItem1,boostUsage.getBoostItem1());
     }
 
+    /**
+     * tests setter for boost item
+     */
     @Test
     void testSetBoostItem2() {
         boostItem2 = 9;
@@ -45,6 +66,9 @@ public class BoostUsageTest {
         assertEquals(boostItem2,boostUsage.getBoostItem2());
     }
 
+    /**
+     * tests setter for boost item
+     */
     @Test
     void testSetBoostItem3() {
         boostItem3 = 9;
@@ -52,6 +76,9 @@ public class BoostUsageTest {
         assertEquals(boostItem3,boostUsage.getBoostItem3());
     }
 
+    /**
+     * tests setter for boost item
+     */
     @Test
     void testSetBoostItem4() {
         boostItem4 = 9;
@@ -59,6 +86,9 @@ public class BoostUsageTest {
         assertEquals(boostItem4,boostUsage.getBoostItem4());
     }
 
+    /**
+     * tests to string for object
+     */
     @Test
     void testToString() {
         String expected_string = "Boost Usage: \r\n" + //

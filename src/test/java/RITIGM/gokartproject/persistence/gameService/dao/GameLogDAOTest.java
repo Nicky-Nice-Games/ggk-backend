@@ -25,12 +25,23 @@ import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
+/**
+ * Tests the usage of GameLogDAO
+ * 3 test cases total
+ * 
+ * @author Peter Dang
+ */
 public class GameLogDAOTest {
     Connection mockConn;
     GameLogDAO testDAO;
     RaceLog sampleEntry;
 
 
+    /**
+     * Creates object for testing purposes
+     * mocks parameter objects 
+     * mocks connection
+     */
     @BeforeEach
     public void setUpFileDAO(){
         this.mockConn = mock(Connection.class);
@@ -52,6 +63,11 @@ public class GameLogDAOTest {
     }
 
 
+    /**
+     * Tests the succesful implementation of adding a game log
+     * 1 test case
+     * @throws SQLException
+     */
     @Test
     void testAddGameLogSuccessful() throws SQLException {
         PreparedStatement stmtUpdateMainLog = Mockito.mock(PreparedStatement.class);
@@ -98,6 +114,11 @@ public class GameLogDAOTest {
 
     }
 
+    /**
+     * Tests the retreival of race data from a player ID
+     * 1 test case
+     * @throws SQLException
+     */
     @Test
     void testGetRaceByPlayer() throws SQLException {
         ArrayList<RaceLog> sample = new ArrayList<>();
@@ -149,6 +170,11 @@ public class GameLogDAOTest {
          this.testDAO.getRaceByPlayer("Checker").get(0));
     }
 
+    /**
+     * Tests the retreival of race information from a race id
+     * 1 tests case
+     * @throws SQLException
+     */
     @Test
     void testGetRaceInfo() throws SQLException{
         ArrayList<RaceLog> sample = new ArrayList<>();

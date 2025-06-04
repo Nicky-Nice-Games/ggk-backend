@@ -3,7 +3,9 @@ package RITIGM.gokartproject.model.usage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
+/**
+ * Tests the functions of the OffenseUsage object
+ */
 public class OffenseUsageTest {
     private int boostItem1 = 0;
     private int boostItem2 = 0;
@@ -11,26 +13,41 @@ public class OffenseUsageTest {
     private int boostItem4 = 0;
 
     private OffenseUsage offensiveUsage = new OffenseUsage(boostItem1, boostItem2, boostItem3, boostItem4);
+    /**
+     * tests getter for boost object
+     */
     @Test
     void testGetBoostItem1() {
         assertEquals(boostItem1,offensiveUsage.getBoostItem1());
     }
-
+    
+    /**
+     * tests getter for boost object
+     */
     @Test
     void testGetBoostItem2() {
         assertEquals(boostItem2,offensiveUsage.getBoostItem2());
     }
 
+    /**
+     * tests getter for boost object
+     */
     @Test
     void testGetBoostItem3() {
         assertEquals(boostItem3,offensiveUsage.getBoostItem3());
     }
 
+    /**
+     * tests getter for boost object
+     */
     @Test
     void testGetBoostItem4() {
         assertEquals(boostItem4,offensiveUsage.getBoostItem4());
     }
 
+    /**
+     * tests setter for boost object
+     */
     @Test
     void testSetBoostItem1() {
         boostItem1 = 9;
@@ -38,6 +55,9 @@ public class OffenseUsageTest {
         assertEquals(boostItem1,offensiveUsage.getBoostItem1());
     }
 
+    /**
+     * tests setter for boost object
+     */
     @Test
     void testSetBoostItem2() {
         boostItem2 = 9;
@@ -45,6 +65,9 @@ public class OffenseUsageTest {
         assertEquals(boostItem2,offensiveUsage.getBoostItem2());
     }
 
+    /**
+     * tests setter for boost object
+     */
     @Test
     void testSetBoostItem3() {
         boostItem3 = 9;
@@ -52,6 +75,9 @@ public class OffenseUsageTest {
         assertEquals(boostItem3,offensiveUsage.getBoostItem3());
     }
 
+    /**
+     * tests setter for boost object
+     */
     @Test
     void testSetBoostItem4() {
         boostItem4 = 9;
@@ -59,6 +85,9 @@ public class OffenseUsageTest {
         assertEquals(boostItem4,offensiveUsage.getBoostItem4());
     }
 
+    /**
+     * tests the object's to string function
+     */
     @Test
     void testToString() {
         String expected_string = "Offense Usage:\r\n" + //
