@@ -24,7 +24,7 @@ public class Conn {
         String sshHost = dotenv.get("SSHHOST");
         Integer sshPort = 22;
         String remoteMySQLHost = dotenv.get("REMOTEMYSQLHOST");
-        Integer remoteMySQLPort = Integer.parseInt(dotenv.get("REMOTEMYSQLPORT"));
+        Integer remoteMySQLPort = 3306;
         Integer localPort = Integer.parseInt(dotenv.get("LOCALPORT"));
         String dbUser = dotenv.get("DBUSER");
         String dbPassword = dotenv.get("DBPASSWORD");
