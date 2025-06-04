@@ -11,4 +11,7 @@ that is needed to function
 
 ## Player Information Service
 - Getting player information through pid
+- Getting player by username
+- Create a new user NO UID
+- Create a new user with UID
 

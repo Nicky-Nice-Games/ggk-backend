@@ -123,7 +123,4 @@ public class PlayerInfoService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-
-
 }
