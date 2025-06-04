@@ -11,7 +11,7 @@ public interface PlayerInfoInterface {
      * @return the player information corresponding to the ID provided. returns null if ID does not correspond
      * an existing player
      */
-    PlayerInfo getPlayerInfo(String playerID) throws SQLException;
+    abstract PlayerInfo getPlayerInfo(String playerID) throws SQLException;
 
     /**
      * Get the Player Info by Username and Password
@@ -19,7 +19,7 @@ public interface PlayerInfoInterface {
      * @param pw The Player Password
      * @return the player information corresponding to the info. returns null if the credential doesn't corr. to an account
      */
-    PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException;
+    abstract PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException;
 
     /**
      * Create a user for the game
@@ -28,7 +28,7 @@ public interface PlayerInfoInterface {
      * @param username username for the account
      * @return the player info created
      */
-    PlayerInfo createUser(String email, String pw, String username) throws SQLException;
+    abstract PlayerInfo createUser(String email, String pw, String username) throws SQLException;
 
     /**
      * Create a user for the game
