@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +16,10 @@ import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.CollisionStat;
+import RITIGM.gokartproject.model.usage.OffenseUsage;
+import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
 
 public class GameLogServiceTest {
@@ -72,8 +78,13 @@ public class GameLogServiceTest {
 
     @Test
     void testPostMethodName() throws Exception{
-        RaceLog raceLog = new RaceLog(null,null,null, null, null, null, null, null, null, null);
-
+        
+        RaceLog raceLog = new RaceLog("20", new Timestamp(2),new Time(2), 1, 1, 1, 
+        new BoostUsage(1, 1, 1, 1), 
+        new CollisionStat(1, 1), 
+        new OffenseUsage(1, 1, 1, 1), 
+        new TrapUsage(1, 1, 1, 1));
+    
         when(mockGameLogDAO.addGameLog(raceLog)).thenReturn(true);
         ResponseEntity<Void> response = gameLogService.postMethodName(raceLog);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
