@@ -1,6 +1,5 @@
 package RITIGM.gokartproject.connection;
 
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +11,21 @@ import com.jcraft.jsch.Session;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+
+/**
+ * This is used to make the new connection to the database
+ * Retrieve the credential for the connection by looking at the environment variable
+ * 
+ * @author Peter Dang
+ */
 public class Conn {
     private Session session = null;
     private Connection conn = null;
     private Dotenv dotenv = null;
-        
+    
+    /**
+     * Init a new connection to the database via SSH tunneling
+     */
     public Conn(){
         dotenv = Dotenv.configure().load();
         String sshUser = dotenv.get("SSHUSER");
@@ -57,6 +66,9 @@ public class Conn {
         }
     }
 
+    /**
+     * Close the current connection
+     */
     public void closeConnection(){
         try {
                 if (conn != null) conn.close();
@@ -69,6 +81,10 @@ public class Conn {
             }
     }
 
+    /**
+     * Get the current connection
+     * @return the connection
+     */
     public Connection getConnection(){
         return this.conn;
     }

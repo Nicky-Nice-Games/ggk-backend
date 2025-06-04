@@ -19,6 +19,10 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
 
+
+/**
+ * {@inheritDoc}
+ */
 @Component
 public class GameLogDAO implements GameLogInterface {
 
@@ -30,10 +34,6 @@ public class GameLogDAO implements GameLogInterface {
         this.conn = this.connCls.getConnection();
 
     }
-
-    // private void closeConnection(){
-    //     this.connCls.closeConnection();
-    // }
 
     /**
      * {@inheritDoc}
@@ -146,6 +146,9 @@ public class GameLogDAO implements GameLogInterface {
             
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<RaceLog> getRaceByPlayer(String pid) throws SQLException{
         // try {
@@ -203,13 +206,11 @@ public class GameLogDAO implements GameLogInterface {
                 returnLog.add(raceLog);
             }
             return returnLog;
-        // } 
-        // catch (SQLException e) {
-        //     System.err.println("There is an error query the database: " + e);
-        //     return null;
-        // }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public RaceLog getRaceInfo(int raceID) {
         try {

@@ -10,6 +10,7 @@ public interface PlayerInfoInterface {
      * @param playerID the player ID
      * @return the player information corresponding to the ID provided. returns null if ID does not correspond
      * an existing player
+     * @throws SQLException if things gone wrong while inserting into the database
      */
     abstract PlayerInfo getPlayerInfo(String playerID) throws SQLException;
 
@@ -18,6 +19,7 @@ public interface PlayerInfoInterface {
      * @param username The player username
      * @param pw The Player Password
      * @return the player information corresponding to the info. returns null if the credential doesn't corr. to an account
+     * @throws SQLException if things gone wrong while inserting into the database
      */
     abstract PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException;
 
@@ -27,6 +29,7 @@ public interface PlayerInfoInterface {
      * @param pw password for the account
      * @param username username for the account
      * @return the player info created
+     * @throws SQLException if things gone wrong while inserting into the database
      */
     abstract PlayerInfo createUser(String email, String pw, String username) throws SQLException;
 
@@ -37,6 +40,7 @@ public interface PlayerInfoInterface {
      * @param username username for the account
      * @param uid uid for the account
      * @return the player info created
+     * @throws SQLException if things gone wrong while inserting into the database
      */
     PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
 

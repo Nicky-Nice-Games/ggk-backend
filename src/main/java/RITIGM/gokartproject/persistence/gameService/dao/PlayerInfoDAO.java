@@ -11,6 +11,9 @@ import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 
+/**
+ * {@inheritDoc}
+ */
 @Component
 public class PlayerInfoDAO implements PlayerInfoInterface{
 
@@ -30,6 +33,9 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
         this.connCls.closeConnection();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerInfo getPlayerInfo(String playerID) throws SQLException{
        
@@ -55,6 +61,9 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             return player;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerInfo createUser(String email, String pw, String username) throws SQLException{
         
@@ -93,6 +102,9 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
       
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerInfo createUser(String email, String pw, int uid, String username) throws SQLException{
 
@@ -130,6 +142,9 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             return returnPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException {
         
@@ -152,13 +167,4 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
             return returnInfo;
     }
-
-    // public static void main(String[] args) {
-    //     //Test crete new player
-    //     PlayerInfoDAO check = new PlayerInfoDAO();
-    //     System.out.println(check.getPlayerInfoWithUsername("PstormQT", "kito"));
-    //     // check.createUser("hatsunemiku@gmail.com", "kito",123, "PstormQT")
-    //     check.closeConnection();
-    // }
-    
 }
