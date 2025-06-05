@@ -47,7 +47,7 @@ jobs:
                     aws-region: us-east-2
             
             -   name: Create AWS Lambda Function
-                run: aws lambda create-function --function-name Handler --runtime java21 --handler RITIGM.gokartproject.Handler::handleRequest --role arn:aws:iam::632330501638:role/lambda-ex --zip-file fileb://target/gokartproject-0.0.1-SNAPSHOT.jar
+                run: aws lambda create-function --function-name Handler --runtime java21 --handler RITIGM.gokartproject.Handler::handleRequest --role arn:aws:iam::632330501638:role/Lambda-ex --zip-file fileb://target/gokartproject-0.0.1-SNAPSHOT.jar
                 continue-on-error: true  
             -   name: Update Lambda Function    
                 run: aws lambda update-function-code --function-name Handler --zip-file fileb://target/gokartproject-0.0.1-SNAPSHOT.jar
