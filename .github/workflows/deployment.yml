@@ -13,6 +13,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
 
+            
+            -   name: Code checkout
+                uses: actions/checkout@v4
+            -   name: Setup Java
+                uses: actions/setup-java@v4
+                with:
+                    distribution: 'temurin'
+                    java-version: '21'
+                    cache: maven
+
             - name: 'Create env file'
               run: |
                     touch .env
@@ -27,14 +37,6 @@ jobs:
                     echo dbPassword = ${{ secrets.DBPASSWORD }} >> .env
                     echo dbName = ${{ secrets.DBNAME }} >> .env
                     cat .env
-            -   name: Code checkout
-                uses: actions/checkout@v4
-            -   name: Setup Java
-                uses: actions/setup-java@v4
-                with:
-                    distribution: 'temurin'
-                    java-version: '21'
-                    cache: maven
             -   name: Build Project
                 run: mvn clean install
             -   name: Config AWS Creds
