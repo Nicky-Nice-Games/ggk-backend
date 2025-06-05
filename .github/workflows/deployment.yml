@@ -1,0 +1,35 @@
+name: Deployment to AWS
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    build-and-deloy:
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Code checkout
+                uses: actions/checkout@v4
+            -   name: Setup Java
+                uses: actions/setup-java@v4
+                with:
+                    distribution: 'temurin'
+                    java-version: '21'
+                    cache: maven
+            -   name: Build Project
+                run: mvn clean install
+            -   name: Config AWS Creds
+                uses: aws-actions/configure-aws-credentials@v3
+                with:
+                    aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                    aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                    aws-region: us-east-w
+            
+            -   name: Create AWS Lambda Function
+                run: aws lambda create-function --function-name Handler --runtime java21 --handler RITIGM.gokartproject.Handler::handleReqquest --role arn:aws:iam::632330501638:role/lambda-ex --zip-file fileb://target/lambda-basic-1.0-SNAPSHOT.jar
+                continue-on-error: true  
+            -   name: Update Lambda Function    
+                run: aws lambda update-function-code --function-name Handle --zip-file fileb://target/lambda-basic-1.0-SNAPSHOT.jar
+

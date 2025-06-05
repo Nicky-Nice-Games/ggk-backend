@@ -25,6 +25,7 @@ import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
+
 /**
  * Tests the usage of GameLogDAO
  * 3 test cases total
