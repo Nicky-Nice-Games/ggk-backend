@@ -9,22 +9,24 @@ on:
 jobs:
     build-and-deloy:
 
-        - name: 'Create env file'
-          run: |
-            touch .env
-            echo sshUser = ${{ secrets.SSHUSER }} >> .env
-            echo sshPassword = ${{ secrets.SSHPORT }} >> .env
-            echo sshHost = ${{ secrets.SSHPASSWORD }} >> .env
-            echo sshPort = ${{ secrets.SSHHOST }} >> .env     
-            echo remoteMySQLHost = ${{ secrets.REMOTEMYSQLHOST }} >> .env
-            echo remoteMySQLPort = ${{ secrets.REMOTEMYSQLPORT }} >> .env
-            echo localPort = ${{ secrets.LOCALPORT }} >> .env
-            echo dbUser = ${{ secrets.DBUSER }} >> .env
-            echo dbPassword = ${{ secrets.DBPASSWORD }} >> .env
-            echo dbName = ${{ secrets.DBNAME }} >> .env
-            cat .env
+        
         runs-on: ubuntu-latest
         steps:
+
+            - name: 'Create env file'
+              run: |
+                    touch .env
+                    echo sshUser = ${{ secrets.SSHUSER }} >> .env
+                    echo sshPassword = ${{ secrets.SSHPORT }} >> .env
+                    echo sshHost = ${{ secrets.SSHPASSWORD }} >> .env
+                    echo sshPort = ${{ secrets.SSHHOST }} >> .env     
+                    echo remoteMySQLHost = ${{ secrets.REMOTEMYSQLHOST }} >> .env
+                    echo remoteMySQLPort = ${{ secrets.REMOTEMYSQLPORT }} >> .env
+                    echo localPort = ${{ secrets.LOCALPORT }} >> .env
+                    echo dbUser = ${{ secrets.DBUSER }} >> .env
+                    echo dbPassword = ${{ secrets.DBPASSWORD }} >> .env
+                    echo dbName = ${{ secrets.DBNAME }} >> .env
+                    cat .env
             -   name: Code checkout
                 uses: actions/checkout@v4
             -   name: Setup Java
