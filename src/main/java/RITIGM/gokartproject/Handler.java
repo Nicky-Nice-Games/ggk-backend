@@ -1,61 +1,36 @@
 package RITIGM.gokartproject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import com.amazonaws.serverless.exceptions.ContainerInitializationException;
+import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
+import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
+import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 
 
 
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
+public class Handler implements RequestStreamHandler {
+    private static final SpringBootLambdaContainerHandler<AwsProxyRequest, AwsProxyResponse> handler;
 
-
-@SuppressWarnings("unused")
-public class Handler implements RequestHandler<Handler.InputObject, String> {
-
-    public String handleRequest(InputObject inputObject, Context context) {
-
-        System.out.println( "got \"" + inputObject + "\" from call" );
-
-        return "{\"result\": \"hello lambda java\"}";
+    static {
+        try {            
+            handler = SpringBootLambdaContainerHandler.getAwsProxyHandler(GokartprojectApplication.class);
+        } catch (ContainerInitializationException e) {
+            // if we fail here. We re-throw the exception to force another cold start
+            e.printStackTrace();
+            throw new RuntimeException("Could not initialize Spring framework", e);
+        }
     }
 
-    public static class InputObject {
-        private String key1;
-        private String key2;
-        private String key3;
-
-        public String getKey1() {
-            return key1;
-        }
-
-        public String getKey2() {
-            return key2;
-        }
-
-        public String getKey3() {
-            return key3;
-        }
-
-        public void setKey1(String key1) {
-            this.key1 = key1;
-        }
-
-        public void setKey2(String key2) {
-            this.key2 = key2;
-        }
-
-        public void setKey3(String key3) {
-            this.key3 = key3;
-        }
-
-        @Override
-        public String toString() {
-            return "InputObject{" +
-                    "key1='" + key1 + '\'' +
-                    ", key2='" + key2 + '\'' +
-                    ", key3='" + key3 + '\'' +
-                    '}';
-        }
+    @Override
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context)
+            throws IOException {
+        handler.proxyStream(inputStream, outputStream, context);
     }
 }

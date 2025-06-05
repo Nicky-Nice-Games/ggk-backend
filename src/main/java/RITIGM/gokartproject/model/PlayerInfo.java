@@ -1,9 +1,6 @@
 package RITIGM.gokartproject.model;
 
 
-import RITIGM.gokartproject.Handler;
-
-
 /**
  * Return template class for the Player Info
  */
@@ -37,11 +34,6 @@ public class PlayerInfo {
         this.pw = pw;
         this.uid = uid;
         this.username = username;
-    }
-
-    public void test(){
-        Handler check = new Handler();
-        check.handleRequest(TO_STRING_FORMAT, null);
     }
 
     /**
@@ -131,14 +123,4 @@ public class PlayerInfo {
     public String toString() {
         return String.format(TO_STRING_FORMAT, this.pid, this.email, this.pw, this.uid, this.username);
     }
-
-    // /*
-    public static void main(String[] args) {
-        PlayerInfo test = new PlayerInfo("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350", "hello", "PW", 1234, "username");
-        // System.out.println(test);
-        test.test();
-
-        
-    }
-        // */
 }
