@@ -1,8 +1,9 @@
 package RITIGM.gokartproject.view.gameService;
 
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import java.util.logging.Logger;
 
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,7 +63,7 @@ public class PlayerInfoService {
      * @return the player data corresponding to the username and password if successful
      */
     @GetMapping("/{username}")
-    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody String username, @RequestBody String password){
+    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody String username,String password){
         log.info("GET /gameservice/playerinfo/" + username);
         try {
             PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(username, password);
@@ -84,10 +86,10 @@ public class PlayerInfoService {
      * @return the new user if they were succesfully created
      */
     @PostMapping("")
-    public ResponseEntity<PlayerInfo> createUser(@RequestBody String email, @RequestBody String password, @RequestBody String username ){
-        log.info("POST /gameservice/playerinfo/" + username);
+    public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
+        log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(email, password, username);
+            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
@@ -109,10 +111,10 @@ public class PlayerInfoService {
      * @return the new user if they were successfully added
      */
     @PostMapping("/uid")
-    public ResponseEntity<PlayerInfo> createUser(@RequestBody String email, @RequestBody String password, @RequestBody int uid, @RequestBody String username ){
-        log.info("POST /gameservice/playerinfo/" + username);
+    public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
+        log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(email, password, uid, username);
+            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUid(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
