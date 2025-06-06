@@ -20,7 +20,7 @@ public interface WebPlayerInfoInterface {
      * @return
      * @throws SQLException
      */
-    abstract PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException;
+    abstract PlayerInfo getPlayerInfoWithUsername(String username, String password) throws SQLException;
 
     /**
      * 
@@ -30,7 +30,7 @@ public interface WebPlayerInfoInterface {
      * @return
      * @throws SQLException
      */
-    abstract PlayerInfo createUser(String email, String pw, String username) throws SQLException;
+    abstract PlayerInfo createUser(String email, String password, String username) throws SQLException;
 
     /**
      * 
@@ -41,7 +41,7 @@ public interface WebPlayerInfoInterface {
      * @return
      * @throws SQLException
      */
-    abstract PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
+    abstract PlayerInfo createUser(String email, String password,int uid, String username) throws SQLException;
 
 
 }
