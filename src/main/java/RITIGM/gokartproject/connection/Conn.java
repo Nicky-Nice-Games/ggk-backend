@@ -19,25 +19,44 @@ import io.github.cdimascio.dotenv.Dotenv;
  * @author Peter Dang
  */
 public class Conn {
-    private Session session = null;
-    private Connection conn = null;
-    private Dotenv dotenv = null;
+    private static Session session = null;
+    private static Connection conn = null;
+    
     
     /**
      * Init a new connection to the database via SSH tunneling
      */
     public Conn(){
-        dotenv = Dotenv.configure().load();
-        String sshUser = dotenv.get("SSHUSER");
-        String sshPassword = dotenv.get("SSHPASSWORD");
-        String sshHost = dotenv.get("SSHHOST");
+        String sshUser = System.getenv("SSHUSER");
+        String sshPassword = System.getenv("SSHPASSWORD");
+        String sshHost = System.getenv("SSHHOST"); 
         Integer sshPort = 22;
-        String remoteMySQLHost = dotenv.get("REMOTEMYSQLHOST");
+        String remoteMySQLHost = System.getenv("REMOTEMYSQLHOST");
         Integer remoteMySQLPort = 3306;
-        Integer localPort = 3307;
-        String dbUser = dotenv.get("DBUSER");
-        String dbPassword = dotenv.get("DBPASSWORD");
-        String dbName = dotenv.get("DBNAME");
+        Integer localPort = getAvailablePort(3307);
+        String dbUser = System.getenv("DBUSER");
+        String dbPassword = System.getenv("DBPASSWORD");
+        String dbName = System.getenv("DBNAME");
+
+
+        try {
+            if(sshUser == null){
+                Dotenv dotenv = Dotenv.configure().load();
+                sshUser = dotenv.get("SSHUSER");
+                sshPassword = dotenv.get("SSHPASSWORD");
+                sshHost = dotenv.get("SSHHOST"); 
+                sshPort = 22;
+                remoteMySQLHost = dotenv.get("REMOTEMYSQLHOST");
+                remoteMySQLPort = 3306;
+                localPort = getAvailablePort(3307);
+                dbUser = dotenv.get("DBUSER");
+                dbPassword = dotenv.get("DBPASSWORD");
+                dbName = dotenv.get("DBNAME");
+            }
+        } catch (Exception e) {
+            int a = 1;
+        }
+
 
         try {
         // Set up SSH tunnel
@@ -90,33 +109,15 @@ public class Conn {
     }
 
 
-    // public void testConnection(){
-    //     try {
-    //         String query = "SELECT * FROM test WHERE checkid = 1;";
-    //         PreparedStatement stmt = this.conn.prepareStatement(query);
-    //         ResultSet result = stmt.executeQuery();
-    //         if(result.next()){
-    //             Integer idCheck = result.getInt("checkid");
-    //             String stringCheck = result.getString("checkstring");
-    //             Integer intcheck = result.getInt("checkint");
-    //             Timestamp timeCheck = result.getTimestamp("checktime");
-    //             String stringTime = timeCheck.toString();
-
-    //             System.out.println("TEST RETRIEVE DATA");
-    //             System.out.println("check id : " + idCheck);
-    //             System.out.println("check string : " + stringCheck);
-    //             System.out.println("check int : " + intcheck);
-    //             System.out.println("check time : " + stringTime);
-    //         }
-    //     } catch (Exception e) {
-    //         System.err.println(e);
-    //     }
-    // }
-    // public static void main(String[] args) {
-        
-    //     Conn test = new Conn();
-    //     test.testConnection();
-    //     test.closeConnection();
-        
-    // }
+    private int getAvailablePort(int preferredPort) {
+        try (java.net.ServerSocket socket = new java.net.ServerSocket(preferredPort)) {
+            return socket.getLocalPort(); // returns preferredPort if available
+        } catch (Exception e) {
+            try (java.net.ServerSocket socket = new java.net.ServerSocket(0)) {
+                return socket.getLocalPort(); // fallback to any available port
+            } catch (Exception ex) {
+                throw new RuntimeException("No available port found", ex);
+            }
+        }
+    }   
 }
