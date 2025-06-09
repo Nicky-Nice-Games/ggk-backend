@@ -22,6 +22,9 @@ public class LeaderboardDAOTest {
     Connection mockConn;
     LeaderboardDAO leaderboardDAO;
 
+    /**
+     * Init the mock call for the leaderboard
+     */
     @BeforeEach
     void setupFiles(){
         this.mockConn = mock(Connection.class);
@@ -31,6 +34,10 @@ public class LeaderboardDAOTest {
     }
 
 
+    /**
+     * Testing the get top leaderboard for a certain map
+     * @throws SQLException
+     */
     @Test
     void testGetMapLeaderboard() throws SQLException{
         PreparedStatement stmt = Mockito.mock(PreparedStatement.class);

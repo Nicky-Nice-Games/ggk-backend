@@ -20,12 +20,20 @@ public class LeaderboardServiceTest {
     private LeaderboardInterface mockLeaderboardDAO;
     private LeaderboardService leaderboardService;
 
+
+    /**
+     * Init the mock class for the API  
+     */
     @BeforeEach
     public void setupDAO(){
         mockLeaderboardDAO = mock(LeaderboardInterface.class);
         leaderboardService = new LeaderboardService(mockLeaderboardDAO);
     }
 
+    /**
+     * Mocking API call test for the application
+     * @throws SQLException
+     */
 
     @Test
     void testGetMapLeaderboard() throws SQLException{

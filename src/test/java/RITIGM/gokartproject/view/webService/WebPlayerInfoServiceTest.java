@@ -23,12 +23,19 @@ public class WebPlayerInfoServiceTest {
     private WebPlayerInfoInterface mockWebPlayerDAO;
     private WebPlayerInfoService wpInfoService; 
 
+    /**
+     * Init mock object for the class
+     */
     @BeforeEach
     public void setupPlayerInfo(){
         mockWebPlayerDAO = mock(WebPlayerInfoInterface.class);
         wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO);
     }
 
+    /**
+     * Crete user with no UID
+     * @throws SQLException throwing SQL exeception
+     */
     @Test
     void testCreateUser() throws SQLException{
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
@@ -51,6 +58,10 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Crete user with UID
+     * @throws SQLException throwing SQL exeception
+     */
     @Test
     void testCreateUser2() throws SQLException{
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username");
@@ -73,6 +84,10 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Create get simple player info by PID
+     * @throws SQLException
+     */
     @Test
     void testGetPlayerByID() throws SQLException{
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
@@ -97,6 +112,10 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
     }
 
+    /**
+     * Get player info from username and password
+     * @throws SQLException
+     */
     @Test
     void testGetPlayerByUsername() throws SQLException {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
