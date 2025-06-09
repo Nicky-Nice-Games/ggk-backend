@@ -2,6 +2,9 @@ package RITIGM.gokartproject.persistence.webService.dao;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import org.springframework.stereotype.Component;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -11,7 +14,8 @@ import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInter
 
 /**
  * {@inheritDoc}
- */
+ */ 
+@Component
 public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
     private Conn connCls = null;
