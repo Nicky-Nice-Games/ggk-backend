@@ -167,4 +167,16 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
             return returnInfo;
     }
+
+
+    public static void main(String[] args) {
+        PlayerInfoDAO check = new PlayerInfoDAO();
+        check.closeConnection();
+
+        // try {
+        //     check.createUser("Hello", "miku", "miku");
+        // } catch (Exception e) {
+        //     System.err.println(e);
+        // }
+    }
 }

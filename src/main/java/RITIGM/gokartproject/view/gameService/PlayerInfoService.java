@@ -1,8 +1,10 @@
 package RITIGM.gokartproject.view.gameService;
 
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
+import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import java.util.logging.Logger;
 
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Diego Velez
  */
 @RestController
-@RequestMapping("gameserivce/playerinfo")
+@RequestMapping("gameserivce/playerlog")
 public class PlayerInfoService {
     private static final Logger log = Logger.getLogger(GameLogService.class.getName());
     private PlayerInfoInterface playerInfoDAO;
@@ -38,7 +41,7 @@ public class PlayerInfoService {
      * @param pid player ID
      * @return the player corresponding to if succesful 
      */
-    @GetMapping("/{pid}")
+    @GetMapping("/pid")
     public ResponseEntity<PlayerInfo> getPlayerByID(@RequestBody String pid){
         log.info("GET /gameservice/playerinfo/" + pid);
         try{
@@ -50,6 +53,7 @@ public class PlayerInfoService {
                  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }catch(Exception e){
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -60,11 +64,11 @@ public class PlayerInfoService {
      * @param password player's password
      * @return the player data corresponding to the username and password if successful
      */
-    @GetMapping("/{username}")
-    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody String username, @RequestBody String password){
-        log.info("GET /gameservice/playerinfo/" + username);
+    @PostMapping("/username")
+    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
+        log.info("GET /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(username, password);
+            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
@@ -72,6 +76,7 @@ public class PlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -84,10 +89,10 @@ public class PlayerInfoService {
      * @return the new user if they were succesfully created
      */
     @PostMapping("")
-    public ResponseEntity<PlayerInfo> createUser(@RequestBody String email, @RequestBody String password, @RequestBody String username ){
-        log.info("POST /gameservice/playerinfo/" + username);
+    public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
+        log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(email, password, username);
+            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
@@ -96,6 +101,7 @@ public class PlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -109,10 +115,10 @@ public class PlayerInfoService {
      * @return the new user if they were successfully added
      */
     @PostMapping("/uid")
-    public ResponseEntity<PlayerInfo> createUser(@RequestBody String email, @RequestBody String password, @RequestBody int uid, @RequestBody String username ){
-        log.info("POST /gameservice/playerinfo/" + username);
+    public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
+        log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(email, password, uid, username);
+            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUid(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
@@ -121,6 +127,7 @@ public class PlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
