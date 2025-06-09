@@ -49,7 +49,7 @@ public class GameLogDAO implements GameLogInterface {
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
-            stmtUpdateMainLog.setTime(3, raceLog.getRaceTime());
+            stmtUpdateMainLog.setInt(3, raceLog.getRaceTime());
             stmtUpdateMainLog.setInt(4,raceLog.getRacePos());
             stmtUpdateMainLog.setInt(5, raceLog.getMapRaced());
             stmtUpdateMainLog.setInt(6, raceLog.getCharacterUsed());
@@ -194,7 +194,7 @@ public class GameLogDAO implements GameLogInterface {
                 RaceLog raceLog = new RaceLog(
                     result.getString("racelog.raceid"),
                     result.getTimestamp("racestarttime"),
-                    result.getTime("racetime"), 
+                    result.getInt("racetime"), 
                     result.getInt("racepos"),
                     result.getInt("mapraced"),
                     result.getInt("characterused"),
@@ -257,7 +257,7 @@ public class GameLogDAO implements GameLogInterface {
                 RaceLog raceLog = new RaceLog(
                     result.getString("racelog.raceid"),
                     result.getTimestamp("racestarttime"),
-                    result.getTime("racetime"), 
+                    result.getInt("racetime"), 
                     result.getInt("racepos"),
                     result.getInt("mapraced"),
                     result.getInt("characterused"),

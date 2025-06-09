@@ -2,6 +2,9 @@
 - This is the API service for the game (Unity) and the webstie to get the data or get other information 
 that is needed to function
 
+# IMPORTANT NOTE
+- All time format will be stored as HH:mm:SS (Until I'm figure out how to store with milisecond)
+
 # Unity Functionality
 
 ## Game Loging Service
@@ -14,4 +17,3 @@ that is needed to function
 - Getting player by username
 - Create a new user NO UID
 - Create a new user with UID
-

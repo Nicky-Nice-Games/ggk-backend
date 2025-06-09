@@ -8,7 +8,7 @@ public class LeaderboardData {
     private int raceID;
     private String username; 
     private Timestamp raceStartTime;
-    private Time raceTime;
+    private int raceTime;
 
     private static final String TO_STRING_FORMAT = "\nSimple Race Log:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
@@ -17,7 +17,7 @@ public class LeaderboardData {
                                                         "\tTime Start Race = %s,\r\n" + //
                                                         "\tRace Time = %s,";
 
-    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, Time raceTime){
+    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime){
         this.pid = pid;
         this.raceID = raceID;
         this.username = username;
@@ -57,11 +57,11 @@ public class LeaderboardData {
         this.raceStartTime = raceStartTime;
     }
 
-    public Time getRaceTime() {
+    public int getRaceTime() {
         return raceTime;
     }
 
-    public void setRaceTime(Time raceTime) {
+    public void setRaceTime(int raceTime) {
         this.raceTime = raceTime;
     }
 
