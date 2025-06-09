@@ -37,7 +37,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
         PlayerInfo player = null;
 
-        String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
+        String query = "SELECT * FROM players WHERE pid = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
 
         ResultSet result = stmt.executeQuery();
