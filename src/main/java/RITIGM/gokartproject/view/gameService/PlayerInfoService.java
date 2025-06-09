@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Diego Velez
  */
 @RestController
-@RequestMapping("gameserivce/playerlog")
+@RequestMapping("gameservice/playerlog")
 public class PlayerInfoService {
     private static final Logger log = Logger.getLogger(GameLogService.class.getName());
     private PlayerInfoInterface playerInfoDAO;
