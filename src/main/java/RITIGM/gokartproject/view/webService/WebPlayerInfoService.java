@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,10 +14,9 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
-import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 import RITIGM.gokartproject.view.gameService.GameLogService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("webservice/playerinfo")
@@ -35,8 +35,9 @@ public class WebPlayerInfoService {
      * @return the player corresponding to if succesful 
      */
     @GetMapping("/{pid}")
-    public ResponseEntity<PlayerInfo> getPlayerByID(@RequestBody String pid){
+    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         log.info("GET /webservice/playerinfo/" + pid);
+        
         try{
             PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfo(pid);
             if(playerInfo != null){
@@ -56,9 +57,9 @@ public class WebPlayerInfoService {
      * @param password player's password
      * @return the player data corresponding to the username and password if successful
      */
-    @GetMapping("/username")
+    @PostMapping("/username")
     public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
-        log.info("GET /gameservice/playerinfo/" + info.getUsername());
+        log.info("GET /webservice/playerinfo/" + info.getUsername());
         try {
             PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
             if(playerInfo != null){
@@ -92,6 +93,7 @@ public class WebPlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -43,6 +43,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
         String query = "SELECT * FROM players WHERE pid = ?";
         PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, playerID);
 
         ResultSet result = stmt.executeQuery();
         if(result.next()){
@@ -68,10 +69,10 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo player = null;
 
         String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
-        PreparedStatement stmt = conn.prepareStatement(query);
+        PreparedStatement stmt = this.conn.prepareStatement(query);
 
         stmt.setString(1, username);
-        stmt.setString(2, password);
+        stmt.setString(2, checkPw);
 
         ResultSet result = stmt.executeQuery();
         if(result.next()){
@@ -92,7 +93,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
      * {@inheritDoc}
      */
     public PlayerInfo createUser(String email, String password, String username) throws SQLException{
-
+        System.err.println(password + " "  + email + " " + password);
         String checkPw =  Integer.toString(password.hashCode());
         PlayerInfo returnPlayer = null;
 
@@ -109,11 +110,11 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             System.err.println("Something went wrong while updating");
         }
 
-        String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
-        PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
-        stmt.setString(1, email);
-        stmt.setString(2, checkPw);
-        stmt.setString(3, username);
+        String queryLookUp =  "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
+        PreparedStatement stmtCheck = this.conn.prepareStatement(queryLookUp);
+        stmtCheck.setString(1, email);
+        stmtCheck.setString(2, checkPw);
+        stmtCheck.setString(3, username);
 
         ResultSet check = stmtCheck.executeQuery();
         if(check.next()){
@@ -122,9 +123,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             check.getInt("uid"),
             check.getString("username"));
 
-        }
-        else{
-            return null;
         }
 
         return returnPlayer;
@@ -153,10 +151,10 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
         String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ? AND uid = ?;";
         PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
-        stmt.setString(1, email);
-        stmt.setString(2, checkPw);
-        stmt.setString(3, username);
-        stmt.setInt(4, uid);
+        stmtCheck.setString(1, email);
+        stmtCheck.setString(2, checkPw);
+        stmtCheck.setString(3, username);
+        stmtCheck.setInt(4, uid);
 
         ResultSet check = stmtCheck.executeQuery();
         if(check.next()){
