@@ -60,6 +60,7 @@ public class GameLogService {
                 return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
             }
         } catch (Exception e) {
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -91,8 +92,8 @@ public class GameLogService {
      * @param id the ID of that player
      * @return all of the race instance of that player
      */
-    @GetMapping("/player")
-    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@RequestBody String pid){
+    @GetMapping("/player/{pid}")
+    public ResponseEntity<ArrayList<RaceLog>> getByPlayerID(@PathVariable String pid){
         log.info("GET /gameserivce/gamelog/player/" + pid);
         try {
             ArrayList<RaceLog> raceLogs = this.gameLogDAO.getRaceByPlayer(pid);

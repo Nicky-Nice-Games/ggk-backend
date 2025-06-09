@@ -41,11 +41,11 @@ public class PlayerInfoService {
      * @param pid player ID
      * @return the player corresponding to if succesful 
      */
-    @GetMapping("/pid")
-    public ResponseEntity<PlayerInfo> getPlayerByID(@RequestBody String pid){
-        log.info("GET /gameservice/playerinfo/" + pid);
+    @GetMapping("/{pid}")
+    public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         try{
             PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(pid);
+            System.err.println(playerInfo);
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
