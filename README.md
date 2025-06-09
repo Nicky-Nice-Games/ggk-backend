@@ -3,7 +3,7 @@
 that is needed to function
 
 # IMPORTANT NOTE
-- All time format will be stored as HH:mm:SS (Until I'm figure out how to store with milisecond)
+- Time format for the race pass in as integer of amount of milisecond
 
 # Unity Functionality
 
@@ -17,3 +17,15 @@ that is needed to function
 - Getting player by username
 - Create a new user NO UID
 - Create a new user with UID
+
+# Web Functionality
+
+## Account Service 
+- Create new account no UID
+- Create new account with UID
+- Return simple player info with Username + PW
+- Return simple player info with pid
+
+## Leaderboard Service
+- Looking up top map record for requested map
+
