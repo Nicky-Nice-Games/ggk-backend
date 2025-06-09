@@ -1,10 +1,4 @@
-package RITIGM.gokartproject.view.gameService;
-
-import RITIGM.gokartproject.model.PlayerInfo;
-import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
-import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
-import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
-import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
+package RITIGM.gokartproject.view.webService;
 
 import java.util.logging.Logger;
 
@@ -13,28 +7,27 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Handle any accesing of player data on the website side
- * 
- * {@literal @}RestController Spring annotation identifies this class as a REST API
- * method handler to the Spring framework
- * 
- * @author Diego Velez
- */
+import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
+import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
+import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
+import RITIGM.gokartproject.view.gameService.GameLogService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 @RestController
-@RequestMapping("gameserivce/playerlog")
-public class PlayerInfoService {
+@RequestMapping("webservice/playerinfo")
+public class WebPlayerInfoService {
     private static final Logger log = Logger.getLogger(GameLogService.class.getName());
-    private PlayerInfoInterface playerInfoDAO;
+    private WebPlayerInfoInterface webPlayerInfoDAO;
 
-
-    public PlayerInfoService(PlayerInfoInterface playerInfoDAO){
-        this.playerInfoDAO = playerInfoDAO;
+    public WebPlayerInfoService(WebPlayerInfoInterface webPlayerInfoDAO){
+        this.webPlayerInfoDAO = webPlayerInfoDAO;
     }
+
 
     /**
      * Retrives player information by ID
@@ -43,9 +36,10 @@ public class PlayerInfoService {
      */
     @GetMapping("/{pid}")
     public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
+        log.info("GET /webservice/playerinfo/" + pid);
+        
         try{
-            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(pid);
-            System.err.println(playerInfo);
+            PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfo(pid);
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
@@ -53,7 +47,6 @@ public class PlayerInfoService {
                  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }catch(Exception e){
-            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -66,9 +59,9 @@ public class PlayerInfoService {
      */
     @PostMapping("/username")
     public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
-        log.info("GET /gameservice/playerinfo/" + info.getUsername());
+        log.info("GET /webservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
+            PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
@@ -76,12 +69,11 @@ public class PlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    /**
+        /**
      * Creates a new user in the database
      * @param email user email
      * @param password user password
@@ -92,7 +84,7 @@ public class PlayerInfoService {
     public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
         log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
+            PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
@@ -118,7 +110,7 @@ public class PlayerInfoService {
     public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
         log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
-            PlayerInfo new_player = playerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUid(), info.getUsername());
+            PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(),  info.getUid(), info.getUsername());
 
             if(new_player != null){
                 return new ResponseEntity<PlayerInfo>(new_player, HttpStatus.OK);
@@ -127,8 +119,9 @@ public class PlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 }

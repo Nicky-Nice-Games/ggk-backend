@@ -1,8 +1,6 @@
 package RITIGM.gokartproject.model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.CollisionStat;
@@ -17,10 +15,10 @@ public class RaceLog {
     // Data related 
     private String pid;
     private Timestamp raceStartTime;
-    private Time raceTime;
-    private Integer racePos;
-    private Integer mapRaced;
-    private Integer characterUsed;
+    private int raceTime;
+    private int racePos;
+    private int mapRaced;
+    private int characterUsed;
     private BoostUsage boostStat;
     private CollisionStat collisionStat;
     private OffenseUsage offenseStat;
@@ -52,8 +50,8 @@ public class RaceLog {
      * @param offenseStat all of the offense stat
      * @param trapUsage all of of the trap stat 
      */
-    public RaceLog(String pid, Timestamp raceStartTime, Time raceTime, Integer racePos, Integer mapRaced,
-            Integer characterUsed, BoostUsage boostStat, CollisionStat collisionStat, OffenseUsage offenseStat,
+    public RaceLog(String pid, Timestamp raceStartTime, int raceTime, int racePos, int mapRaced,
+            int characterUsed, BoostUsage boostStat, CollisionStat collisionStat, OffenseUsage offenseStat,
             TrapUsage trapUsage) {
         this.pid = pid;
         this.raceStartTime = raceStartTime;
@@ -109,7 +107,7 @@ public class RaceLog {
      * Get the total lap time
      * @return the total lap time
      */
-    public Time getRaceTime() {
+    public int getRaceTime() {
         return raceTime;
     }
 
@@ -118,7 +116,7 @@ public class RaceLog {
      * Set the new total lap time for hte log
      * @param raceTime the new lap time
      */
-    public void setRaceTime(Time raceTime) {
+    public void setRaceTime(int raceTime) {
         this.raceTime = raceTime;
     }
 
@@ -275,7 +273,7 @@ public class RaceLog {
         return 
         this.pid.equals(other.pid) &&
         this.raceStartTime.equals(other.raceStartTime) &&
-        this.raceTime.equals(other.raceTime) &&
+        this.raceTime == other.raceTime &&
         this.racePos == other.racePos &&
         this.mapRaced == other.mapRaced &&
         this.characterUsed == other.characterUsed;

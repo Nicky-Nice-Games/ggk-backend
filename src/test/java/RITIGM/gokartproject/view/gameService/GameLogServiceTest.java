@@ -76,7 +76,15 @@ public class GameLogServiceTest {
     @Test
     void testGetByRaceID() throws Exception {
         int rid = 20;
-        RaceLog raceLog = new RaceLog(null,null,null, null, null, null, null, null, null, null);
+        Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
+
+        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
+        CollisionStat collisiontest = new CollisionStat(1, 2);
+        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
+        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
+
+        RaceLog raceLog = new RaceLog("213",        
+        raceStartTime,1, 2, 3, 3, null, null, null, null);
 
         //Case: retreival was successful
         when(mockGameLogDAO.getRaceInfo(rid)).thenReturn(raceLog);
@@ -105,7 +113,7 @@ public class GameLogServiceTest {
     @Test
     void testPostMethodName() throws Exception{
         
-        RaceLog raceLog = new RaceLog("20", new Timestamp(2),new Time(2), 1, 1, 1, 
+        RaceLog raceLog = new RaceLog("20", new Timestamp(2),2, 1, 1, 1, 
         new BoostUsage(1, 1, 1, 1), 
         new CollisionStat(1, 1), 
         new OffenseUsage(1, 1, 1, 1), 

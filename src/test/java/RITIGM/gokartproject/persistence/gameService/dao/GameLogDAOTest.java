@@ -55,7 +55,7 @@ public class GameLogDAOTest {
         TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
         Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
-        Time raceTime = Time.valueOf("01:22:30"); 
+        int raceTime = 12; 
 
         sampleEntry = new RaceLog("Checker",
         raceStartTime, raceTime, 1, 2, 4, 
@@ -160,8 +160,8 @@ public class GameLogDAOTest {
         .thenReturn("Checker");
         when(setCheck.getTimestamp("racestarttime"))
         .thenReturn(Timestamp.valueOf("2025-06-02 15:23:14.0"));
-        when(setCheck.getTime("racetime"))
-        .thenReturn(Time.valueOf("01:22:30"));
+        when(setCheck.getInt("racetime"))
+        .thenReturn(12);
         when(setCheck.getInt("racepos")).thenReturn(1);
         when(setCheck.getInt("mapraced")).thenReturn(2);
         when(setCheck.getInt("characterused")).thenReturn(4);
@@ -216,8 +216,8 @@ public class GameLogDAOTest {
         .thenReturn("Checker");
         when(setCheck.getTimestamp("racestarttime"))
         .thenReturn(Timestamp.valueOf("2025-06-02 15:23:14.0"));
-        when(setCheck.getTime("racetime"))
-        .thenReturn(Time.valueOf("01:22:30"));
+        when(setCheck.getInt("racetime"))
+        .thenReturn(12);
         when(setCheck.getInt("racepos")).thenReturn(1);
         when(setCheck.getInt("mapraced")).thenReturn(2);
         when(setCheck.getInt("characterused")).thenReturn(4);

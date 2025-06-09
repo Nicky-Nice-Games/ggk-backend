@@ -3,7 +3,6 @@ package RITIGM.gokartproject.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
@@ -20,10 +19,10 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 public class RaceLogTest {
     private String expected_pid = "20";
     private Timestamp expected_raceStartTime = new Timestamp(2);
-    private Time expected_raceTime = new Time(1);
-    private Integer expected_racePos = 1;
-    private Integer expected_mapRaced = 3;
-    private Integer expected_characterUsed = 4;
+    private int expected_raceTime = 1;
+    private int expected_racePos = 1;
+    private int expected_mapRaced = 3;
+    private int expected_characterUsed = 4;
     private BoostUsage expected_boostStat = new BoostUsage(1, 1, 1, 1);
     private CollisionStat expected_collisionStat = new CollisionStat(2, 3);
     private OffenseUsage expected_offenseStat = new OffenseUsage(1, 1, 1, 1);
@@ -197,7 +196,7 @@ public class RaceLogTest {
      */
     @Test
     void testSetRaceTime() {
-        expected_raceTime = new Time(12);
+        expected_raceTime = 12;
         raceLog.setRaceTime(expected_raceTime);
         assertEquals(expected_raceTime, raceLog.getRaceTime());
     }
@@ -239,7 +238,7 @@ public class RaceLogTest {
     void testRaceLog(){
     String expected_pid = "20";
     Timestamp expected_raceStartTime = new Timestamp(2);
-    Time expected_raceTime = new Time(1);
+    int expected_raceTime = 1;
     Integer expected_racePos = 1;
     Integer expected_mapRaced = 3;
     Integer expected_characterUsed = 4;
