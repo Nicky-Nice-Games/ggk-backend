@@ -15,6 +15,8 @@ public class PlayerStat extends PlayerInfo{
     private TrapUsage trapUsage;
     private BoostUsage boostUsage;
     private CollisionStat collisionStat;
+    private double podium;
+    private double firstPlace;
 
     /**
      * Create a new user stat class 
@@ -29,12 +31,14 @@ public class PlayerStat extends PlayerInfo{
      * @param boostUsage the boost usage 
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, OffenseUsage offenseUsage,
-    TrapUsage trapUsage, CollisionStat collisionStat, BoostUsage boostUsage){
+    TrapUsage trapUsage, CollisionStat collisionStat, BoostUsage boostUsage, double podium, double firstPlace){
         super(pid,email,pw,uid,username);
         this.offenseUsage = offenseUsage;
         this.trapUsage = trapUsage;
         this.collisionStat = collisionStat;
         this.boostUsage = boostUsage;
+        this.podium = podium;
+        this.firstPlace = firstPlace;
     }
 
     /**
@@ -69,6 +73,14 @@ public class PlayerStat extends PlayerInfo{
         return collisionStat;
     }
 
+    public double getPodium(){
+        return podium;
+    }
+
+    public double getFirstPlace(){
+        return firstPlace;
+    }
+
     /**
      * Set new offense item usage stat
      * @param offenseUsage new offsense Usage
@@ -99,6 +111,14 @@ public class PlayerStat extends PlayerInfo{
      */
     public void setCollisionStat(CollisionStat collisionStat) {
         this.collisionStat = collisionStat;
+    }
+
+    public void setPodium(double podium){
+        this.podium = podium;
+    }
+
+    public void setFirstPlace(double firstPlace){
+        this.firstPlace = firstPlace;
     }
 
     /**
