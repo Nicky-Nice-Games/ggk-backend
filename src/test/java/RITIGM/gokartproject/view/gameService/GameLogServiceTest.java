@@ -6,7 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.Timestamp;
-import java.sql.Time;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.CollisionStat;
@@ -77,11 +75,6 @@ public class GameLogServiceTest {
     void testGetByRaceID() throws Exception {
         int rid = 20;
         Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
-
-        BoostUsage boostTest = new BoostUsage(1, 2, 3, 4);
-        CollisionStat collisiontest = new CollisionStat(1, 2);
-        OffenseUsage offenseTest = new OffenseUsage(1, 2, 3, 4);
-        TrapUsage trapTest = new TrapUsage(1, 4, 2, 3);
 
         RaceLog raceLog = new RaceLog("213",        
         raceStartTime,1, 2, 3, 3, null, null, null, null);

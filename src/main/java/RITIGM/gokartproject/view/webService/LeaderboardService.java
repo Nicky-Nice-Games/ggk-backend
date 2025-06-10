@@ -32,6 +32,8 @@ public class LeaderboardService {
      */
     @GetMapping("/{mapid}")
     public ResponseEntity<ArrayList<LeaderboardData>> getMapLeaderboard(@RequestParam int mapid) {
+            log.info("GET /webservice/leaderboard/" + mapid);
+
         try {
             ArrayList<LeaderboardData> data = this.leaderboard.getMapLeaderboard(mapid);
             return new ResponseEntity<ArrayList<LeaderboardData>>(data, HttpStatus.OK);

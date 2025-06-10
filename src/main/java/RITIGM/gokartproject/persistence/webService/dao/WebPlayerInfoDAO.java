@@ -30,10 +30,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
     }
 
-    private void closeConnection(){
-        connCls.closeConnection();
-    }
-
     /**
      * {@inheritDoc}
      */

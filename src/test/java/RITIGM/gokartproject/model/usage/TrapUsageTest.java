@@ -2,7 +2,6 @@ package RITIGM.gokartproject.model.usage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import RITIGM.gokartproject.model.*;
 
 import org.junit.jupiter.api.Test;
 
