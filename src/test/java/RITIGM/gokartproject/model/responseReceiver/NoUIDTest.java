@@ -1,17 +1,18 @@
-package RITIGM.gokartproject.model.responseReceiver.common;
+package RITIGM.gokartproject.model.responseReceiver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CreateUIDTest {
+import RITIGM.gokartproject.model.responseReceiver.NoUID;
 
-    CreateUID check;
+public class NoUIDTest {
+    NoUID check;
 
     @BeforeEach
     void test(){
-        this.check = new CreateUID("1", "2", "3", 3);
+        this.check = new NoUID("1", "2", "3");
     }
 
     @Test
@@ -22,11 +23,6 @@ public class CreateUIDTest {
     @Test
     void testGetPassword() {
         assertEquals("3", check.getPassword());
-    }
-
-    @Test
-    void testGetUid() {
-        assertEquals(3, check.getUid());
     }
 
     @Test
@@ -44,12 +40,6 @@ public class CreateUIDTest {
     void testSetPassword() {
         check.setPassword("727");
         assertEquals("727", check.getPassword());
-    }
-
-    @Test
-    void testSetUid() {
-        check.setUid(123);
-        assertEquals(123, check.getUid());
     }
 
     @Test

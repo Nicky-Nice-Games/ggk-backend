@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import RITIGM.gokartproject.model.PlayerInfo;
-import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
-import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
-import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
+import RITIGM.gokartproject.model.responseReceiver.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
+import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 import RITIGM.gokartproject.view.gameService.GameLogService;
 import org.springframework.web.bind.annotation.RequestBody;

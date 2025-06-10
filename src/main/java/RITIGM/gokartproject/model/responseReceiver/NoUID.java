@@ -1,17 +1,16 @@
-package RITIGM.gokartproject.model.responseReceiver.common;
+package RITIGM.gokartproject.model.responseReceiver;
 
-public class CreateUID {
+public class NoUID {
     private String email;
     private String username;
     private String password;
-    private Integer uid;
+
     
 
-    public CreateUID(String email, String username, String password, Integer uid) {
+    public NoUID(String email, String username, String password) {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.uid = uid;
     }
     public String getEmail() {
         return email;
@@ -31,10 +30,7 @@ public class CreateUID {
     public void setPassword(String password) {
         this.password = password;
     }
-    public Integer getUid() {
-        return uid;
-    }
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }   
+    
+
+    
 }

@@ -1,22 +1,12 @@
-package RITIGM.gokartproject.model.responseReceiver.common;
+package RITIGM.gokartproject.model.responseReceiver;
 
-public class NoUID {
-    private String email;
+public class LoginCreds {
     private String username;
     private String password;
 
-    
-
-    public NoUID(String email, String username, String password) {
-        this.email = email;
+    public LoginCreds(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
     }
     public String getUsername() {
         return username;
@@ -30,7 +20,6 @@ public class NoUID {
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     
 }

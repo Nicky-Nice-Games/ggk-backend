@@ -13,9 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.PlayerInfo;
-import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
-import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
-import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
+import RITIGM.gokartproject.model.responseReceiver.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
+import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 
 public class WebPlayerInfoServiceTest {
