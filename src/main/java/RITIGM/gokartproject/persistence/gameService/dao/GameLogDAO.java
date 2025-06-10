@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
-import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
@@ -93,7 +92,7 @@ public class GameLogDAO implements GameLogInterface {
             
             PreparedStatement stmtCollision = this.conn.prepareStatement(queryInsertCollision);
             stmtCollision.setInt(1, raceID);
-            stmtCollision.setInt(2, raceLog.getCollisionStat().getWallCollision());
+            stmtCollision.setInt(2, raceLog.get);
             stmtCollision.setInt(3, raceLog.getCollisionStat().getPlayerCollision());
 
             Integer collisionCheck = stmtCollision.executeUpdate();

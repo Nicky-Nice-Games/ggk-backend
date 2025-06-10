@@ -1,0 +1,24 @@
+{
+    "playerID": 123456789,
+    "raceStartTime": "YYYY-mm-DD HH-mm-SS",
+    "raceTime" : 1,
+    "racePosition": 1,
+    "mapRaced": 2,
+    "characterUsed": 1,
+    "collisionsWithPlayers": 3,
+    "collisionWithWalls": 4,
+    "fellOfMap": 0,
+    "boostUsage": {
+        "speedBoost1" : 0,
+        "speedBoost2" : 0,
+        "speedBoost3" : 0
+    },
+    "offenceUsage":{
+        "puck1" : 0,
+        "puck2" : 0
+    },
+    "trapUsage": {
+        "oilSpill1" : 0,
+        "oilSpill2" : 0
+    }
+}

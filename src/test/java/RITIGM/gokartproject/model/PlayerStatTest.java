@@ -19,7 +19,7 @@ public class PlayerStatTest {
     private CollisionStat expected_collisionStat = new CollisionStat(0, 0);
 
     private PlayerStat playerStat = new PlayerStat("20", "test@email.com", "password", 1234, "testername", 
-    expected_offenseUsage, expected_trapUsage,  expected_collisionStat, expected_boostUsage);
+    expected_offenseUsage, expected_trapUsage,  expected_collisionStat, expected_boostUsage,0.0,0.0);
     private PlayerInfo playerInfo = new PlayerInfo("20", "test@email.com", "password", 1234, "testername");
 
     /**
