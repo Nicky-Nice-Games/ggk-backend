@@ -230,6 +230,51 @@ public class RaceLog {
         this.trapUsage = trapUsage;
     }
 
+    public void setRacePos(int racePos) {
+        this.racePos = racePos;
+    }
+
+
+    public void setMapRaced(int mapRaced) {
+        this.mapRaced = mapRaced;
+    }
+
+
+    public void setCharacterUsed(int characterUsed) {
+        this.characterUsed = characterUsed;
+    }
+
+
+    public int getCollisionWithPlayer() {
+        return collisionWithPlayer;
+    }
+
+
+    public void setCollisionWithPlayer(int collisionWithPlayer) {
+        this.collisionWithPlayer = collisionWithPlayer;
+    }
+
+
+    public int getCollisionWithWall() {
+        return collisionWithWall;
+    }
+
+
+    public void setCollisionWithWall(int collisionWithWall) {
+        this.collisionWithWall = collisionWithWall;
+    }
+
+
+    public int getFelloffmap() {
+        return felloffmap;
+    }
+
+
+    public void setFelloffmap(int felloffmap) {
+        this.felloffmap = felloffmap;
+    }
+
+
 
     /**
      * String formatting for the race log

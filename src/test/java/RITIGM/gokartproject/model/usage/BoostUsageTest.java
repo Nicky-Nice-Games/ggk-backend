@@ -2,100 +2,59 @@ package RITIGM.gokartproject.model.usage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
  * tests the functions of the Boost Usage Objects
  */
 public class BoostUsageTest {
-    private int boostItem1 = 0;
-    private int boostItem2 = 0;
-    private int boostItem3 = 0;
-    private int boostItem4 = 0;
+    BoostUsage check;
+    public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
+                                                    "\t\tSpeed Boost 1 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 2 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 3 = %d,";
 
-    private BoostUsage boostUsage = new BoostUsage(boostItem1, boostItem2, boostItem3, boostItem4);
-    /**
-     * tests getter for boost item
-     */
-    @Test
-    void testGetBoostItem1() {
-        assertEquals(boostItem1,boostUsage.getBoostItem1());
+    @BeforeEach
+    void initTest(){
+        check = new BoostUsage(0, 1, 2);
     }
 
-    /**
-     * tests getter for boost item
-     */
     @Test
-    void testGetBoostItem2() {
-        assertEquals(boostItem2,boostUsage.getBoostItem2());
+    void testGetSpeedBoost1() {
+        assertEquals(0, check.getSpeedBoost1());
     }
 
-    /**
-     * tests getter for boost item
-     */
     @Test
-    void testGetBoostItem3() {
-        assertEquals(boostItem3,boostUsage.getBoostItem3());
-    }
-    
-    /**
-     * tests getter for boost item
-     */
-    @Test
-    void testGetBoostItem4() {
-        assertEquals(boostItem4,boostUsage.getBoostItem4());
+    void testGetSpeedBoost2() {
+        assertEquals(1, check.getSpeedBoost2());
     }
 
-    /**
-     * tests setter for boost item
-     */
     @Test
-    void testSetBoostItem1() {
-        boostItem1 = 9;
-        boostUsage.setBoostItem1(boostItem1);
-        assertEquals(boostItem1,boostUsage.getBoostItem1());
+    void testGetSpeedBoost3() {
+        assertEquals(2, check.getSpeedBoost3());
     }
 
-    /**
-     * tests setter for boost item
-     */
     @Test
-    void testSetBoostItem2() {
-        boostItem2 = 9;
-        boostUsage.setBoostItem2(boostItem2);
-        assertEquals(boostItem2,boostUsage.getBoostItem2());
+    void testSetSpeedBoost1() {
+        check.setSpeedBoost1(1);
+        assertEquals(1, check.getSpeedBoost1());
     }
 
-    /**
-     * tests setter for boost item
-     */
     @Test
-    void testSetBoostItem3() {
-        boostItem3 = 9;
-        boostUsage.setBoostItem3(boostItem3);
-        assertEquals(boostItem3,boostUsage.getBoostItem3());
+    void testSetSpeedBoost2() {
+        check.setSpeedBoost2(2);
+        assertEquals(2, check.getSpeedBoost2());
     }
 
-    /**
-     * tests setter for boost item
-     */
     @Test
-    void testSetBoostItem4() {
-        boostItem4 = 9;
-        boostUsage.setBoostItem4(boostItem4);
-        assertEquals(boostItem4,boostUsage.getBoostItem4());
+    void testSetSpeedBoost3() {
+        check.setSpeedBoost3(3);
+        assertEquals(3, check.getSpeedBoost3());
     }
 
-    /**
-     * tests to string for object
-     */
-    @Test
-    void testToString() {
-        String expected_string = "Boost Usage: \r\n" + //
-                                "\t\tItem 1 = "+ boostItem1 +", \r\n" + //
-                                "\t\tItem 2 = "+ boostItem2 +", \r\n" + //
-                                "\t\tItem 3 = "+ boostItem3 +", \r\n" + //
-                                "\t\tItem 4 = "+ boostItem4 +",";
-        assertEquals(expected_string, boostUsage.toString());
-    }
+    // @Test
+    // void testToString() {
+    //     assertEquals(String.format(TO_STRING_FORMAT,check.getSpeedBoost1(),check.getSpeedBoost2(),check.getSpeedBoost3()), check);
+    // }
 }

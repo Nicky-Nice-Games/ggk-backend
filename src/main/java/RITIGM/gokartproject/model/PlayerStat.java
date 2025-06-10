@@ -1,7 +1,6 @@
 package RITIGM.gokartproject.model;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
-import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -11,12 +10,21 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
  * @author Peter Dang
  */
 public class PlayerStat extends PlayerInfo{
+    private int collisionWithPlayer;
+    private int collisionWithWall;
+    private int felloffmap;
     private OffenseUsage offenseUsage;
     private TrapUsage trapUsage;
     private BoostUsage boostUsage;
-    private CollisionStat collisionStat;
     private double podium;
     private double firstPlace;
+
+    public static final String TO_STRING_FORMAT =   "%d\r\n" + //
+                                                    "\tCollision With Wall = %s,\r\n" + //
+                                                    "\tCollision With Player = %s,\r\n" + //
+                                                    "\tFell of the map = %s,\r\n" + //
+                                                    "\tNumber of First Place = %s,\r\n" + //
+                                                    "\tNumber of Podium = %s,\r\n";
 
     /**
      * Create a new user stat class 
@@ -30,15 +38,18 @@ public class PlayerStat extends PlayerInfo{
      * @param collisionStat the collision
      * @param boostUsage the boost usage 
      */
-    public PlayerStat(String pid, String email, String pw, Integer uid, String username, OffenseUsage offenseUsage,
-    TrapUsage trapUsage, CollisionStat collisionStat, BoostUsage boostUsage, double podium, double firstPlace){
+    public PlayerStat(String pid, String email, String pw, Integer uid, String username, 
+    int collisionWithWall, int collisionWithPlayer, int felloffmap,
+    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, double podium, double firstPlace){
         super(pid,email,pw,uid,username);
         this.offenseUsage = offenseUsage;
         this.trapUsage = trapUsage;
-        this.collisionStat = collisionStat;
         this.boostUsage = boostUsage;
         this.podium = podium;
         this.firstPlace = firstPlace;
+        this.collisionWithPlayer = collisionWithPlayer;
+        this.collisionWithWall = collisionWithWall;
+        this.felloffmap = felloffmap;
     }
 
     /**
@@ -63,14 +74,6 @@ public class PlayerStat extends PlayerInfo{
      */
     public BoostUsage getBoostUsage() {
         return boostUsage;
-    }
-
-    /**
-     * Get all Collision stast
-     * @return The Collision stast (in Collision class)
-     */
-    public CollisionStat getCollisionStat() {
-        return collisionStat;
     }
 
     public double getPodium(){
@@ -105,13 +108,6 @@ public class PlayerStat extends PlayerInfo{
         this.boostUsage = boostUsage;
     }
 
-    /**
-     * Set new collision stat
-     * @param collisionStat new collision stat
-     */
-    public void setCollisionStat(CollisionStat collisionStat) {
-        this.collisionStat = collisionStat;
-    }
 
     public void setPodium(double podium){
         this.podium = podium;
@@ -126,10 +122,15 @@ public class PlayerStat extends PlayerInfo{
      */
     @Override
     public String toString() {
-        return super.toString() + "\n\t" + this.offenseUsage
-                                + "\n\t" + this.trapUsage
-                                + "\n\t" + this.boostUsage
-                                + "\n\t" + this.collisionStat;
+        return String.format(TO_STRING_FORMAT, super.toString(), this.collisionWithWall, 
+        this.collisionWithPlayer, this.felloffmap, this.podium, this.firstPlace) +
+        "\n\t" + offenseUsage +
+        "\n\t" + trapUsage +  
+        "\n\t" + boostUsage;
     }
 
+
+    public static void main(String[] args) {
+        
+    }
 }

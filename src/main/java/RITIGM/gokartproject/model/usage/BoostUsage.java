@@ -7,86 +7,49 @@ package RITIGM.gokartproject.model.usage;
  * @author Peter Dang
  */
 public class BoostUsage {
-    private int boostItem1;
-    private int boostItem2;
-    private int boostItem3;
-    private int boostItem4;
+    private int speedBoost1;
+    private int speedBoost2;
+    private int speedBoost3;
 
     //String format for the boost usage
     public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
-                                                    "\t\tItem 1 = %d, \r\n" + //
-                                                    "\t\tItem 2 = %d, \r\n" + //
-                                                    "\t\tItem 3 = %d, \r\n" + //
-                                                    "\t\tItem 4 = %d,";
-    public BoostUsage(Integer boostItem1,Integer boostItem2, Integer boostItem3, Integer boostItem4){
-        this.boostItem1 = boostItem1;
-        this.boostItem2 = boostItem2;
-        this.boostItem3 = boostItem3;
-        this.boostItem4 = boostItem4;
+                                                    "\t\tSpeed Boost 1 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 2 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 3 = %d,";
+    public BoostUsage(int speedBoost1,int speedBoost2, int speedBoost3){
+        this.speedBoost1 = speedBoost1;
+        this.speedBoost2 = speedBoost2;
+        this.speedBoost3 = speedBoost3;
     }
 
-    /**
-     * Get boost for item 1
-     * @return the usage of boost item 1
-     */
-    public int getBoostItem1() {
-        return boostItem1;
+
+    public int getSpeedBoost1() {
+        return speedBoost1;
     }
 
-    /**
-     * Get boost for item 2
-     * @return the usage of boost item 2
-     */
-    public int getBoostItem2() {
-        return boostItem2;
+
+    public void setSpeedBoost1(int speedBoost1) {
+        this.speedBoost1 = speedBoost1;
     }
 
-    /**
-     * Get boost for item 3
-     * @return the usage of boost item 3
-     */
-    public int getBoostItem3() {
-        return boostItem3;
+
+    public int getSpeedBoost2() {
+        return speedBoost2;
     }
 
-    /**
-     * Get boost for item 4
-     * @return the usage of boost item 4
-     */
-    public int getBoostItem4() {
-        return boostItem4;
+
+    public void setSpeedBoost2(int speedBoost2) {
+        this.speedBoost2 = speedBoost2;
     }
 
-    /**
-     * Update the new usage for boost item 1
-     * @param boostItem1 the new usage
-     */
-    public void setBoostItem1(Integer boostItem1) {
-        this.boostItem1 = boostItem1;
+
+    public int getSpeedBoost3() {
+        return speedBoost3;
     }
 
-    /**
-     * Update the new usage for boost item 2
-     * @param boostItem1 the new usage
-     */
-    public void setBoostItem2(Integer boostItem2) {
-        this.boostItem2 = boostItem2;
-    }
 
-    /**
-     * Update the new usage for boost item 3
-     * @param boostItem1 the new usage
-     */
-    public void setBoostItem3(Integer boostItem3) {
-        this.boostItem3 = boostItem3;
-    }
-
-    /**
-     * Update the new usage for boost item 4
-     * @param boostItem1 the new usage
-     */
-    public void setBoostItem4(Integer boostItem4) {
-        this.boostItem4 = boostItem4;
+    public void setSpeedBoost3(int speedBoost3) {
+        this.speedBoost3 = speedBoost3;
     }
 
     /**
@@ -94,6 +57,6 @@ public class BoostUsage {
      */
     @Override
     public String toString() {
-        return String.format(TO_STRING_FORMAT, this.boostItem1, this.boostItem2, this.boostItem3, this.boostItem4);
+        return String.format(TO_STRING_FORMAT, this.speedBoost1, this.speedBoost2, this.speedBoost3);
     }
 }
