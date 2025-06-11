@@ -1,8 +1,11 @@
 package RITIGM.gokartproject.model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
+
+/**
+ * Template class for getting the leaderboard info
+ */
 public class LeaderboardData {
     private String pid;
     private int raceID;
@@ -13,10 +16,18 @@ public class LeaderboardData {
     private static final String TO_STRING_FORMAT = "\nSimple Race Log:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
                                                         "\tRace ID = %d,\r\n" + //
-                                                        "\tusername = %d,\r\n" + //
+                                                        "\tusername = %s,\r\n" + //
                                                         "\tTime Start Race = %s,\r\n" + //
-                                                        "\tRace Time = %s,";
+                                                        "\tRace Time = %d,";
 
+    /**
+     * Contructor for the returning template for leaderboard
+     * @param pid
+     * @param raceID
+     * @param username
+     * @param raceStartTime
+     * @param raceTime
+     */
     public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime){
         this.pid = pid;
         this.raceID = raceID;

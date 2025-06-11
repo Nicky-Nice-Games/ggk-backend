@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerInfo;
-import RITIGM.gokartproject.persistence.gameService.dao.PlayerInfoDAO;
 
 public class WebPlayerInfoDAOTest {
     private Connection mockConn = null;

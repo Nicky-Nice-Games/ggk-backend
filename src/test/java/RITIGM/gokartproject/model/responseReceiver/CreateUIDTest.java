@@ -1,19 +1,29 @@
-package RITIGM.gokartproject.model.responseReceiver.common;
+package RITIGM.gokartproject.model.responseReceiver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import RITIGM.gokartproject.model.responseReceiver.CreateUID;
+
+/**
+ * Test casese for the Create UID test class
+ */
 public class CreateUIDTest {
 
     CreateUID check;
 
+    /**
+     * Init function before all of the test case
+     */
     @BeforeEach
     void test(){
         this.check = new CreateUID("1", "2", "3", 3);
     }
 
+
+    //Testing all of the setter and getters for the class
     @Test
     void testGetEmail() {
         assertEquals("1", check.getEmail());

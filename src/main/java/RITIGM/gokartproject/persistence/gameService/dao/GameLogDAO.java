@@ -4,17 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
-import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
@@ -40,12 +36,16 @@ public class GameLogDAO implements GameLogInterface {
      */
     @Override
     public boolean addGameLog(RaceLog raceLog) throws SQLException{
-
-            Integer raceID = -1; // race ID for the function
-
             // Update the main table of race log
 
-            String query = "INSERT INTO racelog (pid, racestarttime, racetime, racepos, mapraced, characterused) VALUES (?,?,?,?,?,?);";
+            String query = 
+            """
+            INSERT INTO racelog 
+            (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
+            fellofmap,speedboost1,speedboost2,speedboost3, puck1, puck2, oilspill1, oilspill2) 
+            VALUES 
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
+            """;
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
@@ -53,97 +53,18 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(4,raceLog.getRacePos());
             stmtUpdateMainLog.setInt(5, raceLog.getMapRaced());
             stmtUpdateMainLog.setInt(6, raceLog.getCharacterUsed());
+            stmtUpdateMainLog.setInt(7, raceLog.getCollisionWithPlayer());
+            stmtUpdateMainLog.setInt(8, raceLog.getCollisionWithWall());
+            stmtUpdateMainLog.setInt(9, raceLog.getFelloffmap());
+            stmtUpdateMainLog.setInt(10, raceLog.getBoostStat().getSpeedBoost1());
+            stmtUpdateMainLog.setInt(11, raceLog.getBoostStat().getSpeedBoost2());
+            stmtUpdateMainLog.setInt(12, raceLog.getBoostStat().getSpeedBoost3());
+            stmtUpdateMainLog.setInt(13, raceLog.getOffenseStat().getPuck1());
+            stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck2());
+            stmtUpdateMainLog.setInt(15, raceLog.getTrapUsage().getOilSpill1());
+            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill1());
 
-            Integer updateCheck = stmtUpdateMainLog.executeUpdate();
-            
-            if (updateCheck != 1){
-                return false;
-            }
-
-            //Get the most recent ID of the race for the other table foreign key
-
-            PreparedStatement stmtGetRaceID = conn.prepareStatement(
-                "SELECT LAST_INSERT_ID() as 'raceId' from racelog LIMIT 1;");
-            ResultSet raceIDResultSet = stmtGetRaceID.executeQuery();
-
-            if (raceIDResultSet.next()){
-                raceID = raceIDResultSet.getInt("raceId");
-            } else {
-                return false;
-            }
-            
-
-            // Insert boost from race data into table
-
-            String queryInsertBoostStat = "INSERT INTO boostatt VALUES (?,?,?,?,?);";
-
-            PreparedStatement stmtBoostStat = this.conn.prepareStatement(queryInsertBoostStat);
-            stmtBoostStat.setInt(1, raceID);
-            stmtBoostStat.setInt(2, raceLog.getBoostStat().getBoostItem1());
-            stmtBoostStat.setInt(3, raceLog.getBoostStat().getBoostItem2());
-            stmtBoostStat.setInt(4, raceLog.getBoostStat().getBoostItem3());
-            stmtBoostStat.setInt(5, raceLog.getBoostStat().getBoostItem4());
-
-            Integer boostUpdateCheck = stmtBoostStat.executeUpdate();
-            
-            if(boostUpdateCheck != 1){
-                return false;
-            }
-
-            // Insert collision from race data into table
-
-            String queryInsertCollision = "INSERT INTO collision VALUES (?,?,?);";
-            
-            PreparedStatement stmtCollision = this.conn.prepareStatement(queryInsertCollision);
-            stmtCollision.setInt(1, raceID);
-            stmtCollision.setInt(2, raceLog.getCollisionStat().getWallCollision());
-            stmtCollision.setInt(3, raceLog.getCollisionStat().getPlayerCollision());
-
-            Integer collisionCheck = stmtCollision.executeUpdate();
-            
-            if(collisionCheck != 1){
-                return false;
-            }
-
-
-            // Insert offense from race data into table
-            String queryOffense = "INSERT INTO offsensestat VALUES(?,?,?,?,?);";
-            PreparedStatement stmtOffense = this.conn.prepareStatement(queryOffense);
-            stmtOffense.setInt(1, raceID);
-            stmtOffense.setInt(2,raceLog.getOffenseStat().getBoostItem1());
-            stmtOffense.setInt(3,raceLog.getOffenseStat().getBoostItem2());
-            stmtOffense.setInt(4,raceLog.getOffenseStat().getBoostItem3());
-            stmtOffense.setInt(5,raceLog.getOffenseStat().getBoostItem4());
-
-            Integer offenseCheck = stmtOffense.executeUpdate();
-            
-            if(offenseCheck != 1){
-                return false;
-            }
-
-            // Insert trap from race data into table
-            String queryTrap = "INSERT INTO trapatt VALUES(?,?,?,?,?);";
-            PreparedStatement stmtTrap = this.conn.prepareStatement(queryTrap);
-            stmtTrap.setInt(1, raceID);
-            stmtTrap.setInt(2,raceLog.getTrapUsage().getTrapItem1());
-            stmtTrap.setInt(3,raceLog.getTrapUsage().getTrapItem2());
-            stmtTrap.setInt(4,raceLog.getTrapUsage().getTrapItem3());
-            stmtTrap.setInt(5,raceLog.getTrapUsage().getTrapItem4());
-
-            Integer trapCheck = stmtTrap.executeUpdate();
-            
-            if(trapCheck != 1){
-                return false;
-            }
-
-            System.out.println(stmtUpdateMainLog);
-            System.out.println(stmtGetRaceID);
-            System.out.println(stmtBoostStat);
-            System.out.println(stmtCollision);
-            System.out.println(stmtOffense);
-            System.out.println(stmtTrap);
-            return true;
-            
+            return (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
     }
 
     /**
@@ -155,12 +76,7 @@ public class GameLogDAO implements GameLogInterface {
             ArrayList<RaceLog> returnLog = new ArrayList<>();
             String query = 
             """
-            SELECT * from racelog
-            INNER JOIN boostatt on racelog.raceid = boostatt.raceid
-            INNER JOIN collision on racelog.raceid = collision.raceid
-            INNER JOIN offsensestat on racelog.raceid = offsensestat.raceid
-            INNER JOIN trapatt on racelog.raceid = trapatt.raceid
-            WHERE pid = ?;      
+            SELECT * FROM racelog WHERE pid = ?;
             """;
 
 
@@ -170,40 +86,34 @@ public class GameLogDAO implements GameLogInterface {
             ResultSet result = stmt.executeQuery();
 
             while(result.next()){
-                //init all of the related attribue before the main one
-                BoostUsage boostAtt = new BoostUsage(
-                result.getInt("boostitem1"),
-                result.getInt("boostitem2"),
-                result.getInt("boostitem3"),
-                result.getInt("boostitem4"));
-                CollisionStat collisionAtt = new CollisionStat(
-                    result.getInt("wallcol"), result.getInt("playercol"));
-                OffenseUsage offenseAtt = new OffenseUsage(
-                    result.getInt("offenseitem1"),
-                    result.getInt("offenseitem2"), 
-                    result.getInt("offenseitem3"),
-                    result.getInt("offenseitem4"));
+                BoostUsage boostUsageData = new BoostUsage(
+                    result.getInt("speedboost1"),
+                    result.getInt("speedboost2"),
+                    result.getInt("speedboost3"));
 
-                TrapUsage trapAtt = new TrapUsage(
-                    result.getInt("trapitem1"),
-                    result.getInt("trapitem2"),
-                    result.getInt("trapitem3"),
-                    result.getInt("trapitem4")
-                );
+                OffenseUsage offenseUsageData = new OffenseUsage(
+                    result.getInt("puck1"), 
+                    result.getInt("puck2"));
 
-                RaceLog raceLog = new RaceLog(
-                    result.getString("racelog.raceid"),
+                TrapUsage trapUsage = new TrapUsage(
+                    result.getInt("oilspill1"),
+                    result.getInt("oilspill2"));
+
+                RaceLog addedLog = new RaceLog(
+                    result.getString("pid"),
                     result.getTimestamp("racestarttime"),
-                    result.getInt("racetime"), 
+                    result.getInt("racetime"),
                     result.getInt("racepos"),
                     result.getInt("mapraced"),
                     result.getInt("characterused"),
-                    boostAtt,
-                    collisionAtt,
-                    offenseAtt,
-                    trapAtt);
+                    result.getInt("collisionwithplayers"),
+                    result.getInt("collisionwithwalls"),
+                    result.getInt("fellofmap"),
+                    boostUsageData,
+                    offenseUsageData, 
+                    trapUsage);
 
-                returnLog.add(raceLog);
+                returnLog.add(addedLog);
             }
             return returnLog;
     }
@@ -217,12 +127,7 @@ public class GameLogDAO implements GameLogInterface {
             RaceLog returnLog = null;
             String query = 
             """
-            SELECT * from racelog
-            INNER JOIN boostatt on racelog.raceid = boostatt.raceid
-            INNER JOIN collision on racelog.raceid = collision.raceid
-            INNER JOIN offsensestat on racelog.raceid = offsensestat.raceid
-            INNER JOIN trapatt on racelog.raceid = trapatt.raceid
-            WHERE racelog.raceid = ?;     
+            SELECT * FROM racelog WHERE raceid = ?;
             """;
 
 
@@ -232,41 +137,32 @@ public class GameLogDAO implements GameLogInterface {
             ResultSet result = stmt.executeQuery();
 
             if(result.next()){
-                //init all of the related attribue before the main one
-                BoostUsage boostAtt = new BoostUsage(
-                result.getInt("boostitem1"),
-                result.getInt("boostitem2"),
-                result.getInt("boostitem3"),
-                result.getInt("boostitem4"));
-                CollisionStat collisionAtt = new CollisionStat(
-                    result.getInt("wallcol"),
-                    result.getInt("playercol"));
-                OffenseUsage offenseAtt = new OffenseUsage(
-                    result.getInt("offenseitem1"),
-                    result.getInt("offenseitem2"), 
-                    result.getInt("offenseitem3"),
-                    result.getInt("offenseitem4"));
+                BoostUsage boostUsageData = new BoostUsage(
+                    result.getInt("speedboost1"),
+                    result.getInt("speedboost2"),
+                    result.getInt("speedboost3"));
 
-                TrapUsage trapAtt = new TrapUsage(
-                    result.getInt("trapitem1"),
-                    result.getInt("trapitem2"),
-                    result.getInt("trapitem3"),
-                    result.getInt("trapitem4")
-                );
+                OffenseUsage offenseUsageData = new OffenseUsage(
+                    result.getInt("puck1"), 
+                    result.getInt("puck2"));
 
-                RaceLog raceLog = new RaceLog(
-                    result.getString("racelog.raceid"),
+                TrapUsage trapUsage = new TrapUsage(
+                    result.getInt("oilspill1"),
+                    result.getInt("oilspill2"));
+
+                returnLog = new RaceLog(
+                    result.getString("pid"),
                     result.getTimestamp("racestarttime"),
-                    result.getInt("racetime"), 
+                    result.getInt("racetime"),
                     result.getInt("racepos"),
                     result.getInt("mapraced"),
                     result.getInt("characterused"),
-                    boostAtt,
-                    collisionAtt,
-                    offenseAtt,
-                    trapAtt);
-
-                returnLog = raceLog;
+                    result.getInt("collisionwithplayers"),
+                    result.getInt("collisionwithwalls"),
+                    result.getInt("fellofmap"),
+                    boostUsageData,
+                    offenseUsageData, 
+                    trapUsage);
             }
             return returnLog;
         } catch (SQLException e) {

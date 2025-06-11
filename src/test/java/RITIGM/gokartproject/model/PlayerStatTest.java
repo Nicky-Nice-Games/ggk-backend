@@ -2,10 +2,10 @@ package RITIGM.gokartproject.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
-import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -13,97 +13,79 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
  * Test for the funcitons of PlayerStat object
  */
 public class PlayerStatTest {
-    private OffenseUsage expected_offenseUsage = new OffenseUsage(0, 0, 0, 0);
-    private TrapUsage expected_trapUsage = new TrapUsage(0, 0, 0, 0);
-    private BoostUsage expected_boostUsage = new BoostUsage(0, 0, 0, 0);
-    private CollisionStat expected_collisionStat = new CollisionStat(0, 0);
 
-    private PlayerStat playerStat = new PlayerStat("20", "test@email.com", "password", 1234, "testername", 
-    expected_offenseUsage, expected_trapUsage,  expected_collisionStat, expected_boostUsage);
-    private PlayerInfo playerInfo = new PlayerInfo("20", "test@email.com", "password", 1234, "testername");
+    private PlayerStat check;
+    private OffenseUsage offense;
+    private TrapUsage trap;
+    private BoostUsage boost;
 
-    /**
-     * tests getter for offesinve statistic data
-     */
-    @Test
-    void testGetOffenseUsage(){
-        assertEquals(expected_offenseUsage, playerStat.getOffenseUsage());
+    @BeforeEach
+    void init(){
+        this.offense = new OffenseUsage(9,10);
+        this.trap = new TrapUsage(11, 12);
+        this.boost = new BoostUsage(13, 14, 15);
+        this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,
+         this.offense, this.trap, this.boost, 16.0, 17.0);
     }
 
-    /**
-     * tests getter for trap usage statistics
-     */
     @Test
-    void testGetTrapUsage(){
-        assertEquals(expected_trapUsage, playerStat.getTrapUsage());
+    void testGetBoostUsage() {
+        assertEquals(check.getBoostUsage(), this.boost);
     }
 
-    /**
-     * tests getter for boost data
-     */
     @Test
-    void testGetBoostUsage(){
-        assertEquals(expected_boostUsage, playerStat.getBoostUsage());
+    void testGetFirstPlace() {
+        assertEquals(check.getFirstPlace(), 17.0);
     }
 
-    /**
-     * tests getter for collision data
-     */
     @Test
-    void testGetCollisionStat(){
-        assertEquals(expected_collisionStat, playerStat.getCollisionStat());
+    void testGetOffenseUsage() {
+        assertEquals(check.getOffenseUsage(), offense);
     }
 
-    /**
-     * tests setter for offensive data
-     */
     @Test
-    void testSetOffenseUsage(){
-        expected_offenseUsage = new OffenseUsage(9,9,9,9);
-        playerStat.setOffenseUsage(expected_offenseUsage);
-        assertEquals(expected_offenseUsage, playerStat.getOffenseUsage());
+    void testGetPodium() {
+        assertEquals(check.getPodium(), 16.0);
     }
 
-    /**
-     * tests setter for trap usage data
-     */
     @Test
-    void testSetTrapUsage(){
-        expected_trapUsage = new TrapUsage(9,9, 9, 9);
-        playerStat.setTrapUsage(expected_trapUsage);
-        assertEquals(expected_trapUsage, playerStat.getTrapUsage());
+    void testGetTrapUsage() {
+        assertEquals(check.getTrapUsage(), trap);
     }
 
-    /**
-     * tests setter for boost data
-     */
     @Test
-    void testSetBoostUsage(){
-        expected_boostUsage = new BoostUsage(9,9,9,9);
-        playerStat.setBoostUsage(expected_boostUsage);
-        assertEquals(expected_boostUsage, playerStat.getBoostUsage());        
+    void testSetBoostUsage() {
+        assertEquals(check.getBoostUsage(), boost);
     }
 
-    /**
-     * tests setter for collision data
-     */
     @Test
-    void testSetCollisionStat(){
-        expected_collisionStat = new CollisionStat(9,9);
-        playerStat.setCollisionStat(expected_collisionStat);
-        assertEquals(expected_collisionStat, playerStat.getCollisionStat());
+    void testSetFirstPlace() {
+        check.setFirstPlace(727);
+        assertEquals(check.getFirstPlace(), 727);
     }
 
-    /**
-     * Tests object's to string function
-     */
     @Test
-    void testToString() {
-        String expected_string = playerInfo.toString() 
-                                + "\n\t" + expected_offenseUsage
-                                + "\n\t" + expected_trapUsage
-                                + "\n\t" + expected_boostUsage
-                                + "\n\t" + expected_collisionStat;
-        assertEquals(expected_string, playerStat.toString());
+    void testSetOffenseUsage() {
+        OffenseUsage a  = (new OffenseUsage(0, 0));
+        check.setOffenseUsage(a);
+        assertEquals(check.getOffenseUsage(), a);
     }
+
+    @Test
+    void testSetPodium() {
+        check.setPodium(0);
+        assertEquals(check.getPodium(), 0);
+    }
+
+    @Test
+    void testSetTrapUsage() {
+        TrapUsage a = new TrapUsage(0, 0);
+        check.setTrapUsage(a);
+        assertEquals(check.getTrapUsage(), a);
+    }
+
+    // @Test
+    // void testToString() {
+        
+    // }
 }

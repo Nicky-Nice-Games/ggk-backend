@@ -1,10 +1,7 @@
 package RITIGM.gokartproject.connection;
 
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.sql.Connection;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
@@ -105,7 +102,7 @@ public class Conn {
      * @return the connection
      */
     public Connection getConnection(){
-        return this.conn;
+        return conn;
     }
 
 

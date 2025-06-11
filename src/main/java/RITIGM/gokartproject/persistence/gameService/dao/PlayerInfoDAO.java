@@ -29,9 +29,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
         }
     }
 
-    private void closeConnection(){
-        this.connCls.closeConnection();
-    }
 
     /**
      * {@inheritDoc}
@@ -166,17 +163,5 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getString("username"));
             }
             return returnInfo;
-    }
-
-
-    public static void main(String[] args) {
-        PlayerInfoDAO check = new PlayerInfoDAO();
-        check.closeConnection();
-
-        // try {
-        //     check.createUser("Hello", "miku", "miku");
-        // } catch (Exception e) {
-        //     System.err.println(e);
-        // }
     }
 }

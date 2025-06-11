@@ -3,7 +3,6 @@ package RITIGM.gokartproject.model;
 import java.sql.Timestamp;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
-import RITIGM.gokartproject.model.usage.CollisionStat;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -19,8 +18,10 @@ public class RaceLog {
     private int racePos;
     private int mapRaced;
     private int characterUsed;
+    private int collisionWithPlayer;
+    private int collisionWithWall;
+    private int felloffmap;
     private BoostUsage boostStat;
-    private CollisionStat collisionStat;
     private OffenseUsage offenseStat;
     private TrapUsage trapUsage;
 
@@ -31,7 +32,9 @@ public class RaceLog {
                 "\tMap Raced: %d,\r\n" + //
                 "\tRace Pos: %d\r\n" + //
                 "\tCharacter Used: %d,\r\n" + //
-                "\t%s\r\n" + //
+                "\tCollision With Players: %d,\r\n" + //
+                "\tCollision With walls: %d,\r\n" + //
+                "\tFell of map: %d,\r\n" + //
                 "\t%s\r\n" + //
                 "\t%s\r\n" + //
                 "\t%s";
@@ -51,8 +54,8 @@ public class RaceLog {
      * @param trapUsage all of of the trap stat 
      */
     public RaceLog(String pid, Timestamp raceStartTime, int raceTime, int racePos, int mapRaced,
-            int characterUsed, BoostUsage boostStat, CollisionStat collisionStat, OffenseUsage offenseStat,
-            TrapUsage trapUsage) {
+            int characterUsed, int collisionWithPlayer, int collisionWithWall, int felloffmap,
+            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage) {
         this.pid = pid;
         this.raceStartTime = raceStartTime;
         this.raceTime = raceTime;
@@ -60,9 +63,9 @@ public class RaceLog {
         this.mapRaced = mapRaced;
         this.characterUsed = characterUsed;
         this.boostStat = boostStat;
-        this.collisionStat = collisionStat;
         this.offenseStat = offenseStat;
         this.trapUsage = trapUsage;
+        this.collisionWithPlayer = collisionWithPlayer;
     }
 
 
@@ -192,24 +195,6 @@ public class RaceLog {
 
 
     /**
-     * get the new collision stat
-     * @return the amount of collision
-     */
-    public CollisionStat getCollisionStat() {
-        return collisionStat;
-    }
-
-
-    /**
-     * Set the new collision stat
-     * @param collisionStat the new collision stat
-     */
-    public void setCollisionStat(CollisionStat collisionStat) {
-        this.collisionStat = collisionStat;
-    }
-
-
-    /**
      * Get the new offense item usage stat
      * @return the usage stat
      */
@@ -245,6 +230,51 @@ public class RaceLog {
         this.trapUsage = trapUsage;
     }
 
+    public void setRacePos(int racePos) {
+        this.racePos = racePos;
+    }
+
+
+    public void setMapRaced(int mapRaced) {
+        this.mapRaced = mapRaced;
+    }
+
+
+    public void setCharacterUsed(int characterUsed) {
+        this.characterUsed = characterUsed;
+    }
+
+
+    public int getCollisionWithPlayer() {
+        return collisionWithPlayer;
+    }
+
+
+    public void setCollisionWithPlayer(int collisionWithPlayer) {
+        this.collisionWithPlayer = collisionWithPlayer;
+    }
+
+
+    public int getCollisionWithWall() {
+        return collisionWithWall;
+    }
+
+
+    public void setCollisionWithWall(int collisionWithWall) {
+        this.collisionWithWall = collisionWithWall;
+    }
+
+
+    public int getFelloffmap() {
+        return felloffmap;
+    }
+
+
+    public void setFelloffmap(int felloffmap) {
+        this.felloffmap = felloffmap;
+    }
+
+
 
     /**
      * String formatting for the race log
@@ -252,8 +282,8 @@ public class RaceLog {
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, this.pid, this.raceStartTime,
-        raceTime, this.mapRaced, this.racePos, this.characterUsed, this.boostStat,
-        this.collisionStat, this.offenseStat, this.trapUsage);
+        raceTime, this.mapRaced, this.racePos, this.characterUsed, 
+        this.collisionWithPlayer, this.collisionWithWall, this.felloffmap,this.boostStat, this.offenseStat, this.trapUsage);
     }
 
     /**

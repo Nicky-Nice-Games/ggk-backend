@@ -2,7 +2,7 @@ package RITIGM.gokartproject.model;
 
 
 /**
- * Return template class for the Player Info
+ * Return template class for the Player Info only general information
  */
 public class PlayerInfo {
 

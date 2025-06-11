@@ -1,9 +1,9 @@
 package RITIGM.gokartproject.view.gameService;
 
 import RITIGM.gokartproject.model.PlayerInfo;
-import RITIGM.gokartproject.model.responseReceiver.common.CreateUID;
-import RITIGM.gokartproject.model.responseReceiver.common.LoginCreds;
-import RITIGM.gokartproject.model.responseReceiver.common.NoUID;
+import RITIGM.gokartproject.model.responseReceiver.CreateUID;
+import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
+import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 
 import java.util.logging.Logger;

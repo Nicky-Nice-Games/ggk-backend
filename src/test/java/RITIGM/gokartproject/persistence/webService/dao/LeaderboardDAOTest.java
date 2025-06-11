@@ -15,8 +15,6 @@ import org.mockito.Mockito;
 
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.LeaderboardData;
-import RITIGM.gokartproject.model.RaceLog;
-import RITIGM.gokartproject.persistence.gameService.dao.GameLogDAO;
 
 public class LeaderboardDAOTest {
     Connection mockConn;
