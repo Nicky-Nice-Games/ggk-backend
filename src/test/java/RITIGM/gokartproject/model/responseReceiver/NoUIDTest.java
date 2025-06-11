@@ -7,14 +7,22 @@ import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
 
+
+/**
+ * Testing the model Template class for the UID test
+ */
 public class NoUIDTest {
     NoUID check;
 
+    /**
+     * Init a sample class for the NoUID object
+     */
     @BeforeEach
     void test(){
         this.check = new NoUID("1", "2", "3");
     }
 
+    //Testing all of the setters and getter for the game
     @Test
     void testGetEmail() {
         assertEquals("1", check.getEmail());

@@ -29,9 +29,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
         }
     }
 
-    private void closeConnection(){
-        this.connCls.closeConnection();
-    }
 
     /**
      * {@inheritDoc}

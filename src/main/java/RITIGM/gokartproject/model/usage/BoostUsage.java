@@ -16,6 +16,13 @@ public class BoostUsage {
                                                     "\t\tSpeed Boost 1 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 2 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 3 = %d,";
+    
+    /**
+     * Contructor for the boost usage 
+     * @param speedBoost1 
+     * @param speedBoost2
+     * @param speedBoost3
+     */
     public BoostUsage(int speedBoost1,int speedBoost2, int speedBoost3){
         this.speedBoost1 = speedBoost1;
         this.speedBoost2 = speedBoost2;

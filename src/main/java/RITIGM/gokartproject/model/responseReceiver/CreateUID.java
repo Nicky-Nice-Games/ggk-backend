@@ -1,5 +1,9 @@
 package RITIGM.gokartproject.model.responseReceiver;
 
+
+/**
+ * The request template body to create a new account with UID
+ */
 public class CreateUID {
     private String email;
     private String username;
@@ -7,12 +11,21 @@ public class CreateUID {
     private Integer uid;
     
 
+    /**
+     * Contructor for make a new Object
+     * @param email the email
+     * @param username the username
+     * @param password the password (in actual format, no hashcode)
+     * @param uid (UID with the account)
+     */
     public CreateUID(String email, String username, String password, Integer uid) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.uid = uid;
     }
+
+    // All of the setters and getter for the object
     public String getEmail() {
         return email;
     }

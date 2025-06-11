@@ -37,13 +37,19 @@ public class GameLogDAOTest {
     GameLogDAO testDAO;
     RaceLog sampleEntry;
 
+    /**
+     * Setting up a new mock connection and the trap usage for the class before each test case
+     */
     @BeforeEach
     void init(){
+        // Setting up the connectio
         mockConn = mock(Connection.class);
         testDAO = new GameLogDAO();
 
+        // Putting the mock connection to the private class field
         ReflectUtils.setField(this.testDAO, "conn", mockConn);
 
+        // Init sample racelog class
         BoostUsage boost = new BoostUsage(1, 2, 3);
         OffenseUsage offense = new OffenseUsage(1, 2);
         TrapUsage trap = new TrapUsage(1, 2);
@@ -53,8 +59,14 @@ public class GameLogDAOTest {
 
     }
 
+    /**
+     * Testing adding a new gamelog into the class
+     * @throws SQLException if the connection somehow fail
+     */
     @Test
     void testAddGameLog() throws SQLException{
+
+        // Testing a successful connection data insertion to the database
         String query = 
             """
             INSERT INTO racelog 
@@ -73,9 +85,13 @@ public class GameLogDAOTest {
 
         assertTrue(this.testDAO.addGameLog(sampleEntry));
 
+
+        // Testing faill insertion or incorrect amount of insertion to the database
         when(stmt.executeUpdate()).thenReturn(0);
         assertFalse(this.testDAO.addGameLog(sampleEntry));
 
+
+        // Testing throwing the exception
         when(stmt.executeUpdate()). 
         thenThrow(SQLException.class);
 
@@ -83,6 +99,8 @@ public class GameLogDAOTest {
     }
     @Test
     void testGetRaceByPlayer() throws SQLException{
+        // Testing successful fetching data from the database
+
         String query = 
             """
             SELECT * FROM racelog WHERE pid = ?;
@@ -94,6 +112,7 @@ public class GameLogDAOTest {
         when(stmt.executeQuery()). thenReturn(result);
         when(result.next()).thenReturn(true).thenReturn(false);
 
+        // Making mock call to insert values into objects
         when(result.getInt("speedboost1")).
             thenReturn(1);
         when(result.getInt("speedboost2")).
@@ -135,6 +154,7 @@ public class GameLogDAOTest {
     }
     @Test
     void testGetRaceInfo() throws SQLException{
+        // Testing successful fetching data from the database
         String query = 
             """
             SELECT * FROM racelog WHERE raceid = ?;
@@ -146,6 +166,7 @@ public class GameLogDAOTest {
         when(stmt.executeQuery()). thenReturn(result);
         when(result.next()).thenReturn(true);
 
+        // Mocking inserting data into the object
         when(result.getInt("speedboost1")).
             thenReturn(1);
         when(result.getInt("speedboost2")).
@@ -185,10 +206,11 @@ public class GameLogDAOTest {
         assertEquals(this.testDAO.getRaceInfo(1),
          this.sampleEntry);
 
+        // Mocking no object with that ID
         when(result.next()).thenReturn(false);
-
         assertEquals(this.testDAO.getRaceInfo(1), null);
 
+        // Mocking connection failed
         when(this.mockConn.prepareStatement(query)).thenThrow(SQLException.class);
 
         assertEquals(this.testDAO.getRaceInfo(1), null);
