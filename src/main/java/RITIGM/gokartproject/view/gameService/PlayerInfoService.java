@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  * Handle any accesing of player data on the website side
@@ -41,7 +43,7 @@ public class PlayerInfoService {
      * @param pid player ID
      * @return the player corresponding to if succesful 
      */
-    @GetMapping("/{pid}")
+    @GetMapping("/login/pid/{pid}")
     public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         try{
             PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfo(pid);
@@ -64,7 +66,7 @@ public class PlayerInfoService {
      * @param password player's password
      * @return the player data corresponding to the username and password if successful
      */
-    @PostMapping("/username")
+    @PostMapping("/login/username")
     public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
         log.info("GET /gameservice/playerinfo/" + info.getUsername());
         try {
@@ -88,7 +90,7 @@ public class PlayerInfoService {
      * @param username user password
      * @return the new user if they were succesfully created
      */
-    @PostMapping("")
+    @PostMapping("/create")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
         log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
@@ -114,7 +116,7 @@ public class PlayerInfoService {
      * @param username username
      * @return the new user if they were successfully added
      */
-    @PostMapping("/uid")
+    @PostMapping("/create/uid")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
         log.info("POST /gameservice/playerinfo/" + info.getUsername());
         try {
@@ -131,4 +133,25 @@ public class PlayerInfoService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/login/uid/{uid}")
+    public ResponseEntity<PlayerInfo> getMethodName(@PathVariable int uid) {
+        if (uid <= 0){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else{
+            try {
+                PlayerInfo info = playerInfoDAO.loginWithUID(uid);
+                if (info != null){
+                    return new ResponseEntity<PlayerInfo>(info, HttpStatus.OK);
+                } else{
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+            } catch (Exception e) {
+                System.err.println(e);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        
+    }
+    
 }
