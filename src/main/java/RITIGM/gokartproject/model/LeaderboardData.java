@@ -12,9 +12,9 @@ public class LeaderboardData {
     private static final String TO_STRING_FORMAT = "\nSimple Race Log:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
                                                         "\tRace ID = %d,\r\n" + //
-                                                        "\tusername = %d,\r\n" + //
+                                                        "\tusername = %s,\r\n" + //
                                                         "\tTime Start Race = %s,\r\n" + //
-                                                        "\tRace Time = %s,";
+                                                        "\tRace Time = %d,";
 
     public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime){
         this.pid = pid;
