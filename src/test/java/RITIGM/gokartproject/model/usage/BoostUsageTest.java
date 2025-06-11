@@ -53,8 +53,8 @@ public class BoostUsageTest {
         assertEquals(3, check.getSpeedBoost3());
     }
 
-    // @Test
-    // void testToString() {
-    //     assertEquals(String.format(TO_STRING_FORMAT,check.getSpeedBoost1(),check.getSpeedBoost2(),check.getSpeedBoost3()), check);
-    // }
+    @Test
+    void testToString() {
+        assertEquals(String.format(TO_STRING_FORMAT,check.getSpeedBoost1(),check.getSpeedBoost2(),check.getSpeedBoost3()), check.toString());
+    }
 }
