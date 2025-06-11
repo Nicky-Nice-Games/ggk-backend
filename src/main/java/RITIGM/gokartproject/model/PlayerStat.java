@@ -117,6 +117,30 @@ public class PlayerStat extends PlayerInfo{
         this.firstPlace = firstPlace;
     }
 
+    public int getCollisionWithPlayer() {
+        return collisionWithPlayer;
+    }
+
+    public void setCollisionWithPlayer(int collisionWithPlayer) {
+        this.collisionWithPlayer = collisionWithPlayer;
+    }
+
+    public int getCollisionWithWall() {
+        return collisionWithWall;
+    }
+
+    public void setCollisionWithWall(int collisionWithWall) {
+        this.collisionWithWall = collisionWithWall;
+    }
+
+    public int getFelloffmap() {
+        return felloffmap;
+    }
+
+    public void setFelloffmap(int felloffmap) {
+        this.felloffmap = felloffmap;
+    }
+
     /**
      * New to string formatting for backend printing
      */
