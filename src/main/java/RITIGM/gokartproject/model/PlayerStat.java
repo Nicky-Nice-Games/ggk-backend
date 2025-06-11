@@ -128,9 +128,4 @@ public class PlayerStat extends PlayerInfo{
         "\n\t" + trapUsage +  
         "\n\t" + boostUsage;
     }
-
-
-    public static void main(String[] args) {
-        
-    }
 }

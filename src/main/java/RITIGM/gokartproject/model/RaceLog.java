@@ -282,8 +282,8 @@ public class RaceLog {
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, this.pid, this.raceStartTime,
-        raceTime, this.mapRaced, this.racePos, this.characterUsed, this.boostStat,
-        this.collisionWithPlayer, this.collisionWithWall, this.felloffmap, this.offenseStat, this.trapUsage);
+        raceTime, this.mapRaced, this.racePos, this.characterUsed, 
+        this.collisionWithPlayer, this.collisionWithWall, this.felloffmap,this.boostStat, this.offenseStat, this.trapUsage);
     }
 
     /**

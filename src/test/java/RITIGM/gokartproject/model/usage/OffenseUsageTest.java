@@ -1,9 +1,14 @@
 package RITIGM.gokartproject.model.usage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.Assert;
+
+import jakarta.validation.constraints.AssertTrue;
 /**
  * Tests the functions of the OffenseUsage object
  */
@@ -37,6 +42,13 @@ public class OffenseUsageTest {
     void testSetPuck2() {
         check.setPuck2(4);
         assertEquals(4, check.getPuck2());
+    }
+
+    @Test
+    void testEquals() {
+        assertTrue(check.equals(new OffenseUsage(1, 2)));
+        assertFalse(check.equals(new OffenseUsage(1, 3)));
+        
     }
 
     // @Test
