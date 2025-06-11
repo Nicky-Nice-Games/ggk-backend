@@ -134,28 +134,11 @@ public class RaceLog {
 
 
     /**
-     * Set the new race position
-     * @param racePos the new race pos
-     */
-    public void setRacePos(Integer racePos) {
-        this.racePos = racePos;
-    }
-
-
-    /**
      * Get the map raced
      * @return id of map raced
      */
     public int getMapRaced() {
         return mapRaced;
-    }
-
-    /**
-     * Set the new map raced
-     * @param mapRaced the new map raced on
-     */
-    public void setMapRaced(Integer mapRaced) {
-        this.mapRaced = mapRaced;
     }
 
 
@@ -165,14 +148,6 @@ public class RaceLog {
      */
     public int getCharacterUsed() {
         return characterUsed;
-    }
-
-    /**
-     * Set the character used for the race
-     * @param characterUsed id for the character raced
-     */
-    public void setCharacterUsed(Integer characterUsed) {
-        this.characterUsed = characterUsed;
     }
 
 

@@ -19,12 +19,12 @@ public class PlayerStat extends PlayerInfo{
     private double podium;
     private double firstPlace;
 
-    public static final String TO_STRING_FORMAT =   "%d\r\n" + //
-                                                    "\tCollision With Wall = %s,\r\n" + //
-                                                    "\tCollision With Player = %s,\r\n" + //
-                                                    "\tFell of the map = %s,\r\n" + //
-                                                    "\tNumber of First Place = %s,\r\n" + //
-                                                    "\tNumber of Podium = %s,\r\n";
+    public static final String TO_STRING_FORMAT =   "%s\r\n" + //
+                                                    "\tCollision With Wall = %d,\r\n" + //
+                                                    "\tCollision With Player = %d,\r\n" + //
+                                                    "\tFell of the map = %d,\r\n" + //
+                                                    "\tNumber of First Place = %f,\r\n" + //
+                                                    "\tNumber of Podium = %f,\r\n";
 
     /**
      * Create a new user stat class 
