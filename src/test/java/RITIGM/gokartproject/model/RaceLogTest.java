@@ -250,4 +250,25 @@ public class RaceLogTest {
     assertEquals(raceLog1, raceLog2); 
     assertNotEquals(raceLog1, raceLog3);
     }
+
+    @Test
+    void testSetCollisionWithPlayer() {
+        expected_playerCol = 9;
+        raceLog.setCollisionWithPlayer(expected_playerCol);
+        assertEquals(expected_playerCol, raceLog.getCollisionWithPlayer());
+    }
+
+    @Test
+    void testSetCollisionWithWall() {
+        expected_wallCol = 9;
+        raceLog.setCollisionWithWall(expected_wallCol);
+        assertEquals(expected_wallCol, raceLog.getCollisionWithWall());
+    }
+
+    @Test
+    void testSetFelloffmap() {
+        expected_falloff = 9;
+        raceLog.setFelloffmap(expected_falloff);
+        assertEquals(expected_falloff, raceLog.getFelloffmap());
+    }
 }
