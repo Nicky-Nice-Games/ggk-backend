@@ -143,7 +143,7 @@ public class WebPlayerInfoService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-        @GetMapping("/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
         try{
             boolean email_status = webPlayerInfoDAO.verifyEmail(email);
