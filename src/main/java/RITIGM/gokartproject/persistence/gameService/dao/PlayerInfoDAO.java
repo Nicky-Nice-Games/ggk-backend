@@ -17,6 +17,8 @@ import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterfa
 @Component
 public class PlayerInfoDAO implements PlayerInfoInterface{
 
+    
+
     private Conn connCls = null;
     private Connection conn = null;
 
@@ -163,5 +165,32 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getString("username"));
             }
             return returnInfo;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PlayerInfo loginWithUID(int uid) throws SQLException {
+        PlayerInfo info = null;
+            String query = "SELECT * FROM players WHERE uid = ?";
+            PreparedStatement stmt = this.conn.prepareStatement(query);
+            stmt.setInt(1, uid);
+            ResultSet result = stmt.executeQuery();
+
+            if(result.next()){
+                info = new PlayerInfo(
+                    result.getString("pid"),
+                    result.getString("Email"),
+                    result.getString("Password"),
+                    result.getInt("uid"),
+                    result.getString("username"));
+            }
+
+            if (result.next()){
+                throw new SQLException("Duplicate UID in the codebase");
+            }
+            return info;
+
     }
 }

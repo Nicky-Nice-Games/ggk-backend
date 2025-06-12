@@ -13,6 +13,8 @@ public class PlayerStat extends PlayerInfo{
     private int collisionWithPlayer;
     private int collisionWithWall;
     private int felloffmap;
+    private int fastestTime;
+    private int favoriteChara;
     private OffenseUsage offenseUsage;
     private TrapUsage trapUsage;
     private BoostUsage boostUsage;
@@ -23,6 +25,8 @@ public class PlayerStat extends PlayerInfo{
                                                     "\tCollision With Wall = %d,\r\n" + //
                                                     "\tCollision With Player = %d,\r\n" + //
                                                     "\tFell of the map = %d,\r\n" + //
+                                                    "\tFastest Time = %d,\r\n" + //
+                                                    "\tFavorite Character = %d,\r\n" + //
                                                     "\tNumber of First Place = %f,\r\n" + //
                                                     "\tNumber of Podium = %f,\r\n";
 
@@ -39,9 +43,11 @@ public class PlayerStat extends PlayerInfo{
      * @param boostUsage the boost usage 
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, 
-    int collisionWithWall, int collisionWithPlayer, int felloffmap,
+    int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, int favoriteChara,
     OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, double podium, double firstPlace){
         super(pid,email,pw,uid,username);
+        this.fastestTime = fastestTime;
+        this.favoriteChara = favoriteChara;
         this.offenseUsage = offenseUsage;
         this.trapUsage = trapUsage;
         this.boostUsage = boostUsage;
@@ -78,6 +84,22 @@ public class PlayerStat extends PlayerInfo{
 
     public double getPodium(){
         return podium;
+    }
+
+    public int getFastestTime() {
+        return fastestTime;
+    }
+
+    public void setFastestTime(int fastestTime) {
+        this.fastestTime = fastestTime;
+    }
+
+    public int getFavoriteChara() {
+        return favoriteChara;
+    }
+
+    public void setFavoriteChara(int favoriteChara) {
+        this.favoriteChara = favoriteChara;
     }
 
     public double getFirstPlace(){
@@ -117,13 +139,39 @@ public class PlayerStat extends PlayerInfo{
         this.firstPlace = firstPlace;
     }
 
+    public int getCollisionWithPlayer() {
+        return collisionWithPlayer;
+    }
+
+    public void setCollisionWithPlayer(int collisionWithPlayer) {
+        this.collisionWithPlayer = collisionWithPlayer;
+    }
+
+    public int getCollisionWithWall() {
+        return collisionWithWall;
+    }
+
+    public void setCollisionWithWall(int collisionWithWall) {
+        this.collisionWithWall = collisionWithWall;
+    }
+
+    public int getFelloffmap() {
+        return felloffmap;
+    }
+
+    public void setFelloffmap(int felloffmap) {
+        this.felloffmap = felloffmap;
+    }
+
+    
+
     /**
      * New to string formatting for backend printing
      */
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, super.toString(), this.collisionWithWall, 
-        this.collisionWithPlayer, this.felloffmap, this.podium, this.firstPlace) +
+        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.podium, this.firstPlace) +
         "\n\t" + offenseUsage +
         "\n\t" + trapUsage +  
         "\n\t" + boostUsage;
