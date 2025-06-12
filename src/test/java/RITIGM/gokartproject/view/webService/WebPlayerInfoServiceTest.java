@@ -16,12 +16,17 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
+import RITIGM.gokartproject.persistence.webService.dao.PlayerStatDAO;
+import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 
 public class WebPlayerInfoServiceTest {
 
     private WebPlayerInfoInterface mockWebPlayerDAO;
-    private WebPlayerInfoService wpInfoService; 
+    private WebPlayerInfoService wpInfoService;
+    private PlayerStatInterface playerStatInterface;
+    private PlayerStatDAO playerStatDAO;
+
 
     /**
      * Init mock object for the class
@@ -29,7 +34,8 @@ public class WebPlayerInfoServiceTest {
     @BeforeEach
     public void setupPlayerInfo(){
         mockWebPlayerDAO = mock(WebPlayerInfoInterface.class);
-        wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO);
+        this.playerStatInterface = mock(PlayerStatInterface.class);
+        wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO, this.playerStatInterface);
     }
 
     /**
