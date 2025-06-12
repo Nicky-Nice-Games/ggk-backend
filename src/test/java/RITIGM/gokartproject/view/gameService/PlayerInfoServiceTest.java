@@ -140,23 +140,23 @@ public class PlayerInfoServiceTest {
     @Test
     void testGetPlayerByUsername() throws Exception {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
-        LoginCreds info = new LoginCreds("username", "password");
+        //LoginCreds info = new LoginCreds("username", "password");
         
         //case: player successfully retrieved
-        when(mockPlayerDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword())).thenReturn(player);
-        ResponseEntity<PlayerInfo> response = playerInfoService.getPlayerByUsername(info);
+        when(mockPlayerDAO.getPlayerInfoWithUsername("username", "password")).thenReturn(player);
+        ResponseEntity<PlayerInfo> response = playerInfoService.getPlayerByUsername("username", "password");
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(player, response.getBody());
 
         //case: player does not exist or wasn't properly retrieved
-        when(mockPlayerDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword())).thenReturn(null);
-        response = playerInfoService.getPlayerByUsername(info);
+        when(mockPlayerDAO.getPlayerInfoWithUsername("username", "password")).thenReturn(null);
+        response = playerInfoService.getPlayerByUsername("username", "password");
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
         assertNull(response.getBody());
 
         //case: internal server error
-        when(mockPlayerDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword())).thenThrow();
-        response = playerInfoService.getPlayerByUsername(info);
+        when(mockPlayerDAO.getPlayerInfoWithUsername("username", "password")).thenThrow();
+        response = playerInfoService.getPlayerByUsername("username", "password");
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNull(response.getBody());
     }
