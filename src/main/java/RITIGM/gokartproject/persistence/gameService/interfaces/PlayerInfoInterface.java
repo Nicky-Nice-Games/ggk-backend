@@ -46,4 +46,13 @@ public interface PlayerInfoInterface {
 
     abstract PlayerInfo loginWithUID(int uid) throws SQLException;
 
+    /**
+     * 
+     * @param email
+     * @return
+     * @throws SQLException
+     */
+    abstract boolean verifyEmail(String email) throws SQLException;
+
+
 }
