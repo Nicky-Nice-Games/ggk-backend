@@ -35,6 +35,10 @@ public class WebPlayerInfoServiceTest {
     public void setupPlayerInfo(){
         mockWebPlayerDAO = mock(WebPlayerInfoInterface.class);
         this.playerStatInterface = mock(PlayerStatInterface.class);
+
+        this.playerStatDAO = mock(PlayerStatDAO.class);
+        this.
+
         wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO, this.playerStatInterface);
     }
 
@@ -145,5 +149,10 @@ public class WebPlayerInfoServiceTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNull(response.getBody());
 
+    }
+
+    @Test
+    void testGetPlayerDetailInfo() {
+        
     }
 }

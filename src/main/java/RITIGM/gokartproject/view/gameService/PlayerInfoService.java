@@ -135,7 +135,7 @@ public class PlayerInfoService {
     }
     
     @GetMapping("/login/uid/{uid}")
-    public ResponseEntity<PlayerInfo> getMethodName(@PathVariable int uid) {
+    public ResponseEntity<PlayerInfo> loginUID(@PathVariable int uid) {
         if (uid <= 0){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         } else{

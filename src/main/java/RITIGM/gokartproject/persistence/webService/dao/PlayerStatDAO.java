@@ -68,6 +68,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),
+                0,0, //Init the fastest time and fav character
                 new OffenseUsage(
                     data.getInt("totalpuck1"), 
                     data.getInt("totalpuck2")),
@@ -101,7 +102,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         ResultSet firstdata = firststmt.executeQuery();
 
         if (firstdata.next() == true){
-            returnStat.setFirstPlace(firstdata.getInt("totalpodium"));
+            returnStat.setFirstPlace(firstdata.getDouble("totalpodium"));
         } else{
             throw new SQLException("Error in fetching first place");
         }
@@ -123,10 +124,55 @@ public class PlayerStatDAO implements PlayerStatInterface{
         ResultSet podiumdata = podiumstmt.executeQuery();
 
         if (podiumdata.next() == true){
-            returnStat.setPodium(podiumdata.getInt("totalpodium"));
+            returnStat.setPodium(podiumdata.getDouble("totalpodium"));
         } else{
             throw new SQLException("Error in fetching podium");
         }
+        
+
+
+        String fastestLap = 
+        """
+            SELECT MIN(racelog.racetime) AS fastest
+            FROM racelog
+            WHERE racelog.pid = ?;
+        
+        """;
+        
+        PreparedStatement stmt = this.conn.prepareStatement(fastestLap);
+        stmt.setString(1, pid);
+        ResultSet fastestTime = stmt.executeQuery();
+
+        if(fastestTime.next()){
+            returnStat.setFastestTime(fastestTime.getInt("fastest"));
+        } else{
+            throw new SQLException("Error in fetching fastest time");
+        }
+
+        String favoriteCharacter = 
+        """
+            SELECT characterused,
+                COUNT(racelog.characterused) as favchara
+
+            FROM racelog
+            WHERE racelog.pid = ?
+            GROUP BY characterused
+            ORDER BY favchara DESC
+            LIMIT 1;        
+        """;
+        
+        PreparedStatement charastmt = this.conn.prepareStatement(favoriteCharacter);
+        charastmt.setString(1, pid);
+
+        ResultSet favCharaSet = charastmt.executeQuery();
+
+        if(favCharaSet.next()){
+            returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
+        } else{
+            throw new SQLException("Error in fetching favchara");
+        }
+        
+        
         return returnStat;
     }
 }
