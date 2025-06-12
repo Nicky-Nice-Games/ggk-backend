@@ -33,6 +33,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     /**
      * {@inheritDoc}
      */
+    @Override
     public PlayerInfo getPlayerInfo(String playerID) throws SQLException{
 
         PlayerInfo player = null;
@@ -59,6 +60,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     /**
      * {@inheritDoc}
      */
+    @Override
     public PlayerInfo getPlayerInfoWithUsername(String username, String password) throws SQLException{
 
         String checkPw =  Integer.toString(password.hashCode());
@@ -88,6 +90,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     /**
      * {@inheritDoc}
      */
+    @Override
     public PlayerInfo createUser(String email, String password, String username) throws SQLException{
         System.err.println(password + " "  + email + " " + password);
         String checkPw =  Integer.toString(password.hashCode());
@@ -127,6 +130,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     /**
      * {@inheritDoc}
      */
+    @Override
     public PlayerInfo createUser(String email, String password,int uid, String username) throws SQLException{
         String checkPw =  Integer.toString(password.hashCode());
         PlayerInfo returnPlayer = null;
@@ -167,6 +171,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         return returnPlayer;
     }
 
+    @Override
     public boolean verifyEmail(String email) throws SQLException{
 
         String query = "SELECT EXISTS (\n" + //

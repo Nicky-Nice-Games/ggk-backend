@@ -5,16 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
+import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
+import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.OffenseUsage;
+import RITIGM.gokartproject.model.usage.TrapUsage;
 
 /**
  * Test for playerInfoService in view
@@ -24,6 +31,7 @@ import RITIGM.gokartproject.model.responseReceiver.NoUID;
  */
 public class PlayerInfoServiceTest {
     private PlayerInfoInterface mockPlayerDAO;
+    private PlayerStatInterface mockStatInterface;
     private PlayerInfoService  playerInfoService;
 
     /**
@@ -151,5 +159,21 @@ public class PlayerInfoServiceTest {
         response = playerInfoService.getPlayerByUsername(info);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNull(response.getBody());
+    }
+
+       @Test
+    void testCheckEmail() throws SQLException {
+         ResponseEntity<Boolean> response;
+
+        when(mockPlayerDAO.verifyEmail("test@email.com")).thenReturn(true);
+        response = playerInfoService.checkEmail("test@email.com");
+        assertEquals(true, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockPlayerDAO.verifyEmail("test@email.com")).thenThrow();
+        response = playerInfoService.checkEmail("test@email.com");
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        
     }
 }
