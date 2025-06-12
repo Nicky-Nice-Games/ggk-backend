@@ -140,4 +140,20 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
 
     }
+
+    @Test
+    void testCheckEmail() throws SQLException {
+         ResponseEntity<Boolean> response;
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(true);
+        response = wpInfoService.checkEmail("test@email.com");
+        assertEquals(true, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenThrow();
+        response = wpInfoService.checkEmail("test@email.com");
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        
+    }
 }

@@ -123,5 +123,16 @@ public class WebPlayerInfoService {
         }
     }
 
+    @GetMapping("/{email}")
+    public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
+        try{
+            boolean email_status = webPlayerInfoDAO.verifyEmail(email);
+            return new ResponseEntity<Boolean>(email_status, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
