@@ -143,6 +143,8 @@ public class WebPlayerInfoService {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
     @GetMapping("/{email}")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
         try{
