@@ -44,4 +44,6 @@ public interface PlayerInfoInterface {
      */
     PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
 
+    abstract PlayerInfo loginWithUID(int uid) throws SQLException;
+
 }

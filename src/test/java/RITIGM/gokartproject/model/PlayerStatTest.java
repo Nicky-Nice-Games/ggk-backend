@@ -18,13 +18,26 @@ public class PlayerStatTest {
     private OffenseUsage offense;
     private TrapUsage trap;
     private BoostUsage boost;
+    public static final String TO_STRING_FORMAT = "\nPlayer Info:\r\n" + //
+                                "\tPID = %s,\r\n" + //
+                                "\tEmail = %s,\r\n" + //
+                                "\tpw = %s,\r\n" + //
+                                "\tUID = %d,\r\n" + //
+                                "\tUsername = %s,\r\n" + //
+                                "\tCollision With Wall = %d,\r\n" + //
+                                "\tCollision With Player = %d,\r\n" + //
+                                "\tFell of the map = %d,\r\n" + //
+                                "\tFastest Time = %d,\r\n" + //
+                                "\tFavorite Character = %d,\r\n" + //
+                                "\tNumber of First Place = %f,\r\n" + //
+                                "\tNumber of Podium = %f,\r\n";
 
     @BeforeEach
     void init(){
         this.offense = new OffenseUsage(9,10);
         this.trap = new TrapUsage(11, 12);
         this.boost = new BoostUsage(13, 14, 15);
-        this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,
+        this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
          this.offense, this.trap, this.boost, 16.0, 17.0);
     }
 
@@ -55,7 +68,9 @@ public class PlayerStatTest {
 
     @Test
     void testSetBoostUsage() {
-        assertEquals(check.getBoostUsage(), boost);
+        boost = new BoostUsage(1, 2, 3);
+        check.setBoostUsage(boost);
+        assertEquals(boost, check.getBoostUsage());
     }
 
     @Test
@@ -84,8 +99,45 @@ public class PlayerStatTest {
         assertEquals(check.getTrapUsage(), a);
     }
 
-    // @Test
-    // void testToString() {
-        
-    // }
+    @Test
+    void testToString() {
+        String expected_String  = String.format(TO_STRING_FORMAT, "1", "2", "3", 4, "5", 6, 7, 8,18,19, 16.0, 17.0) +
+        "\n\t" + offense+
+        "\n\t" + trap +  
+        "\n\t" + boost;
+        assertEquals(expected_String, check.toString());
+    }
+
+    @Test
+    void testGetCollisionWithPlayer() {
+        assertEquals(7, check.getCollisionWithPlayer());
+    }
+
+    @Test
+    void testGetCollisionWithWall() {
+        assertEquals(6, check.getCollisionWithWall());
+    }
+
+    @Test
+    void testGetFelloffmap() {
+        assertEquals(8, check.getFelloffmap());
+    }
+
+    @Test
+    void testSetCollisionWithPlayer() {
+        this.check.setCollisionWithPlayer(100);
+        assertEquals(100, check.getCollisionWithPlayer());
+    }
+
+    @Test
+    void testSetCollisionWithWall() {
+        this.check.setCollisionWithWall(100);
+        assertEquals(100, check.getCollisionWithWall());
+    }
+
+    @Test
+    void testSetFelloffmap() {
+        this.check.setFelloffmap(9090);
+        assertEquals(9090, check.getFelloffmap());
+    }
 }

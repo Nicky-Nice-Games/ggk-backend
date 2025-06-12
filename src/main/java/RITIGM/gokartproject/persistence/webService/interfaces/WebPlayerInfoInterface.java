@@ -43,5 +43,13 @@ public interface WebPlayerInfoInterface {
      */
     abstract PlayerInfo createUser(String email, String password,int uid, String username) throws SQLException;
 
+    /**
+     * 
+     * @param email
+     * @return
+     * @throws SQLException
+     */
+    abstract boolean verifyEmail(String email) throws SQLException;
+
 
 }

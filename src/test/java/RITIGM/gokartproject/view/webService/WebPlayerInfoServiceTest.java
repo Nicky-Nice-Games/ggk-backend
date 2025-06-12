@@ -13,15 +13,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
+import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.OffenseUsage;
+import RITIGM.gokartproject.model.usage.TrapUsage;
+import RITIGM.gokartproject.persistence.webService.dao.PlayerStatDAO;
+import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 
 public class WebPlayerInfoServiceTest {
 
     private WebPlayerInfoInterface mockWebPlayerDAO;
-    private WebPlayerInfoService wpInfoService; 
+    private WebPlayerInfoService wpInfoService;
+    private PlayerStatInterface playerStatInterface;
+    private PlayerStatDAO playerStatDAO;
+
 
     /**
      * Init mock object for the class
@@ -29,7 +38,12 @@ public class WebPlayerInfoServiceTest {
     @BeforeEach
     public void setupPlayerInfo(){
         mockWebPlayerDAO = mock(WebPlayerInfoInterface.class);
-        wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO);
+        this.playerStatInterface = mock(PlayerStatInterface.class);
+
+        this.playerStatDAO = mock(PlayerStatDAO.class);
+        this.
+
+        wpInfoService = new WebPlayerInfoService(mockWebPlayerDAO, this.playerStatInterface);
     }
 
     /**
@@ -139,5 +153,46 @@ public class WebPlayerInfoServiceTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNull(response.getBody());
 
+    }
+
+    @Test
+    void testGetPlayerDetailInfo() throws SQLException {
+        OffenseUsage offense = new OffenseUsage(9,10);
+        TrapUsage trap = new TrapUsage(11, 12);
+        BoostUsage boost = new BoostUsage(13, 14, 15);
+         PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
+         offense, trap, boost, 16.0, 17.0);
+
+        when(playerStatInterface.getPlayerStat("1")).thenReturn(check);
+        ResponseEntity<PlayerStat> response = wpInfoService.getPlayerDetailInfo("1");
+        assertEquals(check, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(playerStatInterface.getPlayerStat("1")).thenReturn(null);
+        response = wpInfoService.getPlayerDetailInfo("1");
+        assertNull( response.getBody());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        when(playerStatInterface.getPlayerStat("1")).thenThrow();
+        response = wpInfoService.getPlayerDetailInfo("1");
+        assertNull( response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
+
+    @Test
+    void testCheckEmail() throws SQLException {
+         ResponseEntity<Boolean> response;
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(true);
+        response = wpInfoService.checkEmail("test@email.com");
+        assertEquals(true, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenThrow();
+        response = wpInfoService.checkEmail("test@email.com");
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        
     }
 }
