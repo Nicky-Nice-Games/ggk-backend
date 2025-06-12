@@ -64,11 +64,11 @@ public class WebPlayerInfoService {
      * @param password player's password
      * @return the player data corresponding to the username and password if successful
      */
-    @PostMapping("/username")
-    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
-        log.info("GET /webservice/playerinfo/" + info.getUsername());
+    @GetMapping("/getinfo/{username}/{password}")
+    public ResponseEntity<PlayerInfo> getPlayerByUsername(@PathVariable String username, @PathVariable String password){
+        log.info("GET /webservice/playerinfo/" + username);
         try {
-            PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
+            PlayerInfo playerInfo = this.webPlayerInfoDAO.getPlayerInfoWithUsername(username, password);
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
