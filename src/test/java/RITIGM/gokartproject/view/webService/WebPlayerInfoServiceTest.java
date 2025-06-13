@@ -6,6 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
+import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
@@ -194,5 +196,21 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         
+    }
+
+    @Test
+    void testGetRecentRaces() throws SQLException{
+        ResponseEntity<ArrayList<RaceLog>> response;
+        ArrayList<RaceLog> logTest = new ArrayList<RaceLog>(5);
+
+        when(mockWebPlayerDAO.getRecentGames("20")).thenReturn(logTest);
+        response = wpInfoService.getRecentRaces("20");
+        assertEquals(logTest, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.getRecentGames("20")).thenThrow(new SQLException());
+        response = wpInfoService.getRecentRaces("20");
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
