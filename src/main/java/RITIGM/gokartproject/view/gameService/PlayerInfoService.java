@@ -66,11 +66,11 @@ public class PlayerInfoService {
      * @param password player's password
      * @return the player data corresponding to the username and password if successful
      */
-    @PostMapping("/login/username")
-    public ResponseEntity<PlayerInfo> getPlayerByUsername(@RequestBody LoginCreds info){
-        log.info("GET /gameservice/playerinfo/" + info.getUsername());
+    @GetMapping("/login/{username}/{password}")
+    public ResponseEntity<PlayerInfo> getPlayerByUsername(@PathVariable String username, @PathVariable String password){
+        log.info("GET /gameservice/playerinfo/" + username);
         try {
-            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(info.getUsername(), info.getPassword());
+            PlayerInfo playerInfo = this.playerInfoDAO.getPlayerInfoWithUsername(username, password);
             if(playerInfo != null){
                 return new ResponseEntity<PlayerInfo>(playerInfo, HttpStatus.OK);
             }
