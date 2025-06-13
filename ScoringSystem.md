@@ -40,16 +40,18 @@ If say Lisa finish the race in only 246927 milisecond, her Time portion Scoring 
 ### Placement Portion (Accounting up to 1000 of total point)
 Calculated by
 
-Placement Scoring = (Total player - Current Placement + 1) / Total Player * 1000
+Placement Scoring = (12 - Current Placement + 1) / 12 * 1000
+
+If the player get anything lower than the 12th place. Placement Score portion WILL NOT BE AWARDED
 
 Example:
-If Lisa got first in the race of the race of 12 people she would get
+If Lisa got first in the race of the race, she would get
 
 Placement Scoring = (12 - 1 + 1) / 12 * 1000 = 1000 point (perfect score)
 
-Another race with Bobby get 4 in the race of 11 people he would get
+Another race with Bobby get 4 in the race, he would get
 
-Placement Scoring = (11 - 4 + 1) / 11 * 1000 = which would be around 727.272 points for his placement reward
+Placement Scoring = (12 - 4 + 1) / 11 * 1000 = which would be around 727.272 points for his placement reward
 
 ### Item Usage Portion (Accounting up to 500 of total point)
 Calculated by
@@ -76,7 +78,7 @@ Example:
 So if you utilizing all of the previous example example of Bobby (which will say fall of the map 4 times during the race) and Lisa (fall of the map once). And the map have the difficulty multiplier of 2.25. Then we will have
 
 Bobby Score = (5490.90 + 727.27 + 300) * (1 - 0.02 * 4) * 2.25 = 13,492 total points
-Lisa Score = (8500 + 1000 + 500) * (1 - 0.02 * 1) * 2.25 = 22,050 total points (RIP Lisa perfect run for the day)
+Lisa Score = (8500 + 1000 + 500) * (1 - 0.02 * 1) * 2.25 = 22,050 total points (RIP Lisa perfect run)
 
 ## Total Point for Profiles
 
