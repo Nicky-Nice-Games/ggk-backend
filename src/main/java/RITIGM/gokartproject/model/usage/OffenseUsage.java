@@ -25,22 +25,41 @@ public class OffenseUsage {
         this.puck2 = puck2;
     }
 
+    /**
+     * getter for puck 1
+     * @return puck 1
+     */
     public int getPuck1() {
         return puck1;
     }
 
+    /**
+     * setter for puck 1
+     * @param puck1 puck 1
+     */
     public void setPuck1(int puck1) {
         this.puck1 = puck1;
     }
 
+    /**
+     * getter for puck 2
+     * @return puck 2
+     */
     public int getPuck2() {
         return puck2;
     }
 
+    /**
+     * setter for puck 2
+     * @param puck2 puck 2
+     */
     public void setPuck2(int puck2) {
         this.puck2 = puck2;
     }
 
+    /**
+     * Equvalence operate overide for OffenseUsage
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -57,6 +76,9 @@ public class OffenseUsage {
         return true;
     }
 
+    /**
+     * ToString Overide for OffenseUsage Object
+     */
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, this.puck1, this.puck2);

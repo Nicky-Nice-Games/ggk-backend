@@ -48,8 +48,10 @@ public class RaceLog {
      * @param racePos The race position
      * @param mapRaced the map raced
      * @param characterUsed the character usage
+     * @param collisionWithPlayer collsions with racers
+     * @param collisionWithWall collisions with wall
+     * @param felloffmap falls off of map
      * @param boostStat all of boost stat
-     * @param collisionStat all of the collision stat
      * @param offenseStat all of the offense stat
      * @param trapUsage all of of the trap stat 
      */
@@ -266,6 +268,7 @@ public class RaceLog {
      * 
      * Checking: player ID, race start time, race run time, race position
      * Map raced on and which character used
+     * @param obj comparator (don't care if that's a real word, you know what I mean)
      */
     @Override
     public boolean equals(Object obj){

@@ -18,7 +18,8 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 
 /**
- * {@inheritDoc}
+ * Handles writing and Reading of data to the database
+ * pertaining to player information as it is needed for webservice
  */ 
 @Component
 public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
@@ -176,6 +177,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         return returnPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean verifyEmail(String email) throws SQLException{
 
@@ -194,6 +198,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<RaceLog> getRecentGames(String pid) throws SQLException{
         

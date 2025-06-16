@@ -21,22 +21,50 @@ public class NoUID {
         this.password = password;
     }
 
-    //Setter and getter for the new account object
+    /**
+     * getter for user email
+     * @return user email
+     */
     public String getEmail() {
         return email;
     }
+
+    /**
+     * setter for user email
+     * @param email user email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * getter for username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
+
+    /**
+     * setter for username
+     * @param username username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
+
+    /**
+     * getter for password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     * setter for password
+     * @param password password
+     */
     public void setPassword(String password) {
         this.password = password;
     }

@@ -13,11 +13,18 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * handles reading and writing of data from the database
+ * as it pertains to the leaderboard
+ */
 @Component
 public class LeaderboardDAO implements LeaderboardInterface{
     private Conn connCls;
     private Connection conn;
 
+    /**
+     * CONSTRUCTOR
+     */
     public LeaderboardDAO(){
         this.connCls = new Conn();
         this.conn = this.connCls.getConnection();
