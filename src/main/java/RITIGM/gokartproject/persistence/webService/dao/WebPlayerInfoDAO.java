@@ -23,16 +23,7 @@ import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInter
 @Component
 public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
-    private Conn connCls = null;
-    private Connection conn = null;
-
     public WebPlayerInfoDAO(){
-        try {
-            this.connCls = new Conn();
-            this.conn = this.connCls.getConnection();
-        } catch (Exception e) {
-            System.err.println("Error in init a new connection: " + e);
-        }
     }
 
     /**
@@ -44,6 +35,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo player = null;
 
         String query = "SELECT * FROM players WHERE pid = ?";
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, playerID);
 
@@ -56,9 +49,11 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                 result.getInt("uid"), 
                 result.getString("username"));
             } else {
+                connCls.closeConnection();
                 return null;
             }
-
+        
+        connCls.closeConnection();
         return player;
     }
 
@@ -72,7 +67,10 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo player = null;
 
         String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
-        PreparedStatement stmt = this.conn.prepareStatement(query);
+
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
 
         stmt.setString(1, username);
         stmt.setString(2, checkPw);
@@ -86,9 +84,11 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                 result.getInt("uid"), 
                 result.getString("username"));
             } else {
+                connCls.closeConnection();
                 return null;
             }
-
+        
+        connCls.closeConnection();
         return player;
     }
 
@@ -102,6 +102,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo returnPlayer = null;
 
         String query = "INSERT INTO players (Email, Password, username) VALUE (?, ?, ?);";
+
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
 
         stmt.setString(1, email);
@@ -115,7 +118,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
 
         String queryLookUp =  "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
-        PreparedStatement stmtCheck = this.conn.prepareStatement(queryLookUp);
+        PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
         stmtCheck.setString(1, email);
         stmtCheck.setString(2, checkPw);
         stmtCheck.setString(3, username);
@@ -128,7 +131,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             check.getString("username"));
 
         }
-
+        connCls.closeConnection();
         return returnPlayer;
     }
 
@@ -139,6 +142,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     public PlayerInfo createUser(String email, String password,int uid, String username) throws SQLException{
         String checkPw =  Integer.toString(password.hashCode());
         PlayerInfo returnPlayer = null;
+
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
 
         String query = "INSERT INTO players (Email, Password, username, uid) VALUE (?, ?, ?, ?);";
         PreparedStatement stmt = conn.prepareStatement(query);
@@ -170,9 +176,11 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
         }
         else{
+            connCls.closeConnection();
             return null;
         }
 
+        connCls.closeConnection();
         return returnPlayer;
     }
 
@@ -184,13 +192,18 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         "  FROM players\n" + //
                         "  WHERE Email = ?\n" + //
                         ") AS EmailExists;";
+
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, email);
         ResultSet check = stmt.executeQuery();
         if(check.next()){
+            connCls.closeConnection();
             return check.getBoolean("EmailExists");
         }
         
+        connCls.closeConnection();
         return false;
     }
 
@@ -204,6 +217,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         "ORDER BY racestarttime, raceid DESC\n" + //
                         "LIMIT 5;";
         
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, pid);
         ResultSet check = stmt.executeQuery();
@@ -231,6 +246,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         check.getInt("oilspill2"))));
         }
 
+        connCls.closeConnection();
         return recentRaces;
 
     }
@@ -247,6 +263,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         "FROM racelog\n" + //
                         "WHERE pid = ?\n" + //
                         "AND mapraced = ?;";
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
         PreparedStatement stmtTop = conn.prepareStatement(topQuery);
         stmtTop.setString(1, pid);
         stmtTop.setInt(2,trackId);
@@ -255,6 +273,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             stats.add(check.getInt("topPos"));
         }
         else{
+            connCls.closeConnection();
             return null;
         }
 
@@ -271,9 +290,11 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             stats.add(check.getInt("fastestTime"));
         }
         else{
+            connCls.closeConnection();
             return null;
         }
 
+        connCls.closeConnection();
         return stats;
         //You've found the secret comment! 
     }

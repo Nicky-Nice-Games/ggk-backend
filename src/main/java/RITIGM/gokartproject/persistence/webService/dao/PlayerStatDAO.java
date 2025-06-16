@@ -17,13 +17,8 @@ import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterfac
 @Component
 public class PlayerStatDAO implements PlayerStatInterface{
 
-    private Conn connCls;
-    private Connection conn;
-
 
     public PlayerStatDAO(){
-        this.connCls = new Conn();
-        this.conn = this.connCls.getConnection();
     }
 
     @Override
@@ -52,7 +47,10 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 p.pid, p.Email, p.Password, p.uid, p.username;
         """;
 
-        PreparedStatement mainstmt = this.conn.prepareStatement(mainQuery);
+        Conn connCls = new Conn();
+        Connection conn = connCls.getConnection();
+
+        PreparedStatement mainstmt = conn.prepareStatement(mainQuery);
         mainstmt.setString(1, pid);
 
         ResultSet data = mainstmt.executeQuery();
@@ -82,6 +80,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                     0.0,
                 0.0);
         } else{
+            connCls.closeConnection();
             return null;
         }
 
@@ -97,13 +96,14 @@ public class PlayerStatDAO implements PlayerStatInterface{
             p.pid = ?;        
         """;
 
-        PreparedStatement firststmt = this.conn.prepareStatement(queryfirst);
+        PreparedStatement firststmt = conn.prepareStatement(queryfirst);
         firststmt.setString(1, pid);
         ResultSet firstdata = firststmt.executeQuery();
 
         if (firstdata.next() == true){
             returnStat.setFirstPlace(firstdata.getDouble("totalpodium"));
         } else{
+            connCls.closeConnection();
             throw new SQLException("Error in fetching first place");
         }
 
@@ -119,13 +119,14 @@ public class PlayerStatDAO implements PlayerStatInterface{
             p.pid = ?;        
         """;
 
-        PreparedStatement podiumstmt = this.conn.prepareStatement(queryPodium);
+        PreparedStatement podiumstmt = conn.prepareStatement(queryPodium);
         podiumstmt.setString(1, pid);
         ResultSet podiumdata = podiumstmt.executeQuery();
 
         if (podiumdata.next() == true){
             returnStat.setPodium(podiumdata.getDouble("totalpodium"));
         } else{
+            connCls.closeConnection();
             throw new SQLException("Error in fetching podium");
         }
         
@@ -139,13 +140,14 @@ public class PlayerStatDAO implements PlayerStatInterface{
         
         """;
         
-        PreparedStatement stmt = this.conn.prepareStatement(fastestLap);
+        PreparedStatement stmt = conn.prepareStatement(fastestLap);
         stmt.setString(1, pid);
         ResultSet fastestTime = stmt.executeQuery();
 
         if(fastestTime.next()){
             returnStat.setFastestTime(fastestTime.getInt("fastest"));
         } else{
+            connCls.closeConnection();
             throw new SQLException("Error in fetching fastest time");
         }
 
@@ -161,7 +163,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
             LIMIT 1;        
         """;
         
-        PreparedStatement charastmt = this.conn.prepareStatement(favoriteCharacter);
+        PreparedStatement charastmt = conn.prepareStatement(favoriteCharacter);
         charastmt.setString(1, pid);
 
         ResultSet favCharaSet = charastmt.executeQuery();
@@ -169,10 +171,11 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(favCharaSet.next()){
             returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
         } else{
+            connCls.closeConnection();
             throw new SQLException("Error in fetching favchara");
         }
         
-        
+        connCls.closeConnection();
         return returnStat;
     }
 }
