@@ -1,7 +1,9 @@
 package RITIGM.gokartproject.view.webService;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
+import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
@@ -152,6 +155,17 @@ public class WebPlayerInfoService {
             return new ResponseEntity<Boolean>(email_status, HttpStatus.OK);
         }
         catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getrecentstats/{pid}")
+    public ResponseEntity<ArrayList<RaceLog>> getRecentRaces(@PathVariable String pid){
+        try{
+            ArrayList<RaceLog> recentRaces = webPlayerInfoDAO.getRecentGames(pid);
+            return new ResponseEntity<ArrayList<RaceLog>>(recentRaces, HttpStatus.OK);
+        } 
+        catch( Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
