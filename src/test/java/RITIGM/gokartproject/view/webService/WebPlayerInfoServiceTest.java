@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -212,5 +213,27 @@ public class WebPlayerInfoServiceTest {
         response = wpInfoService.getRecentRaces("20");
         assertNull(response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    void testGetPlayerTrackData() throws SQLException{
+        ResponseEntity<ArrayList<Integer>> response;
+        ArrayList<Integer> results = new ArrayList<>(Arrays.asList(1,1));
+
+        when(mockWebPlayerDAO.getSpecificTrackData("20", 4)).thenReturn(results);
+        response = wpInfoService.getPlayerTrackData("20", 4);
+        assertEquals(results, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.getSpecificTrackData("20", 4)).thenReturn(null);
+        response = wpInfoService.getPlayerTrackData("20", 4);
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+        when(mockWebPlayerDAO.getSpecificTrackData("20", 4)).thenThrow();
+        response = wpInfoService.getPlayerTrackData("20", 4);
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
     }
 }

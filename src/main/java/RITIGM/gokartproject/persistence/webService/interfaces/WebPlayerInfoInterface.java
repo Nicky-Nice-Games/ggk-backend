@@ -61,5 +61,15 @@ public interface WebPlayerInfoInterface {
      */
     abstract ArrayList<RaceLog> getRecentGames(String pid) throws SQLException;
 
+    /**
+     * Retrives player stats from a specific track from the database
+     * @param pid player id
+     * @param trackId track id
+     * @return Returns IN THIS ORDER the top postion earned on the track
+     * and the fastest time for a player
+     * IF EITHER PIECE OF DATA IS MISSING returns null to prevent formatting issues
+     */
+    abstract ArrayList<Integer> getSpecificTrackData(String pid, int trackId) throws SQLException;
+
 
 }
