@@ -18,21 +18,18 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
 
 /**
- * {@inheritDoc}
+ * Handles writing and Reading of data to the database
+ * pertaining to player information as it is needed for webservice
  */ 
 @Component
 public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
-
-    private Conn connCls = null;
-    private Connection conn = null;
+    private Conn connCls;
+    private Connection conn; 
 
     public WebPlayerInfoDAO(){
-        try {
-            this.connCls = new Conn();
-            this.conn = this.connCls.getConnection();
-        } catch (Exception e) {
-            System.err.println("Error in init a new connection: " + e);
-        }
+
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
     /**
@@ -58,7 +55,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             } else {
                 return null;
             }
-
         return player;
     }
 
@@ -72,7 +68,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo player = null;
 
         String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
-        PreparedStatement stmt = this.conn.prepareStatement(query);
+
+        PreparedStatement stmt = conn.prepareStatement(query);
 
         stmt.setString(1, username);
         stmt.setString(2, checkPw);
@@ -88,7 +85,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             } else {
                 return null;
             }
-
         return player;
     }
 
@@ -102,6 +98,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         PlayerInfo returnPlayer = null;
 
         String query = "INSERT INTO players (Email, Password, username) VALUE (?, ?, ?);";
+
         PreparedStatement stmt = conn.prepareStatement(query);
 
         stmt.setString(1, email);
@@ -115,7 +112,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
 
         String queryLookUp =  "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
-        PreparedStatement stmtCheck = this.conn.prepareStatement(queryLookUp);
+        PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
         stmtCheck.setString(1, email);
         stmtCheck.setString(2, checkPw);
         stmtCheck.setString(3, username);
@@ -128,7 +125,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             check.getString("username"));
 
         }
-
         return returnPlayer;
     }
 
@@ -172,10 +168,12 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         else{
             return null;
         }
-
         return returnPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean verifyEmail(String email) throws SQLException{
 
@@ -184,6 +182,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         "  FROM players\n" + //
                         "  WHERE Email = ?\n" + //
                         ") AS EmailExists;";
+
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, email);
         ResultSet check = stmt.executeQuery();
@@ -194,6 +193,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ArrayList<RaceLog> getRecentGames(String pid) throws SQLException{
         
@@ -203,7 +205,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                         "WHERE pid = ?\n" + //
                         "ORDER BY racestarttime, raceid DESC\n" + //
                         "LIMIT 5;";
-        
+
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, pid);
         ResultSet check = stmt.executeQuery();
@@ -273,7 +275,6 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         else{
             return null;
         }
-
         return stats;
         //You've found the secret comment! 
     }

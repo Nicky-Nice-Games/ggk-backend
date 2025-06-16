@@ -13,14 +13,21 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * handles reading and writing of data from the database
+ * as it pertains to the leaderboard
+ */
 @Component
 public class LeaderboardDAO implements LeaderboardInterface{
     private Conn connCls;
-    private Connection conn;
+    private Connection conn; 
 
+    /**
+     * CONSTRUCTOR
+     */
     public LeaderboardDAO(){
         this.connCls = new Conn();
-        this.conn = this.connCls.getConnection();
+        this.conn = connCls.getConnection();
     }
 
     /**
@@ -40,7 +47,7 @@ public class LeaderboardDAO implements LeaderboardInterface{
             GROUP BY p.pid
             ORDER BY leaderboardtime;        
             """;
-
+        
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, mapID);
 
@@ -53,6 +60,7 @@ public class LeaderboardDAO implements LeaderboardInterface{
                 updateCheck.getTimestamp("racestarttime"),
                 updateCheck.getInt("leaderboardtime")));            
         }
+
         return returnData;
     }
     

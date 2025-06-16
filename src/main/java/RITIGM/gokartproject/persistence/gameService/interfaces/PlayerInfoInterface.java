@@ -42,15 +42,21 @@ public interface PlayerInfoInterface {
      * @return the player info created
      * @throws SQLException if things gone wrong while inserting into the database
      */
-    PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
+    abstract PlayerInfo createUser(String email, String pw,int uid, String username) throws SQLException;
 
+    /**
+     * allows login with UID
+     * @param uid player uid
+     * @return player info corresponding to uid
+     * @throws SQLException IT JUST DOESN'T WORK WITH THE DATABASE, STOP ASKING
+     */
     abstract PlayerInfo loginWithUID(int uid) throws SQLException;
 
     /**
-     * 
-     * @param email
-     * @return
-     * @throws SQLException
+     * checks if an email is in use already
+     * @param email potential email to check
+     * @return logic gate (true false base on status of email existance)
+     * @throws SQLException internal server error
      */
     abstract boolean verifyEmail(String email) throws SQLException;
 

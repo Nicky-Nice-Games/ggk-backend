@@ -26,27 +26,66 @@ public class CreateUID {
     }
 
     // All of the setters and getter for the object
+    /**
+     * getter for email
+     * @return player email
+     */
     public String getEmail() {
         return email;
     }
+
+    /**
+     * setter for email
+     * @param email player email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * getter for username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
+
+    /**
+     * setter for username 
+     * @param username username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
+
+    /**
+     * getter for password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     * setter for password
+     * @param password password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
+
+    /**
+     * getter for uid
+     * @return uid
+     */
     public Integer getUid() {
         return uid;
     }
+
+    /**
+     * setter for uid
+     * @param uid uid
+     */
     public void setUid(Integer uid) {
         this.uid = uid;
     }   

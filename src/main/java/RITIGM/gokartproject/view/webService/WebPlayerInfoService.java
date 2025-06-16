@@ -85,9 +85,7 @@ public class WebPlayerInfoService {
 
         /**
      * Creates a new user in the database
-     * @param email user email
-     * @param password user password
-     * @param username user password
+     * @param info object containing email, password, and username
      * @return the new user if they were succesfully created
      */
     @PostMapping("/create")
@@ -110,10 +108,7 @@ public class WebPlayerInfoService {
 
     /**
      * Overload of user creation that accepts an additional uid parameter
-     * @param email user email
-     * @param password user password
-     * @param uid user id 
-     * @param username username
+     * @param info object containing email, password, uid, and username
      * @return the new user if they were successfully added
      */
     @PostMapping("/create/uid")
@@ -133,6 +128,11 @@ public class WebPlayerInfoService {
         }
     }
 
+    /**
+     * retreives pkayer data corresponding to player id
+     * @param pid player id
+     * @return relevant player data
+     */
     @GetMapping("/getinfo/{pid}")
     public ResponseEntity<PlayerStat> getPlayerDetailInfo(@PathVariable String pid) {
         log.info("POST /webservice/playerinfo/getinfo/" + pid);
@@ -147,7 +147,11 @@ public class WebPlayerInfoService {
         }
     }
 
-    
+    /**
+     * checks if an email is currently in use
+     * @param email email to check
+     * @return true if email is in use, false if not
+     */
     @GetMapping("/{email}")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
         try{
@@ -159,6 +163,11 @@ public class WebPlayerInfoService {
         }
     }
 
+    /**
+     * retrieves a log of a players most recent races
+     * @param pid player id
+     * @returna list of a players most recent races, up to 5 races max
+     */
     @GetMapping("/getrecentstats/{pid}")
     public ResponseEntity<ArrayList<RaceLog>> getRecentRaces(@PathVariable String pid){
         try{

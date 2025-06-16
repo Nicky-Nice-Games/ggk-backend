@@ -12,23 +12,17 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 
 /**
- * {@inheritDoc}
+ * Handles reading and writing of data to the database
+ * pertaining to player information
  */
 @Component
 public class PlayerInfoDAO implements PlayerInfoInterface{
-
-    
-
-    private Conn connCls = null;
-    private Connection conn = null;
+    private Conn connCls;
+    private Connection conn; 
 
     public PlayerInfoDAO(){
-        try {
-            this.connCls = new Conn();
-            this.conn = this.connCls.getConnection();
-        } catch (Exception e) {
-            System.err.println("Error in init a new connection: " + e);
-        }
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
 
@@ -41,7 +35,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             PlayerInfo player = null;
             
             String query = "SELECT * FROM players WHERE pid = ?";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, playerID);
 
             ResultSet result = stmt.executeQuery();
@@ -56,7 +50,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             } else {
                 return null;
             }
-
             return player;
     }
 
@@ -65,12 +58,12 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo createUser(String email, String pw, String username) throws SQLException{
-        
+
             String checkpw = Integer.toString(pw.hashCode());
             PlayerInfo returnPlayer = null;
 
             String query = "INSERT INTO players (Email, Password, username) VALUE (?, ?, ?);";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
             
             stmt.setString(1, email);
             stmt.setString(2, checkpw);
@@ -83,7 +76,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
 
             String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
-            PreparedStatement stmtCheck = this.conn.prepareStatement(queryLookUp);
+            PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
             stmtCheck.setString(1, email);
             stmtCheck.setString(2, checkpw);
             stmtCheck.setString(3, username);
@@ -96,7 +89,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 check.getString("username"));
 
             }
-
             return returnPlayer;
       
     }
@@ -111,7 +103,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             PlayerInfo returnPlayer = null;
 
             String query = "INSERT INTO players (Email, Password, username, uid) VALUE (?, ?, ?, ?);";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
             
             stmt.setString(1, email);
             stmt.setString(2, checkpw);
@@ -124,7 +116,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             }
 
             String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ? AND uid = ?;";
-            PreparedStatement stmtCheck = this.conn.prepareStatement(queryLookUp);
+            PreparedStatement stmtCheck = conn.prepareStatement(queryLookUp);
             stmtCheck.setString(1, email);
             stmtCheck.setString(2, checkpw);
             stmtCheck.setString(3, username);
@@ -137,7 +129,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 check.getInt("uid"),
                 check.getString("username"));
             }
-
             return returnPlayer;
     }
 
@@ -146,11 +137,11 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException {
-        
+
             PlayerInfo returnInfo = null;
             String hashedPw = Integer.toString(pw.hashCode());
             String query = "SELECT * FROM players WHERE username = ? AND Password = ?;";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, username);
             stmt.setString(2, hashedPw);
 
@@ -164,6 +155,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getInt("uid"),
                     result.getString("username"));
             }
+
             return returnInfo;
     }
 
@@ -172,25 +164,27 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo loginWithUID(int uid) throws SQLException {
+
         PlayerInfo info = null;
-            String query = "SELECT * FROM players WHERE uid = ?";
-            PreparedStatement stmt = this.conn.prepareStatement(query);
-            stmt.setInt(1, uid);
-            ResultSet result = stmt.executeQuery();
+        String query = "SELECT * FROM players WHERE uid = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, uid);
+        ResultSet result = stmt.executeQuery();
 
-            if(result.next()){
-                info = new PlayerInfo(
-                    result.getString("pid"),
-                    result.getString("Email"),
-                    result.getString("Password"),
-                    result.getInt("uid"),
-                    result.getString("username"));
-            }
+        if(result.next()){
+            info = new PlayerInfo(
+                result.getString("pid"),
+                result.getString("Email"),
+                result.getString("Password"),
+                result.getInt("uid"),
+                result.getString("username"));
+        }
 
-            if (result.next()){
-                throw new SQLException("Duplicate UID in the codebase");
-            }
-            return info;
+        if (result.next()){
+            throw new SQLException("Duplicate UID in the codebase");
+        }
+
+        return info;
 
     }
 
@@ -205,6 +199,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                         "  FROM players\n" + //
                         "  WHERE Email = ?\n" + //
                         ") AS EmailExists;";
+
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, email);
         ResultSet check = stmt.executeQuery();

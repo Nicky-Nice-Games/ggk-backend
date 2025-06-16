@@ -14,16 +14,17 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
 
+/**
+ * Handles all the database shazzam for player stat objects and api calls
+ */
 @Component
 public class PlayerStatDAO implements PlayerStatInterface{
-
     private Conn connCls;
-    private Connection conn;
-
+    private Connection conn; 
 
     public PlayerStatDAO(){
         this.connCls = new Conn();
-        this.conn = this.connCls.getConnection();
+        this.conn = connCls.getConnection();
     }
 
     @Override
@@ -52,7 +53,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 p.pid, p.Email, p.Password, p.uid, p.username;
         """;
 
-        PreparedStatement mainstmt = this.conn.prepareStatement(mainQuery);
+        PreparedStatement mainstmt = conn.prepareStatement(mainQuery);
         mainstmt.setString(1, pid);
 
         ResultSet data = mainstmt.executeQuery();
@@ -97,7 +98,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
             p.pid = ?;        
         """;
 
-        PreparedStatement firststmt = this.conn.prepareStatement(queryfirst);
+        PreparedStatement firststmt = conn.prepareStatement(queryfirst);
         firststmt.setString(1, pid);
         ResultSet firstdata = firststmt.executeQuery();
 
@@ -119,7 +120,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
             p.pid = ?;        
         """;
 
-        PreparedStatement podiumstmt = this.conn.prepareStatement(queryPodium);
+        PreparedStatement podiumstmt = conn.prepareStatement(queryPodium);
         podiumstmt.setString(1, pid);
         ResultSet podiumdata = podiumstmt.executeQuery();
 
@@ -139,7 +140,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         
         """;
         
-        PreparedStatement stmt = this.conn.prepareStatement(fastestLap);
+        PreparedStatement stmt = conn.prepareStatement(fastestLap);
         stmt.setString(1, pid);
         ResultSet fastestTime = stmt.executeQuery();
 
@@ -161,7 +162,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
             LIMIT 1;        
         """;
         
-        PreparedStatement charastmt = this.conn.prepareStatement(favoriteCharacter);
+        PreparedStatement charastmt = conn.prepareStatement(favoriteCharacter);
         charastmt.setString(1, pid);
 
         ResultSet favCharaSet = charastmt.executeQuery();
@@ -171,7 +172,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
         } else{
             throw new SQLException("Error in fetching favchara");
         }
-        
         
         return returnStat;
     }
