@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
  * 
- * @author: Peter Dang
+ * @author Peter Dang
  */
 
 
@@ -37,6 +37,10 @@ public class GameLogService {
     private GameLogInterface gameLogDAO;
 
 
+    /**
+     * constructor
+     * @param gameLogDAO DAO code for Gamelog
+     */
     public GameLogService(GameLogInterface gameLogDAO){
         this.gameLogDAO = gameLogDAO;
     }
@@ -44,7 +48,7 @@ public class GameLogService {
     /**
      * Add a new race into the database
      * @param raceLog the info about that race
-     * @return: status if the race added successfully
+     * @return status if the race added successfully
      */
     @PostMapping("")
     public ResponseEntity<Void> postMethodName(@RequestBody RaceLog raceLog) {
@@ -66,7 +70,7 @@ public class GameLogService {
 
     /**
      * Fetch the race by the raceID
-     * @param id the raceId that needed to lookup
+     * @param rid the raceId that needed to lookup
      * @return the race corresponding to that id
      */
     @GetMapping("/{rid}")
@@ -87,7 +91,7 @@ public class GameLogService {
 
     /**
      * Fetch the race by that playerID
-     * @param id the ID of that player
+     * @param pid the ID of that player
      * @return all of the race instance of that player
      */
     @GetMapping("/player/{pid}")

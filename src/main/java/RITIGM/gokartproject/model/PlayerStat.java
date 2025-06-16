@@ -37,10 +37,14 @@ public class PlayerStat extends PlayerInfo{
      * @param pw player password (HASHED ONLY)
      * @param uid user id
      * @param username player username
+     * @param collisionWithPlayer the collision with racers
+     * @param collisionWithWall the collision with the wall
+     * @param felloffmap number of falls
      * @param offenseUsage the offense usage
      * @param trapUsage the trap usage 
-     * @param collisionStat the collision
      * @param boostUsage the boost usage 
+     * @param podium the podium
+     * @param firstPlace percentage of first place wins
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, 
     int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, int favoriteChara,
@@ -82,26 +86,50 @@ public class PlayerStat extends PlayerInfo{
         return boostUsage;
     }
 
+    /**
+     * get the podium placement for a race
+     * @return podium placement
+     */
     public double getPodium(){
         return podium;
     }
 
+    /**
+     * get the fastest time a player has
+     * @return fastest time
+     */
     public int getFastestTime() {
         return fastestTime;
     }
 
+    /**
+     * sets the fastest time for a player
+     * @param fastestTime fastest time
+     */
     public void setFastestTime(int fastestTime) {
         this.fastestTime = fastestTime;
     }
 
+    /**
+     * gets favorite charcater of a player
+     * @return player's most used charcater
+     */
     public int getFavoriteChara() {
         return favoriteChara;
     }
 
+    /**
+     * Sets a players favorite charcater
+     * @param favoriteChara new favorite character
+     */
     public void setFavoriteChara(int favoriteChara) {
         this.favoriteChara = favoriteChara;
     }
 
+    /***
+     * gets the percentage of wins that are first place
+     * @return win percentage
+     */
     public double getFirstPlace(){
         return firstPlace;
     }
@@ -130,35 +158,66 @@ public class PlayerStat extends PlayerInfo{
         this.boostUsage = boostUsage;
     }
 
-
+    /**
+     * sets the podium postion
+     * @param podium podium postions
+     */
     public void setPodium(double podium){
         this.podium = podium;
     }
 
+    /**
+     * sets first place freqency
+     * @param firstPlace new first place frequency percentage
+     */
     public void setFirstPlace(double firstPlace){
         this.firstPlace = firstPlace;
     }
 
+    /**
+     * gets the number of player on racer collisions
+     * @return number of player on racer collisions
+     */
     public int getCollisionWithPlayer() {
         return collisionWithPlayer;
     }
 
+    /**
+     * sets the number of player on racer collisions
+     * @param collisionWithPlayer number of player on racer collisions
+     */
     public void setCollisionWithPlayer(int collisionWithPlayer) {
         this.collisionWithPlayer = collisionWithPlayer;
     }
 
+    /**
+     * gets the number of player collisions with wall
+     * @return collisions with wall
+     */
     public int getCollisionWithWall() {
         return collisionWithWall;
     }
 
+    /**
+     * sets number of collisions with wall
+     * @param collisionWithWall collisions with wall
+     */
     public void setCollisionWithWall(int collisionWithWall) {
         this.collisionWithWall = collisionWithWall;
     }
 
+    /**
+     * gets the number of times the player has fallen off the map
+     * @return falls
+     */
     public int getFelloffmap() {
         return felloffmap;
     }
 
+    /**
+     * sets the number of times a player has fallen off the map
+     * @param felloffmap falls
+     */
     public void setFelloffmap(int felloffmap) {
         this.felloffmap = felloffmap;
     }

@@ -22,7 +22,7 @@ public class PlayerInfo {
     
     /**
      * The template for the player data
-     * @param pidm the player id
+     * @param pid the player id
      * @param email the player email
      * @param pw the player email (ONLY THE HASH CODE)
      * @param uid the player uid 

@@ -85,14 +85,12 @@ public class WebPlayerInfoService {
 
         /**
      * Creates a new user in the database
-     * @param email user email
-     * @param password user password
-     * @param username user password
+     * @param info object containing email, password, and username
      * @return the new user if they were succesfully created
      */
     @PostMapping("/create")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
-        log.info("POST /gameservice/playerinfo/" + info.getUsername());
+        log.info("POST /webservice/playerinfo/" + info.getUsername());
         try {
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
@@ -110,15 +108,12 @@ public class WebPlayerInfoService {
 
     /**
      * Overload of user creation that accepts an additional uid parameter
-     * @param email user email
-     * @param password user password
-     * @param uid user id 
-     * @param username username
+     * @param info object containing email, password, uid, and username
      * @return the new user if they were successfully added
      */
     @PostMapping("/create/uid")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
-        log.info("POST /gameservice/playerinfo/create/uid" + info.getUsername());
+        log.info("POST /webservice/playerinfo/create/uid" + info.getUsername());
         try {
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(),  info.getUid(), info.getUsername());
 
@@ -133,9 +128,14 @@ public class WebPlayerInfoService {
         }
     }
 
+    /**
+     * retreives pkayer data corresponding to player id
+     * @param pid player id
+     * @return relevant player data
+     */
     @GetMapping("/getinfo/{pid}")
     public ResponseEntity<PlayerStat> getPlayerDetailInfo(@PathVariable String pid) {
-        log.info("POST /gameservice/playerinfo/getinfo/" + pid);
+        log.info("POST /webservice/playerinfo/getinfo/" + pid);
 
 
         try {
@@ -147,7 +147,11 @@ public class WebPlayerInfoService {
         }
     }
 
-    
+    /**
+     * checks if an email is currently in use
+     * @param email email to check
+     * @return true if email is in use, false if not
+     */
     @GetMapping("/{email}")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
         try{
@@ -159,6 +163,11 @@ public class WebPlayerInfoService {
         }
     }
 
+    /**
+     * retrieves a log of a players most recent races
+     * @param pid player id
+     * @returna list of a players most recent races, up to 5 races max
+     */
     @GetMapping("/getrecentstats/{pid}")
     public ResponseEntity<ArrayList<RaceLog>> getRecentRaces(@PathVariable String pid){
         try{
@@ -166,6 +175,29 @@ public class WebPlayerInfoService {
             return new ResponseEntity<ArrayList<RaceLog>>(recentRaces, HttpStatus.OK);
         } 
         catch( Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Retrieves player specific data about perfomance on a specific track
+     * @param pid player's id
+     * @param tid track's id
+     * @return returns the top postion (first index in arraylist) player has earned on the track, and the player's fastest
+     * time (second postion in the arraylist)
+     */
+    @GetMapping("/{pid}/{tid}")
+    public ResponseEntity<ArrayList<Integer>> getPlayerTrackData(@PathVariable String pid, @PathVariable int tid){
+        log.info("GET /webservice/playerinfo/{pid}/{tid}");
+        try{
+            ArrayList<Integer> stats = webPlayerInfoDAO.getSpecificTrackData(pid, tid);
+            if(stats != null){
+                return new ResponseEntity<ArrayList<Integer>>(stats, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

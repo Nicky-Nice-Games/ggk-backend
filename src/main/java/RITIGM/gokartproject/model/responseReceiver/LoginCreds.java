@@ -2,7 +2,7 @@ package RITIGM.gokartproject.model.responseReceiver;
 
 
 /**
- * Acceptance template for username and password for the project
+ * defunct, please remove at some point
  */
 public class LoginCreds {
     private String username;
@@ -18,16 +18,34 @@ public class LoginCreds {
         this.password = password;
     }
 
-    // Setters and getters for the object
+    /**
+     * Getter for username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
+
+    /**
+     * setter for username
+     * @param username username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
+
+    /**
+     * getter for password
+     * @return password
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     * setter for pasword
+     * @param password password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
