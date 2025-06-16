@@ -92,7 +92,7 @@ public class WebPlayerInfoService {
      */
     @PostMapping("/create")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
-        log.info("POST /gameservice/playerinfo/" + info.getUsername());
+        log.info("POST /webservice/playerinfo/" + info.getUsername());
         try {
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
@@ -118,7 +118,7 @@ public class WebPlayerInfoService {
      */
     @PostMapping("/create/uid")
     public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
-        log.info("POST /gameservice/playerinfo/create/uid" + info.getUsername());
+        log.info("POST /webservice/playerinfo/create/uid" + info.getUsername());
         try {
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(),  info.getUid(), info.getUsername());
 
@@ -135,7 +135,7 @@ public class WebPlayerInfoService {
 
     @GetMapping("/getinfo/{pid}")
     public ResponseEntity<PlayerStat> getPlayerDetailInfo(@PathVariable String pid) {
-        log.info("POST /gameservice/playerinfo/getinfo/" + pid);
+        log.info("POST /webservice/playerinfo/getinfo/" + pid);
 
 
         try {
@@ -166,6 +166,22 @@ public class WebPlayerInfoService {
             return new ResponseEntity<ArrayList<RaceLog>>(recentRaces, HttpStatus.OK);
         } 
         catch( Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{pid}/{tid}")
+    public ResponseEntity<ArrayList<Integer>> getPlayerTrackData(@PathVariable String pid, @PathVariable int tid){
+        log.info("GET /webservice/playerinfo/{pid}/{tid}");
+        try{
+            ArrayList<Integer> stats = webPlayerInfoDAO.getSpecificTrackData(pid, tid);
+            if(stats != null){
+                return new ResponseEntity<ArrayList<Integer>>(stats, HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
