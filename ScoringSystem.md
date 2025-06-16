@@ -13,9 +13,7 @@ Race Score Attribute
 
 ## Introduction (Total Score For Profiles)
 
-The profiles will total scoring will be taking account into the highest 5 race score for each map (in which the less point of the top 5 they will worth the less point) and take the sum for all of the map currently in play
-
-
+The scoring system takes the top 5 race scores for each map and reduces each by a multiplier of 0.9 ^ (n-1)., where n is the rank of the score (1st to 5th). These adjusted scores are summed to calculate the effective points for each map, and the total of all maps gives the player’s profile score.
 
 ## Total point calculation - Each Race
 The score of each race will be the sum of the max at 10000 point and the Item Usage bonus scoring multiply by the track difficulty multiplier 
