@@ -61,5 +61,13 @@ public interface WebPlayerInfoInterface {
      */
     abstract ArrayList<RaceLog> getRecentGames(String pid) throws SQLException;
 
+    /**
+     * 
+     * @param pid
+     * @param trackId
+     * @return
+     */
+    abstract ArrayList<Integer> getSpecificTrackData(String pid, int trackId) throws SQLException;
+
 
 }

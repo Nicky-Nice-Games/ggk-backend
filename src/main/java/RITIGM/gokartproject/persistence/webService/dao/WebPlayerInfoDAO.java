@@ -235,5 +235,45 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ArrayList<Integer> getSpecificTrackData(String pid, int trackId) throws SQLException{
+        ArrayList<Integer> stats = new ArrayList<Integer>(2);
+
+        String topQuery = "SELECT MIN(racelog.racepos) as topPos\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?\n" + //
+                        "AND mapraced = ?;";
+        PreparedStatement stmtTop = conn.prepareStatement(topQuery);
+        stmtTop.setString(1, pid);
+        stmtTop.setInt(2,trackId);
+        ResultSet check = stmtTop.executeQuery();
+        if(check.next()){
+            stats.add(check.getInt("topPos"));
+        }
+        else{
+            return null;
+        }
+
+        String timeQuery = "SELECT MIN(racelog.racetime) as fastestTime\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?\n" + //
+                        "AND mapraced = ?;";
+        PreparedStatement stmtTime = conn.prepareStatement(timeQuery);
+        stmtTime.setString(1, pid);
+        stmtTime.setInt(2, trackId);
+        check = stmtTime.executeQuery();
+        if(check.next()){
+            stats.add(check.getInt("fastestTime"));
+        }
+        else{
+            return null;
+        }
+
+        return stats;
+    }
+
     
 }
