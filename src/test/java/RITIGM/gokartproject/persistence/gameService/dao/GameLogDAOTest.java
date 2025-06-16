@@ -54,7 +54,7 @@ public class GameLogDAOTest {
         OffenseUsage offense = new OffenseUsage(1, 2);
         TrapUsage trap = new TrapUsage(1, 2);
 
-        sampleEntry = new RaceLog("1", new Timestamp(2), 3, 4, 5,
+        sampleEntry = new RaceLog("1", new Timestamp(2), 3, 4, 1,
          6, 7, 8, 9, boost, offense, trap);
 
     }
@@ -83,7 +83,7 @@ public class GameLogDAOTest {
 
         when(stmt.executeUpdate()).thenReturn(1);
 
-        assertTrue(this.testDAO.addGameLog(sampleEntry));
+        assertTrue(this.testDAO.addGameLog(this.sampleEntry));
 
 
         // Testing faill insertion or incorrect amount of insertion to the database
@@ -97,6 +97,9 @@ public class GameLogDAOTest {
 
         assertThrows(SQLException.class, () -> this.testDAO.addGameLog(sampleEntry));
     }
+
+
+
     @Test
     void testGetRaceByPlayer() throws SQLException{
         // Testing successful fetching data from the database

@@ -15,9 +15,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LeaderboardDAO implements LeaderboardInterface{
+    private Conn connCls;
+    private Connection conn; 
 
     public LeaderboardDAO(){
-
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
     /**
@@ -38,8 +41,6 @@ public class LeaderboardDAO implements LeaderboardInterface{
             ORDER BY leaderboardtime;        
             """;
         
-        Conn connCls = new Conn();
-        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, mapID);
 
@@ -53,7 +54,6 @@ public class LeaderboardDAO implements LeaderboardInterface{
                 updateCheck.getInt("leaderboardtime")));            
         }
 
-        connCls.closeConnection();
         return returnData;
     }
     

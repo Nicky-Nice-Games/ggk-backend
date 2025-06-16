@@ -16,10 +16,12 @@ import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterfa
  */
 @Component
 public class PlayerInfoDAO implements PlayerInfoInterface{
-
+    private Conn connCls;
+    private Connection conn; 
 
     public PlayerInfoDAO(){
-
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
 
@@ -32,8 +34,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
             PlayerInfo player = null;
             
             String query = "SELECT * FROM players WHERE pid = ?";
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, playerID);
 
@@ -47,10 +47,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 result.getInt("uid"), 
                 result.getString("username"));
             } else {
-                connCls.closeConnection();
                 return null;
             }
-            connCls.closeConnection();
             return player;
     }
 
@@ -59,9 +57,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo createUser(String email, String pw, String username) throws SQLException{
-
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
 
             String checkpw = Integer.toString(pw.hashCode());
             PlayerInfo returnPlayer = null;
@@ -93,7 +88,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 check.getString("username"));
 
             }
-            connCls.closeConnection();
             return returnPlayer;
       
     }
@@ -106,9 +100,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
 
             String checkpw = Integer.toString(pw.hashCode());
             PlayerInfo returnPlayer = null;
-
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
 
             String query = "INSERT INTO players (Email, Password, username, uid) VALUE (?, ?, ?, ?);";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -137,7 +128,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 check.getInt("uid"),
                 check.getString("username"));
             }
-            connCls.closeConnection();
             return returnPlayer;
     }
 
@@ -146,9 +136,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo getPlayerInfoWithUsername(String username, String pw) throws SQLException {
-        
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
 
             PlayerInfo returnInfo = null;
             String hashedPw = Integer.toString(pw.hashCode());
@@ -168,7 +155,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getString("username"));
             }
 
-            connCls.closeConnection();
             return returnInfo;
     }
 
@@ -177,9 +163,6 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
      */
     @Override
     public PlayerInfo loginWithUID(int uid) throws SQLException {
-        
-        Conn connCls = new Conn();
-        Connection conn = connCls.getConnection();
 
         PlayerInfo info = null;
         String query = "SELECT * FROM players WHERE uid = ?";
@@ -197,11 +180,9 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
         }
 
         if (result.next()){
-            connCls.closeConnection();
             throw new SQLException("Duplicate UID in the codebase");
         }
 
-        connCls.closeConnection();
         return info;
 
     }
@@ -218,16 +199,12 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                         "  WHERE Email = ?\n" + //
                         ") AS EmailExists;";
 
-        Conn connCls = new Conn();
-        Connection conn = connCls.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, email);
         ResultSet check = stmt.executeQuery();
         if(check.next()){
-            connCls.closeConnection();
             return check.getBoolean("EmailExists");
         }
-        connCls.closeConnection();
         return false;
     }
 }

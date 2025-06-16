@@ -16,9 +16,12 @@ import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterfac
 
 @Component
 public class PlayerStatDAO implements PlayerStatInterface{
-
+    private Conn connCls;
+    private Connection conn; 
 
     public PlayerStatDAO(){
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
     @Override
@@ -46,9 +49,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
             GROUP BY
                 p.pid, p.Email, p.Password, p.uid, p.username;
         """;
-
-        Conn connCls = new Conn();
-        Connection conn = connCls.getConnection();
 
         PreparedStatement mainstmt = conn.prepareStatement(mainQuery);
         mainstmt.setString(1, pid);
@@ -80,7 +80,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
                     0.0,
                 0.0);
         } else{
-            connCls.closeConnection();
             return null;
         }
 
@@ -103,7 +102,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if (firstdata.next() == true){
             returnStat.setFirstPlace(firstdata.getDouble("totalpodium"));
         } else{
-            connCls.closeConnection();
             throw new SQLException("Error in fetching first place");
         }
 
@@ -126,7 +124,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if (podiumdata.next() == true){
             returnStat.setPodium(podiumdata.getDouble("totalpodium"));
         } else{
-            connCls.closeConnection();
             throw new SQLException("Error in fetching podium");
         }
         
@@ -147,7 +144,6 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(fastestTime.next()){
             returnStat.setFastestTime(fastestTime.getInt("fastest"));
         } else{
-            connCls.closeConnection();
             throw new SQLException("Error in fetching fastest time");
         }
 
@@ -171,11 +167,9 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(favCharaSet.next()){
             returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
         } else{
-            connCls.closeConnection();
             throw new SQLException("Error in fetching favchara");
         }
         
-        connCls.closeConnection();
         return returnStat;
     }
 }

@@ -21,10 +21,12 @@ import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
  */
 @Component
 public class GameLogDAO implements GameLogInterface {
-
+    private Conn connCls;
+    private Connection conn; 
 
     public GameLogDAO() {
-
+        this.connCls = new Conn();
+        this.conn = connCls.getConnection();
     }
 
     /**
@@ -34,18 +36,28 @@ public class GameLogDAO implements GameLogInterface {
     public boolean addGameLog(RaceLog raceLog) throws SQLException{
             // Update the main table of race log
 
+            Double score = RaceCalculationDAO.raceLogCalculation(raceLog);
+
             String query = 
             """
             INSERT INTO racelog 
             (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
-            fellofmap,speedboost1,speedboost2,speedboost3, puck1, puck2, oilspill1, oilspill2) 
+            fellofmap,speedboost1,speedboost2,speedboost3, puck1, puck2, oilspill1, oilspill2,score) 
             VALUES 
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
             """;
-
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
+            System.err.println(raceLog.getPid());
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
             stmtUpdateMainLog.setInt(3, raceLog.getRaceTime());
@@ -62,15 +74,15 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck2());
             stmtUpdateMainLog.setInt(15, raceLog.getTrapUsage().getOilSpill1());
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill1());
+            stmtUpdateMainLog.setDouble(17, score);
+            
 
-            connCls.closeConnection();
             boolean check = (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
             if(check){
                 RaceCalculationDAO.profileRecalculation(raceLog.getPid());
             } else{
                 return false;
             }
-
             return true;
     }
 
@@ -86,9 +98,6 @@ public class GameLogDAO implements GameLogInterface {
             SELECT * FROM racelog WHERE pid = ?;
             """;
 
-
-            Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, pid);
 
@@ -124,8 +133,6 @@ public class GameLogDAO implements GameLogInterface {
 
                 returnLog.add(addedLog);
             }
-
-            connCls.closeConnection();
             return returnLog;
     }
 
@@ -134,8 +141,6 @@ public class GameLogDAO implements GameLogInterface {
      */
     @Override
     public RaceLog getRaceInfo(int raceID) {
-        Conn connCls = new Conn();
-            Connection conn = connCls.getConnection();
             try {
             RaceLog returnLog = null;
             String query = 
@@ -178,7 +183,6 @@ public class GameLogDAO implements GameLogInterface {
                     trapUsage);
             }
 
-            connCls.closeConnection();
             return returnLog;
         } catch (SQLException e) {
             System.err.println("There is an error query the database: " + e);
