@@ -67,14 +67,5 @@ public class RaceScore{
     }
 
 
-    public static void main(String[] args) {
-        RaceLog test = new RaceLog("1", new Timestamp(2), 358203, 2, 1, 3, 3, 0, 0,
-         new BoostUsage(1, 1, 1), new OffenseUsage(0, 0), new TrapUsage(0, 0));
-
-        RaceScore check = new RaceScore(test);
-        Double scoreTotal = check.scoreCalculation();
-
-        System.out.println("\n\n\nSCORE CALCULATION:  " + scoreTotal +"\n\n\n");
-    }
 
 }

@@ -47,17 +47,6 @@ public class GameLogDAO implements GameLogInterface {
             (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
             """;
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
-            System.err.println(raceLog.getPid());
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
             stmtUpdateMainLog.setInt(3, raceLog.getRaceTime());
@@ -73,13 +62,14 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(13, raceLog.getOffenseStat().getPuck1());
             stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck2());
             stmtUpdateMainLog.setInt(15, raceLog.getTrapUsage().getOilSpill1());
-            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill1());
+            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill2());
             stmtUpdateMainLog.setDouble(17, score);
             
 
             boolean check = (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
             if(check){
-                RaceCalculationDAO.profileRecalculation(raceLog.getPid());
+                RaceCalculationDAO a = new RaceCalculationDAO();
+                a.profileRecalculation(raceLog.getPid());
             } else{
                 return false;
             }

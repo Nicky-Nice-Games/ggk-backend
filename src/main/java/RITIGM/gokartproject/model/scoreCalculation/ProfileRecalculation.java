@@ -34,24 +34,4 @@ public class ProfileRecalculation {
 
         return returnScore;
     }
-
-    public static void main(String[] args) {
-
-        Double[][] check = 
-        {
-            {19375.0, 18775.0, 18393.0, 14856.0, 12937.0},
-            {33392.0, 32024.0, 30283.0, 29464.0, 28774.0},
-            {46792.0, 45992.0, 45827.0, 44259.0, 43027.0},
-            {67284.0, 65917.0, 63957.0, 62384.0, 61028.0}
-        };
-
-        ProfileRecalculation b = new ProfileRecalculation();
-        Double a = b.profileCalculation(check);
-        System.out.println(a);
-        System.out.println(a);
-        System.out.println(a);
-        System.out.println(a);
-        System.out.println(a);
-
-    }
 }

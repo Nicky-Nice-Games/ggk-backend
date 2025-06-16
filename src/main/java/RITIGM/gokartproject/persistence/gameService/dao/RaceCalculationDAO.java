@@ -12,18 +12,23 @@ import RITIGM.gokartproject.model.scoreCalculation.RaceScore;
 
 public class RaceCalculationDAO{
     public static final int TOTAL_MAP = 1;
-
+    Conn check = null;
+    Connection conn = null;
 
     public static Double raceLogCalculation(RaceLog racelog){
         RaceScore a = new RaceScore(racelog);
         return a.scoreCalculation();
     }
+    
+    public RaceCalculationDAO(){
+        this.check = new Conn();
+        this.conn = check.getConnection();
+    }
 
-    public static void profileRecalculation(String pid) throws SQLException{
+    public boolean profileRecalculation(String pid) throws SQLException{
         Double profileScore = 0.0;
 
-        Conn check = new Conn();
-        Connection conn = check.getConnection();
+        
 
         Double[][] scoreData = new Double[TOTAL_MAP][5];
 
@@ -66,26 +71,14 @@ public class RaceCalculationDAO{
                 WHERE pid = ?;
             """;
 
-        PreparedStatement stmt = conn.prepareStatement(setNewScore);
-        stmt.setDouble(1, profileScore);
-        stmt.setString(2, pid);
+        PreparedStatement stmtUpdate = conn.prepareStatement(setNewScore);
+        stmtUpdate.setDouble(1, profileScore);
+        stmtUpdate.setString(2, pid);
 
-        if(stmt.executeUpdate() != 1){
-            check.closeConnection();
-            throw new SQLException("Error in updating database");
+        if(stmtUpdate.executeUpdate() != 1){
+            return false;
         }
-        check.closeConnection();
-    }
-
-
-
-    public static void main(String[] args) {
-        try{
-            profileRecalculation("26ec3c18-3fe5-11f0-8cc9-ac1f6bbcd350");
-        } catch(Exception e){
-            System.err.println(e);
-        }
-
+        return true;
     }
 
 }
