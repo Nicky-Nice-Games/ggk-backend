@@ -85,9 +85,7 @@ public class PlayerInfoService {
 
     /**
      * Creates a new user in the database
-     * @param email user email
-     * @param password user password
-     * @param username user password
+     * @param info object containing all login credentials without uid
      * @return the new user if they were succesfully created
      */
     @PostMapping("/create")
@@ -110,10 +108,7 @@ public class PlayerInfoService {
 
     /**
      * Overload of user creation that accepts an additional uid parameter
-     * @param email user email
-     * @param password user password
-     * @param uid user id 
-     * @param username username
+     * @param info object containing all login info with UID
      * @return the new user if they were successfully added
      */
     @PostMapping("/create/uid")
@@ -134,6 +129,11 @@ public class PlayerInfoService {
         }
     }
     
+    /**
+     * Login with UID
+     * @param uid uid used for login
+     * @return player info corresponding to UID
+     */
     @GetMapping("/login/uid/{uid}")
     public ResponseEntity<PlayerInfo> loginUID(@PathVariable int uid) {
         if (uid <= 0){
@@ -155,7 +155,11 @@ public class PlayerInfoService {
     }
 
     
-    
+    /**
+     * Checks to see if an email put in for account creation already exists
+     * @param email email to check
+     * @return true if email already is in use, false otherwise
+     */
     @GetMapping("/{email}")
     public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
         try{

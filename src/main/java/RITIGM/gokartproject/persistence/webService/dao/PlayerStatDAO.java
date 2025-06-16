@@ -14,6 +14,9 @@ import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
 
+/**
+ * Handles all the database shazzam for player stat objects and api calls
+ */
 @Component
 public class PlayerStatDAO implements PlayerStatInterface{
     private Conn connCls;

@@ -12,7 +12,8 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.persistence.gameService.interfaces.PlayerInfoInterface;
 
 /**
- * {@inheritDoc}
+ * Handles reading and writing of data to the database
+ * pertaining to player information
  */
 @Component
 public class PlayerInfoDAO implements PlayerInfoInterface{

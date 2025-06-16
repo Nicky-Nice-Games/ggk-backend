@@ -17,20 +17,25 @@ import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
 
 
 /**
- * {@inheritDoc}
+ * Handles reading and writing of data to databsae
+ * as it pertains to game logs
  */
 @Component
 public class GameLogDAO implements GameLogInterface {
     private Conn connCls;
     private Connection conn; 
 
+    /**
+     * Cosmntructor
+     */
     public GameLogDAO() {
         this.connCls = new Conn();
         this.conn = connCls.getConnection();
     }
 
     /**
-     * {@inheritDoc}
+     * Handles query calls to database to retreive and write data for the purpose of
+     * accessing game log data
      */
     @Override
     public boolean addGameLog(RaceLog raceLog) throws SQLException{
