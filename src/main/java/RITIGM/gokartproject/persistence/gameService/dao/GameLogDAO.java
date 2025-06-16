@@ -22,12 +22,8 @@ import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
 @Component
 public class GameLogDAO implements GameLogInterface {
 
-    private Conn connCls = null;
-    private Connection conn = null;
 
     public GameLogDAO() {
-        this.connCls = new Conn();
-        this.conn = this.connCls.getConnection();
 
     }
 
@@ -46,6 +42,9 @@ public class GameLogDAO implements GameLogInterface {
             VALUES 
             (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
             """;
+
+            Conn connCls = new Conn();
+            Connection conn = connCls.getConnection();
             PreparedStatement stmtUpdateMainLog = conn.prepareStatement(query);
             stmtUpdateMainLog.setString(1,raceLog.getPid());
             stmtUpdateMainLog.setTimestamp(2, raceLog.getRaceStartTime());
@@ -64,6 +63,7 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(15, raceLog.getTrapUsage().getOilSpill1());
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill1());
 
+            connCls.closeConnection();
             return (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
     }
 
@@ -80,7 +80,9 @@ public class GameLogDAO implements GameLogInterface {
             """;
 
 
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            Conn connCls = new Conn();
+            Connection conn = connCls.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, pid);
 
             ResultSet result = stmt.executeQuery();
@@ -115,6 +117,8 @@ public class GameLogDAO implements GameLogInterface {
 
                 returnLog.add(addedLog);
             }
+
+            connCls.closeConnection();
             return returnLog;
     }
 
@@ -123,15 +127,17 @@ public class GameLogDAO implements GameLogInterface {
      */
     @Override
     public RaceLog getRaceInfo(int raceID) {
-        try {
+        Conn connCls = new Conn();
+            Connection conn = connCls.getConnection();
+            try {
             RaceLog returnLog = null;
             String query = 
             """
             SELECT * FROM racelog WHERE raceid = ?;
             """;
 
-
-            PreparedStatement stmt = this.conn.prepareStatement(query);
+            
+            PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, raceID);
 
             ResultSet result = stmt.executeQuery();
@@ -164,6 +170,8 @@ public class GameLogDAO implements GameLogInterface {
                     offenseUsageData, 
                     trapUsage);
             }
+
+            connCls.closeConnection();
             return returnLog;
         } catch (SQLException e) {
             System.err.println("There is an error query the database: " + e);
