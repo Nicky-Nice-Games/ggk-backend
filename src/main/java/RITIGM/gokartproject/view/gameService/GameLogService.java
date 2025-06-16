@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
  * 
- * @author: Peter Dang
+ * @author Peter Dang
  */
 
 

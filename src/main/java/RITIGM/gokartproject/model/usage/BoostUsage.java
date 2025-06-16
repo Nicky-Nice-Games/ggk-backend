@@ -19,7 +19,7 @@ public class BoostUsage {
     
     /**
      * Contructor for the boost usage 
-     * @param speedBoost1 
+     * @param speedBoost1  
      * @param speedBoost2
      * @param speedBoost3
      */
