@@ -10,21 +10,38 @@ import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.scoreCalculation.ProfileRecalculation;
 import RITIGM.gokartproject.model.scoreCalculation.RaceScore;
 
+/**
+ * Database request/writng handling for the score
+ */
 public class RaceCalculationDAO{
     public static final int TOTAL_MAP = 1;
     Conn check = null;
     Connection conn = null;
 
+    /**
+     * produces a score from a racelog
+     * @param racelog
+     * @return returns score calcultion
+     */
     public static Double raceLogCalculation(RaceLog racelog){
         RaceScore a = new RaceScore(racelog);
         return a.scoreCalculation();
     }
     
+    /**
+     * Constructor
+     */
     public RaceCalculationDAO(){
         this.check = new Conn();
         this.conn = check.getConnection();
     }
 
+    /**
+     * recaculates a profile's score
+     * @param pid player id corresponding to profile
+     * @return updated profile score
+     * @throws SQLException the thang don't read from the other thang correctly, ya dig?
+     */
     public boolean profileRecalculation(String pid) throws SQLException{
         Double profileScore = 0.0;
 

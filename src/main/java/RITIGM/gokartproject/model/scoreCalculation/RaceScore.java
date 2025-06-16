@@ -8,6 +8,9 @@ import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
+/**
+ * Templatge scoring
+ */
 public class RaceScore{
 
     private static final HashMap<String, Double> trackOne = new HashMap<String, Double>();
@@ -15,6 +18,10 @@ public class RaceScore{
 
     private RaceLog raceLog;
 
+    /**
+     * Construcotr
+     * @param raceLog race log to build from
+     */
     public RaceScore(RaceLog raceLog){
         this.raceLog = raceLog;
         
@@ -26,11 +33,19 @@ public class RaceScore{
         scoreRecord.put(1,trackOne);
     }
 
+    /**
+     * calculates score
+     * @return calculated score
+     */
     public double scoreCalculation(){
         double totalScore = (trackPerformaceScoring() + placementScoring() + itemBonus());
         return totalScore * (1-(0.02 * this.raceLog.getFelloffmap()));
     }
 
+    /**
+     * calculates the points for the time
+     * @return score for time portion
+     */
     public double trackPerformaceScoring(){
         double trackTime = scoreRecord.get(raceLog.getMapRaced()).get("time");
         double raceTime = raceLog.getRaceTime();
@@ -41,7 +56,10 @@ public class RaceScore{
         return Math.min(8500, mapScore);
     }
 
-
+    /**
+     * Calculates score based on placement
+     * @return placement portion of score
+     */
     public double placementScoring(){
         double pos = raceLog.getRacePos();
         if (pos <= 0){
@@ -50,6 +68,10 @@ public class RaceScore{
         return (12 - pos + 1) / 12 * 1000; 
     }
 
+    /**
+     * caculates bonuses based on itme usage
+     * @return item usage bonus
+     */
     public double itemBonus(){
         double totalItemUsage = 
         this.raceLog.getBoostStat().getSpeedBoost1() +

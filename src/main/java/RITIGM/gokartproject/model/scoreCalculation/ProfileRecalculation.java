@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Recalculates score for player profile
+ */
 public class ProfileRecalculation {
     public static final int TOTALTRACK = 1;
     public static final double FIRST_MAP_EFFECTIVE = Math.pow(0.9, (1-1));
@@ -12,6 +15,9 @@ public class ProfileRecalculation {
     public static final double FORTH_MAP_EFFECTIVE = Math.pow(0.9, (4-1));
     public static final double FIFTH_MAP_EFFECTIVE = Math.pow(0.9, (5-1));
 
+    /**
+     * constructor(?)
+     */
     public ProfileRecalculation(){
         // Nothing
     }
