@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -236,5 +237,59 @@ public class WebPlayerInfoDAOTest {
         listLogs = wpInfoDAO.getRecentGames("20");
         assertEquals(new ArrayList<RaceLog>(5), listLogs);
         
+    }
+
+
+    @Test
+    void testGetSpecificTrackData() throws SQLException{
+        PreparedStatement stmt1 = mock(PreparedStatement.class);
+        PreparedStatement stmt2 = mock(PreparedStatement.class);
+        ResultSet check = mock(ResultSet.class);
+        ResultSet check2 = mock(ResultSet.class);
+
+        String query1 = "SELECT MIN(racelog.racepos) as topPos\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?\n" + //
+                        "AND mapraced = ?;";
+        String query2 = "SELECT MIN(racelog.racetime) as fastestTime\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?\n" + //
+                        "AND mapraced = ?;";
+        
+        ArrayList<Integer> results = new ArrayList<>(Arrays.asList(1,1));
+
+        //Both information points exist
+        when(mockConn.prepareStatement(query1)).thenReturn(stmt1);
+        when(stmt1.executeQuery()).thenReturn(check);
+        when(mockConn.prepareStatement(query2)).thenReturn(stmt2);
+        when(stmt2.executeQuery()).thenReturn(check2);
+        when(check.next()).thenReturn(true);
+        when(check2.next()).thenReturn(true);
+        when(check.getInt("topPos")).thenReturn(1);
+        when(check2.getInt("fastestTime")).thenReturn(1);
+        ArrayList<Integer> actual = wpInfoDAO.getSpecificTrackData("20", 4);
+        assertEquals(results, actual);
+
+        //one information point (fastest time) missing
+        when(mockConn.prepareStatement(query1)).thenReturn(stmt1);
+        when(stmt1.executeQuery()).thenReturn(check);
+        when(mockConn.prepareStatement(query2)).thenReturn(stmt2);
+        when(stmt2.executeQuery()).thenReturn(check2);
+        when(check.next()).thenReturn(true);
+        when(check2.next()).thenReturn(false);
+        when(check.getInt("topPos")).thenReturn(1);
+        actual = wpInfoDAO.getSpecificTrackData("20", 4);
+        assertNull(actual);
+
+        //both information points missing
+        when(mockConn.prepareStatement(query1)).thenReturn(stmt1);
+        when(stmt1.executeQuery()).thenReturn(check);
+        when(mockConn.prepareStatement(query2)).thenReturn(stmt2);
+        when(stmt2.executeQuery()).thenReturn(check2);
+        when(check.next()).thenReturn(false);
+        when(check2.next()).thenReturn(false);
+        actual = wpInfoDAO.getSpecificTrackData("20", 4);
+        assertNull(actual);
+
     }
 }
