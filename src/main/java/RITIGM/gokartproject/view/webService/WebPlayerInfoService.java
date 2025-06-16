@@ -170,6 +170,13 @@ public class WebPlayerInfoService {
         }
     }
 
+    /**
+     * Retrieves player specific data about perfomance on a specific track
+     * @param pid player's id
+     * @param tid track's id
+     * @return returns the top postion (first index in arraylist) player has earned on the track, and the player's fastest
+     * time (second postion in the arraylist)
+     */
     @GetMapping("/{pid}/{tid}")
     public ResponseEntity<ArrayList<Integer>> getPlayerTrackData(@PathVariable String pid, @PathVariable int tid){
         log.info("GET /webservice/playerinfo/{pid}/{tid}");

@@ -242,6 +242,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     public ArrayList<Integer> getSpecificTrackData(String pid, int trackId) throws SQLException{
         ArrayList<Integer> stats = new ArrayList<Integer>(2);
 
+        //postiion retrieval
         String topQuery = "SELECT MIN(racelog.racepos) as topPos\n" + //
                         "FROM racelog\n" + //
                         "WHERE pid = ?\n" + //
@@ -257,6 +258,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             return null;
         }
 
+        //Time retrieval
         String timeQuery = "SELECT MIN(racelog.racetime) as fastestTime\n" + //
                         "FROM racelog\n" + //
                         "WHERE pid = ?\n" + //
@@ -273,6 +275,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
 
         return stats;
+        //You've found the secret comment! 
     }
 
     
