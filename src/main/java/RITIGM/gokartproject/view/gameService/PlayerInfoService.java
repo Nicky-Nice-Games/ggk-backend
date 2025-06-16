@@ -157,7 +157,7 @@ public class PlayerInfoService {
     
     
     @GetMapping("/{email}")
-    public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
+    public ResponseEntity<Boolean> checkEmail(@PathVariable String email){
         try{
             boolean email_status = playerInfoDAO.verifyEmail(email);
             return new ResponseEntity<Boolean>(email_status, HttpStatus.OK);

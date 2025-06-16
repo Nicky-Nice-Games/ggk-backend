@@ -64,7 +64,14 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getOilSpill1());
 
             connCls.closeConnection();
-            return (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
+            boolean check = (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
+            if(check){
+                RaceCalculationDAO.profileRecalculation(raceLog.getPid());
+            } else{
+                return false;
+            }
+
+            return true;
     }
 
     /**
