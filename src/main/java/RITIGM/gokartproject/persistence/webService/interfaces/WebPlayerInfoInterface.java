@@ -1,8 +1,10 @@
 package RITIGM.gokartproject.persistence.webService.interfaces;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.RaceLog;
 
 public interface WebPlayerInfoInterface {
     /**
@@ -50,6 +52,14 @@ public interface WebPlayerInfoInterface {
      * @throws SQLException
      */
     abstract boolean verifyEmail(String email) throws SQLException;
+
+    /**
+     * 
+     * @param pid
+     * @return
+     * @throws SQLException
+     */
+    abstract ArrayList<RaceLog> getRecentGames(String pid) throws SQLException;
 
 
 }

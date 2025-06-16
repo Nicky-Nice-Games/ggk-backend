@@ -9,12 +9,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerInfo;
+import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.OffenseUsage;
+import RITIGM.gokartproject.model.usage.TrapUsage;
 
 public class WebPlayerInfoDAOTest {
     private Connection mockConn = null;
@@ -193,5 +199,42 @@ public class WebPlayerInfoDAOTest {
         assertEquals(false, result);
 
 
+    }
+
+
+    @Test
+    void testGetRecentGames() throws SQLException {
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        ResultSet check = mock(ResultSet.class);
+        Timestamp stamp = new Timestamp(20);
+        RaceLog log = new RaceLog("20", 
+         stamp, 
+         0, 0, 0, 0, 
+         0, 0, 0,
+         new BoostUsage(0, 0, 0), 
+         new OffenseUsage(0, 0), 
+         new TrapUsage(0, 0));
+        ArrayList<RaceLog> expected = new ArrayList<RaceLog>(5);
+        expected.add(log);
+        ArrayList<RaceLog> listLogs;
+
+        String query = "SELECT *\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?\n" + //
+                        "ORDER BY racestarttime, raceid DESC\n" + //
+                        "LIMIT 5;";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeQuery()).thenReturn(check);
+        when(check.next()).thenReturn(true).thenReturn(false);
+        when(check.getString("pid")).thenReturn("20");
+        when(check.getTimestamp("racestarttime")).thenReturn(stamp);
+        listLogs = wpInfoDAO.getRecentGames("20");
+        assertEquals(expected, listLogs);
+
+        when(check.next()).thenReturn(false);
+        listLogs = wpInfoDAO.getRecentGames("20");
+        assertEquals(new ArrayList<RaceLog>(5), listLogs);
+        
     }
 }
