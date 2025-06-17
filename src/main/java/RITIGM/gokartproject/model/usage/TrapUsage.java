@@ -87,7 +87,7 @@ public class TrapUsage {
      * getter for oil spill item 2
      * @return oil spill item 2
      */
-    public int getFakepowerupbrickl() {
+    public int getFakepowerupbrick() {
         return fakepowerupbrick;
     }
 

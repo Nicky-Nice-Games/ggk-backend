@@ -219,9 +219,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                     check.getInt("racepos"), 
                     check.getInt("mapraced"), 
                     check.getInt("characterused"), 
-                    check.getInt("collisionwithplayer"), 
-                    check.getInt("collisionwithwall"), 
-                    check.getInt("felloffmap"), 
+                    check.getInt("collisionwithplayers"), 
+                    check.getInt("collisionwithwalls"), 
+                    check.getInt("fellofmap"), 
                     new BoostUsage(
                         check.getInt("speedboost1"), 
                         check.getInt("speedboost2"), 
