@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -26,14 +27,15 @@ public class RaceLogTest {
     private int expected_wallCol = 0;
     private int expected_playerCol = 0;
     private int expected_falloff = 0;
-    private BoostUsage expected_boostStat = new BoostUsage(1,1,1);
+    private BoostUsage expected_boostStat = new BoostUsage(1,1,1, 1);
     //private CollisionStat expected_collisionStat = new CollisionStat(2, 3);
-    private OffenseUsage expected_offenseStat = new OffenseUsage(1, 1);
-    private TrapUsage expected_trapUsage = new TrapUsage(1, 1);
+    private OffenseUsage expected_offenseStat = new OffenseUsage(1, 1, 1, 1);
+    private TrapUsage expected_trapUsage = new TrapUsage(1, 1, 1, 1);
+    private DefenseUsage expected_defenseUsage = new DefenseUsage(1, 1, 1, 1);
 
     private RaceLog raceLog = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
     expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-     expected_boostStat,  expected_offenseStat, expected_trapUsage);
+     expected_boostStat,  expected_offenseStat, expected_trapUsage, expected_defenseUsage);
 
     /**
      * Tests data retrival of Boost stat
@@ -112,7 +114,7 @@ public class RaceLogTest {
      */
     @Test
     void testSetBoostStat() {
-        expected_boostStat = new BoostUsage(9, 9, 9);
+        expected_boostStat = new BoostUsage(9, 9, 9, 9);
         raceLog.setBoostStat(expected_boostStat);
         assertEquals(expected_boostStat, raceLog.getBoostStat());
     }
@@ -142,7 +144,7 @@ public class RaceLogTest {
      */
     @Test
     void testSetOffenseStat() {
-        expected_offenseStat = new OffenseUsage(9,9);
+        expected_offenseStat = new OffenseUsage(9,9, 9, 9);
         raceLog.setOffenseStat(expected_offenseStat);
         assertEquals(expected_mapRaced, raceLog.getMapRaced());
     }
@@ -192,7 +194,7 @@ public class RaceLogTest {
      */
     @Test
     void testSetTrapUsage() {
-        expected_trapUsage = new TrapUsage(9, 9);
+        expected_trapUsage = new TrapUsage(9, 9, 9, 9);
         raceLog.setTrapUsage(expected_trapUsage);
         assertEquals(expected_trapUsage, raceLog.getTrapUsage());
     }
@@ -230,21 +232,22 @@ public class RaceLogTest {
     Integer expected_racePos = 1;
     Integer expected_mapRaced = 3;
     Integer expected_characterUsed = 4;
-    BoostUsage expected_boostStat = new BoostUsage(1, 1, 1);
-    OffenseUsage expected_offenseStat = new OffenseUsage(1, 1);
-    TrapUsage expected_trapUsage = new TrapUsage(1, 1);
+    BoostUsage expected_boostStat = new BoostUsage(1, 1, 1, 1);
+    OffenseUsage expected_offenseStat = new OffenseUsage(1, 1, 1,1);
+    TrapUsage expected_trapUsage = new TrapUsage(1, 1, 1, 1);
+    DefenseUsage expected_defenseUsage = new DefenseUsage(1, 1, 1, 1);
 
     RaceLog raceLog1 = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
     expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-     expected_boostStat,  expected_offenseStat, expected_trapUsage);
+     expected_boostStat,  expected_offenseStat, expected_trapUsage, expected_defenseUsage);
     
     RaceLog raceLog2 = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
     expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-    expected_boostStat, expected_offenseStat, expected_trapUsage);
+    expected_boostStat, expected_offenseStat, expected_trapUsage, expected_defenseUsage);
 
     RaceLog raceLog3 = new RaceLog(expected_pid +"1", expected_raceStartTime, expected_raceTime, expected_racePos, 
     expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-    expected_boostStat,  expected_offenseStat, expected_trapUsage);
+    expected_boostStat,  expected_offenseStat, expected_trapUsage, expected_defenseUsage);
 
 
     assertEquals(raceLog1, raceLog2); 

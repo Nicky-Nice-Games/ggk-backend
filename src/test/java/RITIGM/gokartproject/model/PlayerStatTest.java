@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -18,6 +19,7 @@ public class PlayerStatTest {
     private OffenseUsage offense;
     private TrapUsage trap;
     private BoostUsage boost;
+    private DefenseUsage defense;
     public static final String TO_STRING_FORMAT = "\nPlayer Info:\r\n" + //
                                 "\tPID = %s,\r\n" + //
                                 "\tEmail = %s,\r\n" + //
@@ -34,11 +36,12 @@ public class PlayerStatTest {
 
     @BeforeEach
     void init(){
-        this.offense = new OffenseUsage(9,10);
-        this.trap = new TrapUsage(11, 12);
-        this.boost = new BoostUsage(13, 14, 15);
+        this.offense = new OffenseUsage(9,10,11,12);
+        this.trap = new TrapUsage(11, 12, 13, 14);
+        this.boost = new BoostUsage(13, 14, 15, 16);
+        this.defense = new DefenseUsage(17, 18, 19, 20);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
-         this.offense, this.trap, this.boost, 16.0, 17.0);
+         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0);
     }
 
     @Test
@@ -68,7 +71,7 @@ public class PlayerStatTest {
 
     @Test
     void testSetBoostUsage() {
-        boost = new BoostUsage(1, 2, 3);
+        boost = new BoostUsage(1, 2, 3, 4);
         check.setBoostUsage(boost);
         assertEquals(boost, check.getBoostUsage());
     }
@@ -81,7 +84,7 @@ public class PlayerStatTest {
 
     @Test
     void testSetOffenseUsage() {
-        OffenseUsage a  = (new OffenseUsage(0, 0));
+        OffenseUsage a  = (new OffenseUsage(0, 0, 0, 0));
         check.setOffenseUsage(a);
         assertEquals(check.getOffenseUsage(), a);
     }
@@ -94,7 +97,7 @@ public class PlayerStatTest {
 
     @Test
     void testSetTrapUsage() {
-        TrapUsage a = new TrapUsage(0, 0);
+        TrapUsage a = new TrapUsage(0, 0, 0, 0);
         check.setTrapUsage(a);
         assertEquals(check.getTrapUsage(), a);
     }

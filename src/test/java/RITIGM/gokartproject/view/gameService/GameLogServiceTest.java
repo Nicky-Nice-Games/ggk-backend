@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
@@ -76,7 +77,7 @@ public class GameLogServiceTest {
         Timestamp raceStartTime = Timestamp.valueOf("2025-06-02 15:23:14.0");
 
         RaceLog raceLog = new RaceLog("213",        
-        raceStartTime,1, 2, 3, 3, 4, 5, 6, null, null, null);
+        raceStartTime,1, 2, 3, 3, 4, 5, 6, null, null, null, null);
 
         //Case: retreival was successful
         when(mockGameLogDAO.getRaceInfo(rid)).thenReturn(raceLog);
@@ -107,9 +108,10 @@ public class GameLogServiceTest {
         
         RaceLog raceLog = new RaceLog("20", new Timestamp(2),2, 1, 1, 1,
          1, 1, 1,
-        new BoostUsage(1, 1, 1),
-        new OffenseUsage(1, 1), 
-        new TrapUsage(1, 1));
+        new BoostUsage(1, 1,1,1),
+        new OffenseUsage(1, 1,1,1), 
+        new TrapUsage(1, 1,1,1),
+        new DefenseUsage(0, 0, 0, 0));
     
         //Case: log successfully posted
         when(mockGameLogDAO.addGameLog(raceLog)).thenReturn(true);

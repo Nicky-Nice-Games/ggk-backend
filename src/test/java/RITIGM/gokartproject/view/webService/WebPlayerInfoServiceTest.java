@@ -22,6 +22,7 @@ import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.dao.PlayerStatDAO;
@@ -161,11 +162,12 @@ public class WebPlayerInfoServiceTest {
 
     @Test
     void testGetPlayerDetailInfo() throws SQLException {
-        OffenseUsage offense = new OffenseUsage(9,10);
-        TrapUsage trap = new TrapUsage(11, 12);
-        BoostUsage boost = new BoostUsage(13, 14, 15);
+        OffenseUsage offense = new OffenseUsage(9,10,11,12);
+        TrapUsage trap = new TrapUsage(11, 12,13,14);
+        BoostUsage boost = new BoostUsage(13, 14, 15,16);
+        DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
          PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
-         offense, trap, boost, 16.0, 17.0);
+         offense, trap, boost,defense, 16.0, 17.0);
 
         when(playerStatInterface.getPlayerStat("1")).thenReturn(check);
         ResponseEntity<PlayerStat> response = wpInfoService.getPlayerDetailInfo("1");

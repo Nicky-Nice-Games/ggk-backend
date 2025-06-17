@@ -21,6 +21,7 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -213,9 +214,10 @@ public class WebPlayerInfoDAOTest {
          stamp, 
          0, 0, 0, 0, 
          0, 0, 0,
-         new BoostUsage(0, 0, 0), 
-         new OffenseUsage(0, 0), 
-         new TrapUsage(0, 0)),
+         new BoostUsage(0, 0, 0,0), 
+         new OffenseUsage(0, 0,0,0), 
+         new TrapUsage(0, 0,0,0),
+         new DefenseUsage(0, 0, 0, 0)),
         0, 0);
         ArrayList<RaceReport> expected = new ArrayList<RaceReport>(5);
         expected.add(log);

@@ -17,7 +17,7 @@ public class BoostUsageTest {
 
     @BeforeEach
     void initTest(){
-        check = new BoostUsage(0, 1, 2);
+        check = new BoostUsage(0, 1, 2, 3);
     }
 
     @Test

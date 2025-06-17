@@ -16,7 +16,7 @@ public class TrapUsageTest {
 
     @BeforeEach
     void init(){
-        this.check = new TrapUsage(1, 2);
+        this.check = new TrapUsage(1, 2, 3, 4);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class TrapUsageTest {
 
     @Test
     void testGetOilSpill2() {
-        assertEquals(check.getOilSpill2(), 2);
+        assertEquals(check.getBrickwall(), 2);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class TrapUsageTest {
 
     @Test
     void testSetOilSpill2() {
-        check.setOilSpill2(5);
-        assertEquals(check.getOilSpill2(), 5);
+        check.setBrickwall(5);
+        assertEquals(check.getBrickwall(), 5);
     }
 
     // @Test

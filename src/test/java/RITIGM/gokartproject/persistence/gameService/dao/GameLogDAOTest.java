@@ -23,6 +23,7 @@ import org.mockito.Mockito;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -50,12 +51,13 @@ public class GameLogDAOTest {
         ReflectUtils.setField(this.testDAO, "conn", mockConn);
 
         // Init sample racelog class
-        BoostUsage boost = new BoostUsage(1, 2, 3);
-        OffenseUsage offense = new OffenseUsage(1, 2);
-        TrapUsage trap = new TrapUsage(1, 2);
+        BoostUsage boost = new BoostUsage(1, 2, 3,4);
+        OffenseUsage offense = new OffenseUsage(1, 2, 3, 4);
+        TrapUsage trap = new TrapUsage(1, 2, 3, 4);
+        DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
 
         sampleEntry = new RaceLog("1", new Timestamp(2), 3, 4, 1,
-         6, 7, 8, 9, boost, offense, trap);
+         6, 7, 8, 9, boost, offense, trap, defense);
 
     }
 

@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -27,6 +28,7 @@ public class PlayerStatDAOTest {
     private OffenseUsage offense;
     private TrapUsage trap;
     private BoostUsage boost;
+    private DefenseUsage defense;
 
     @BeforeEach
     void init(){
@@ -35,11 +37,12 @@ public class PlayerStatDAOTest {
 
         ReflectUtils.setField(this.playerStatDAO, "conn", mockConn);
 
-        this.offense = new OffenseUsage(9,10);
-        this.trap = new TrapUsage(11, 12);
-        this.boost = new BoostUsage(13, 14, 15);
+        this.offense = new OffenseUsage(9,10,11,12);
+        this.trap = new TrapUsage(11, 12,13,14);
+        this.boost = new BoostUsage(13, 14, 15,16);
+        this.defense = new DefenseUsage(0, 0, 0, 0);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
-         this.offense, this.trap, this.boost, 16.0, 17.0);
+         this.offense, this.trap, this.boost, defense, 16.0, 17.0);
     }
 
 

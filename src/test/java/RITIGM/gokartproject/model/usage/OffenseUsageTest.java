@@ -19,7 +19,7 @@ public class OffenseUsageTest {
                                                     "\t\tPuck 2 = %d, \r\n";
     @BeforeEach
     void init(){
-        this.check = new OffenseUsage(1,2);
+        this.check = new OffenseUsage(1,2, 3, 4);
     }
 
     @Test
@@ -46,8 +46,8 @@ public class OffenseUsageTest {
 
     @Test
     void testEquals() {
-        assertTrue(check.equals(new OffenseUsage(1, 2)));
-        assertFalse(check.equals(new OffenseUsage(1, 3)));
+        assertTrue(check.equals(new OffenseUsage(1, 2, 3, 4)));
+        assertFalse(check.equals(new OffenseUsage(1, 3, 5, 7)));
         
     }
 
