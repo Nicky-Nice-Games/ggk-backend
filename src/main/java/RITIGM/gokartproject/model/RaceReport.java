@@ -8,23 +8,29 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 
 public class RaceReport extends RaceLog{
     
+    private int raceID;
     private double score;
 
     private static String TO_STRING_FORMAT =    "%s\r\n" + //
+                                                "\tRace ID: %.2f\r\n" + //
                                                 "\tScore: %.2f\r\n";
+                                                
     
     public RaceReport(String pid, Timestamp raceStartTime, int raceTime, int racePos, int mapRaced,
             int characterUsed, int collisionWithPlayer, int collisionWithWall, int felloffmap,
-            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage, double score){
+            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage, double score, int raceID){
         super(pid, raceStartTime, raceTime,racePos,mapRaced,characterUsed,collisionWithPlayer,collisionWithWall,
         felloffmap,boostStat,offenseStat,trapUsage);
         this.score = score;
+        this.raceID = raceID;
     }
 
-    public RaceReport(RaceLog raceLog, double score){
+    public RaceReport(RaceLog raceLog, double score, int raceID){
         super(raceLog.getPid(), raceLog.getRaceStartTime(), raceLog.getRaceTime(), raceLog.getRacePos(),
         raceLog.getMapRaced(), raceLog.getCharacterUsed(), raceLog.getCollisionWithPlayer(), raceLog.getCollisionWithWall(), raceLog.getFelloffmap(),
         raceLog.getBoostStat(), raceLog.getOffenseStat(), raceLog.getTrapUsage());
+
+        this.raceID = raceID;
 
         this.score = score;
     }
@@ -64,7 +70,7 @@ public class RaceReport extends RaceLog{
         expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
         expected_boostStat,  expected_offenseStat, expected_trapUsage);
 
-        RaceReport check = new RaceReport(raceLog, 20000.023);
+        RaceReport check = new RaceReport(raceLog, 20000.02,102383);
 
         System.out.println(check);
     }
