@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
@@ -201,8 +202,8 @@ public class WebPlayerInfoServiceTest {
 
     @Test
     void testGetRecentRaces() throws SQLException{
-        ResponseEntity<ArrayList<RaceLog>> response;
-        ArrayList<RaceLog> logTest = new ArrayList<RaceLog>(5);
+        ResponseEntity<ArrayList<RaceReport>> response;
+        ArrayList<RaceReport> logTest = new ArrayList<RaceReport>(5);
 
         when(mockWebPlayerDAO.getRecentGames("20")).thenReturn(logTest);
         response = wpInfoService.getRecentRaces("20");

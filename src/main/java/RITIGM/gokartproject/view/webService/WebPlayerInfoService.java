@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
@@ -169,10 +170,10 @@ public class WebPlayerInfoService {
      * @returna list of a players most recent races, up to 5 races max
      */
     @GetMapping("/getrecentstats/{pid}")
-    public ResponseEntity<ArrayList<RaceLog>> getRecentRaces(@PathVariable String pid){
+    public ResponseEntity<ArrayList<RaceReport>> getRecentRaces(@PathVariable String pid){
         try{
-            ArrayList<RaceLog> recentRaces = webPlayerInfoDAO.getRecentGames(pid);
-            return new ResponseEntity<ArrayList<RaceLog>>(recentRaces, HttpStatus.OK);
+            ArrayList<RaceReport> recentRaces = webPlayerInfoDAO.getRecentGames(pid);
+            return new ResponseEntity<ArrayList<RaceReport>>(recentRaces, HttpStatus.OK);
         } 
         catch( Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
