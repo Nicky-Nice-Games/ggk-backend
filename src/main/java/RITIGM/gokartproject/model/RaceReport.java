@@ -50,30 +50,7 @@ public class RaceReport extends RaceLog{
 
     @Override
     public String toString() {
-        return String.format(TO_STRING_FORMAT, super.toString(), this.score);
+        return String.format(TO_STRING_FORMAT, super.toString(), this.raceID, this.score);
     }
 
-    public static void main(String[] args) {
-        String expected_pid = "20";
-        Timestamp expected_raceStartTime = new Timestamp(2);
-        int expected_raceTime = 1;
-        int expected_racePos = 1;
-        int expected_mapRaced = 3;
-        int expected_characterUsed = 4;
-        int expected_wallCol = 0;
-        int expected_playerCol = 0;
-        int expected_falloff = 0;
-        BoostUsage expected_boostStat = new BoostUsage(1,1,1, 1);
-        OffenseUsage expected_offenseStat = new OffenseUsage(1, 1, 1, 1);
-        TrapUsage expected_trapUsage = new TrapUsage(1, 1, 1, 1);
-        DefenseUsage expected_DefenseUsage = new DefenseUsage(1,1,1,1);
-
-        RaceLog raceLog = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
-        expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-        expected_boostStat,  expected_offenseStat, expected_trapUsage, expected_DefenseUsage);
-
-        RaceReport check = new RaceReport(raceLog, 20000.02,102383);
-
-        System.out.println(check);
-    }
 }

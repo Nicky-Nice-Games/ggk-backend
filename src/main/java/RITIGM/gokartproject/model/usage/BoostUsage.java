@@ -19,7 +19,7 @@ public class BoostUsage {
                                                     "\t\tSpeed Boost 1 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 2 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 3 = %d, \r\n" + //
-                                                    "\t\tSpeed Boost 4 = %d,";
+                                                    "\t\tSpeed Boost 4 = %d";
     
     /**
      * Contructor for the boost usage 

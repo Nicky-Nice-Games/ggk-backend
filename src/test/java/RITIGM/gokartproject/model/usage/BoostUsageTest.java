@@ -13,7 +13,8 @@ public class BoostUsageTest {
     public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
                                                     "\t\tSpeed Boost 1 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 2 = %d, \r\n" + //
-                                                    "\t\tSpeed Boost 3 = %d,";
+                                                    "\t\tSpeed Boost 3 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 4 = %d";
 
     @BeforeEach
     void initTest(){
@@ -55,6 +56,6 @@ public class BoostUsageTest {
 
     @Test
     void testToString() {
-        assertEquals(String.format(TO_STRING_FORMAT,check.getSpeedBoost1(),check.getSpeedBoost2(),check.getSpeedBoost3()), check.toString());
+        assertEquals(String.format(TO_STRING_FORMAT,check.getSpeedBoost1(),check.getSpeedBoost2(),check.getSpeedBoost3(),check.getSpeedBoost4()), check.toString());
     }
 }

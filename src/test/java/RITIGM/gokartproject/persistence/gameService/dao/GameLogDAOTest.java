@@ -75,11 +75,13 @@ public class GameLogDAOTest {
         // Testing a successful connection data insertion to the database
         String query = 
             """
-            INSERT INTO racelog 
-            (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
-            fellofmap,speedboost1,speedboost2,speedboost3, puck1, puck2, oilspill1, oilspill2,score) 
-            VALUES 
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
+           INSERT INTO racelog 
+                (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
+                fellofmap,speedboost1,speedboost2,speedboost3, speedboost4,
+                puck1, puck2,puck3, puck4, oilspill1, brickwall,
+                confuseritchie,fakepowerupblock,defense1,defense2,defense3,defense4,score) 
+                VALUES 
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);          
             """;
         
         PreparedStatement stmt = mock(PreparedStatement.class);

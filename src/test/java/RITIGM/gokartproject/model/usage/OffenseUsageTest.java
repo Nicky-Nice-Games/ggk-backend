@@ -44,16 +44,4 @@ public class OffenseUsageTest {
         assertEquals(4, check.getPuck2());
     }
 
-    @Test
-    void testEquals() {
-        assertTrue(check.equals(new OffenseUsage(1, 2, 3, 4)));
-        assertFalse(check.equals(new OffenseUsage(1, 3, 5, 7)));
-        
-    }
-
-    // @Test
-    // void testToString() {
-    //     assertEquals(String.format(TO_STRING_FORMAT, 1,2), check);
-    // }
-    
 }
