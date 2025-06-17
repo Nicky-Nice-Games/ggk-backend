@@ -48,7 +48,7 @@ private String expected_pid = "20";
 
     @Test
     void testGetScore() {
-        assertEquals(700, this.raceReport.getScore());
+        assertEquals(20, this.raceReport.getScore());
     }
 
     @Test

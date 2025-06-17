@@ -40,7 +40,9 @@ public class PlayerStatTest {
         this.trap = new TrapUsage(11, 12, 13, 14);
         this.boost = new BoostUsage(13, 14, 15, 16);
         this.defense = new DefenseUsage(17, 18, 19, 20);
-        this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
+        this.check = new PlayerStat("1", "2", "3", 4, "5", 6,
+         7, 8,18,
+         19,
          this.offense, this.trap, this.boost, this.defense, 16.0, 17.0);
     }
 
@@ -142,5 +144,15 @@ public class PlayerStatTest {
     void testSetFelloffmap() {
         this.check.setFelloffmap(9090);
         assertEquals(9090, check.getFelloffmap());
+    }
+
+    @Test
+    void testGetFastestTime() {
+        assertEquals(18, check.getFastestTime());
+    }
+
+    @Test
+    void testGetFavoriteChara() {
+        assertEquals(19, check.getFavoriteChara());
     }
 }

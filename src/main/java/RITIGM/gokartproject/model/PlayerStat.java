@@ -65,6 +65,10 @@ public class PlayerStat extends PlayerInfo{
         this.felloffmap = felloffmap;
     }
 
+    /**
+     * 
+     * @return
+     */
     public DefenseUsage getDefenseUsage() {
         return defenseUsage;
     }
