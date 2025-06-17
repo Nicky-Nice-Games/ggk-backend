@@ -77,10 +77,19 @@ public class RaceScore{
         this.raceLog.getBoostStat().getSpeedBoost1() +
         this.raceLog.getBoostStat().getSpeedBoost2() +
         this.raceLog.getBoostStat().getSpeedBoost3() +
+        this.raceLog.getBoostStat().getSpeedBoost4() +
         this.raceLog.getOffenseStat().getPuck1() +
         this.raceLog.getOffenseStat().getPuck2() + 
+        this.raceLog.getOffenseStat().getPuck3() +
+        this.raceLog.getOffenseStat().getPuck4() +
         this.raceLog.getTrapUsage().getOilSpill1() + 
-        this.raceLog.getTrapUsage().getOilSpill2();
+        this.raceLog.getTrapUsage().getBrickwall() +
+        this.raceLog.getTrapUsage().getConfuseritchie() +
+        this.raceLog.getTrapUsage().getFakepowerupbrickl() +
+        this.raceLog.getDefenseUsage().getDefense1() +
+        this.raceLog.getDefenseUsage().getDefense2() +
+        this.raceLog.getDefenseUsage().getDefense3() +
+        this.raceLog.getDefenseUsage().getDefense4();
 
         double expectedUsage = scoreRecord.get(raceLog.getMapRaced()).get("item");
 

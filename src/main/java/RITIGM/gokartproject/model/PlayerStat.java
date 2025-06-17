@@ -1,6 +1,7 @@
 package RITIGM.gokartproject.model;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -18,6 +19,7 @@ public class PlayerStat extends PlayerInfo{
     private OffenseUsage offenseUsage;
     private TrapUsage trapUsage;
     private BoostUsage boostUsage;
+    private DefenseUsage defenseUsage;
     private double podium;
     private double firstPlace;
 
@@ -48,18 +50,27 @@ public class PlayerStat extends PlayerInfo{
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, 
     int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, int favoriteChara,
-    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, double podium, double firstPlace){
+    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, double podium, double firstPlace){
         super(pid,email,pw,uid,username);
         this.fastestTime = fastestTime;
         this.favoriteChara = favoriteChara;
         this.offenseUsage = offenseUsage;
         this.trapUsage = trapUsage;
         this.boostUsage = boostUsage;
+        this.defenseUsage = defenseUsage;
         this.podium = podium;
         this.firstPlace = firstPlace;
         this.collisionWithPlayer = collisionWithPlayer;
         this.collisionWithWall = collisionWithWall;
         this.felloffmap = felloffmap;
+    }
+
+    public DefenseUsage getDefenseUsage() {
+        return defenseUsage;
+    }
+
+    public void setDefenseUsage(DefenseUsage defenseUsage) {
+        this.defenseUsage = defenseUsage;
     }
 
     /**

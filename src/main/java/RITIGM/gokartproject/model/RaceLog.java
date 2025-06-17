@@ -3,6 +3,7 @@ package RITIGM.gokartproject.model;
 import java.sql.Timestamp;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -24,6 +25,7 @@ public class RaceLog {
     private BoostUsage boostStat;
     private OffenseUsage offenseStat;
     private TrapUsage trapUsage;
+    private DefenseUsage defenseUsage;
 
     private static final String TO_STRING_FORMAT = "Race Log Info:\r\n" + //
                 "\tPID: %S,\r\n" + //
@@ -57,7 +59,7 @@ public class RaceLog {
      */
     public RaceLog(String pid, Timestamp raceStartTime, int raceTime, int racePos, int mapRaced,
             int characterUsed, int collisionWithPlayer, int collisionWithWall, int felloffmap,
-            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage) {
+            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage, DefenseUsage defenseUsage) {
         this.pid = pid;
         this.raceStartTime = raceStartTime;
         this.raceTime = raceTime;
@@ -68,6 +70,17 @@ public class RaceLog {
         this.offenseStat = offenseStat;
         this.trapUsage = trapUsage;
         this.collisionWithPlayer = collisionWithPlayer;
+        this.defenseUsage = defenseUsage;
+    }
+
+
+    public DefenseUsage getDefenseUsage() {
+        return defenseUsage;
+    }
+
+
+    public void setDefenseUsage(DefenseUsage defenseUsage) {
+        this.defenseUsage = defenseUsage;
     }
 
 
