@@ -85,7 +85,7 @@ public class RaceScore{
         this.raceLog.getTrapUsage().getOilSpill1() + 
         this.raceLog.getTrapUsage().getBrickwall() +
         this.raceLog.getTrapUsage().getConfuseritchie() +
-        this.raceLog.getTrapUsage().getFakepowerupbrickl() +
+        this.raceLog.getTrapUsage().getFakepowerupbrick() +
         this.raceLog.getDefenseUsage().getDefense1() +
         this.raceLog.getDefenseUsage().getDefense2() +
         this.raceLog.getDefenseUsage().getDefense3() +

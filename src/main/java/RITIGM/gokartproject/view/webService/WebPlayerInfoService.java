@@ -176,6 +176,7 @@ public class WebPlayerInfoService {
             return new ResponseEntity<ArrayList<RaceReport>>(recentRaces, HttpStatus.OK);
         } 
         catch( Exception e){
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

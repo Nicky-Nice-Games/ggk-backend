@@ -67,20 +67,20 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(10, raceLog.getBoostStat().getSpeedBoost1());
             stmtUpdateMainLog.setInt(11, raceLog.getBoostStat().getSpeedBoost2());
             stmtUpdateMainLog.setInt(12, raceLog.getBoostStat().getSpeedBoost3());
-            stmtUpdateMainLog.setInt(12, raceLog.getBoostStat().getSpeedBoost4());
-            stmtUpdateMainLog.setInt(13, raceLog.getOffenseStat().getPuck1());
-            stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck2());
-            stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck3());
-            stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck4());
-            stmtUpdateMainLog.setInt(15, raceLog.getTrapUsage().getOilSpill1());
-            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getBrickwall());
-            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getConfuseritchie());
-            stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getFakepowerupbrickl());
-            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense1());
-            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense2());
-            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense3());
-            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense4());
-            stmtUpdateMainLog.setDouble(17, score);
+            stmtUpdateMainLog.setInt(13, raceLog.getBoostStat().getSpeedBoost4());
+            stmtUpdateMainLog.setInt(14, raceLog.getOffenseStat().getPuck1());
+            stmtUpdateMainLog.setInt(15, raceLog.getOffenseStat().getPuck2());
+            stmtUpdateMainLog.setInt(16, raceLog.getOffenseStat().getPuck3());
+            stmtUpdateMainLog.setInt(17, raceLog.getOffenseStat().getPuck4());
+            stmtUpdateMainLog.setInt(18, raceLog.getTrapUsage().getOilSpill1());
+            stmtUpdateMainLog.setInt(19, raceLog.getTrapUsage().getBrickwall());
+            stmtUpdateMainLog.setInt(20, raceLog.getTrapUsage().getConfuseritchie());
+            stmtUpdateMainLog.setInt(21, raceLog.getTrapUsage().getFakepowerupbrick());
+            stmtUpdateMainLog.setInt(22, raceLog.getDefenseUsage().getDefense1());
+            stmtUpdateMainLog.setInt(23, raceLog.getDefenseUsage().getDefense2());
+            stmtUpdateMainLog.setInt(24, raceLog.getDefenseUsage().getDefense3());
+            stmtUpdateMainLog.setInt(25, raceLog.getDefenseUsage().getDefense4());
+            stmtUpdateMainLog.setDouble(26, score);
             
 
             boolean check = (stmtUpdateMainLog.executeUpdate() == 1) ? true : false;
@@ -127,7 +127,7 @@ public class GameLogDAO implements GameLogInterface {
                     result.getInt("oilspill1"),
                     result.getInt("brickwall"),
                     result.getInt("confuseritchie"),
-                    result.getInt("fakepowerupbrick"));
+                    result.getInt("fakepowerupblock"));
 
                 DefenseUsage defenseUsage = new DefenseUsage(
                     result.getInt("defense1"), 
@@ -190,7 +190,7 @@ public class GameLogDAO implements GameLogInterface {
                     result.getInt("oilspill1"),
                     result.getInt("brickwall"),
                     result.getInt("confuseritchie"),
-                    result.getInt("fakepowerupbrick"));
+                    result.getInt("fakepowerupblock"));
 
                 DefenseUsage defenseUsage = new DefenseUsage(
                     result.getInt("defense1"), 
