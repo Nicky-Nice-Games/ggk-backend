@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
@@ -208,16 +209,17 @@ public class WebPlayerInfoDAOTest {
         PreparedStatement stmt = mock(PreparedStatement.class);
         ResultSet check = mock(ResultSet.class);
         Timestamp stamp = new Timestamp(20);
-        RaceLog log = new RaceLog("20", 
+        RaceReport log = new RaceReport(new RaceLog("20", 
          stamp, 
          0, 0, 0, 0, 
          0, 0, 0,
          new BoostUsage(0, 0, 0), 
          new OffenseUsage(0, 0), 
-         new TrapUsage(0, 0));
-        ArrayList<RaceLog> expected = new ArrayList<RaceLog>(5);
+         new TrapUsage(0, 0)),
+        0, 0);
+        ArrayList<RaceReport> expected = new ArrayList<RaceReport>(5);
         expected.add(log);
-        ArrayList<RaceLog> listLogs;
+        ArrayList<RaceReport> listLogs;
 
         String query = "SELECT *\n" + //
                         "FROM racelog\n" + //
