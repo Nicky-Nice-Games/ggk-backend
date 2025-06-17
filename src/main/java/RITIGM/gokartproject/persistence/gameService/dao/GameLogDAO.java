@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.gameService.interfaces.GameLogInterface;
@@ -75,6 +76,10 @@ public class GameLogDAO implements GameLogInterface {
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getBrickwall());
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getConfuseritchie());
             stmtUpdateMainLog.setInt(16, raceLog.getTrapUsage().getFakepowerupbrickl());
+            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense1());
+            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense2());
+            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense3());
+            stmtUpdateMainLog.setInt(16, raceLog.getDefenseUsage().getDefense4());
             stmtUpdateMainLog.setDouble(17, score);
             
 
@@ -109,15 +114,26 @@ public class GameLogDAO implements GameLogInterface {
                 BoostUsage boostUsageData = new BoostUsage(
                     result.getInt("speedboost1"),
                     result.getInt("speedboost2"),
-                    result.getInt("speedboost3"));
+                    result.getInt("speedboost3"),
+                    result.getInt("speedboost4"));
 
                 OffenseUsage offenseUsageData = new OffenseUsage(
                     result.getInt("puck1"), 
-                    result.getInt("puck2"));
+                    result.getInt("puck2"),
+                    result.getInt("puck3"),
+                    result.getInt("puck4"));
 
                 TrapUsage trapUsage = new TrapUsage(
                     result.getInt("oilspill1"),
-                    result.getInt("oilspill2"));
+                    result.getInt("brickwall"),
+                    result.getInt("confuseritchie"),
+                    result.getInt("fakepowerupbrick"));
+
+                DefenseUsage defenseUsage = new DefenseUsage(
+                    result.getInt("defense1"), 
+                    result.getInt("defense2"), 
+                    result.getInt("defense3"), 
+                    result.getInt("defense4"));
 
                 RaceLog addedLog = new RaceLog(
                     result.getString("pid"),
@@ -131,7 +147,8 @@ public class GameLogDAO implements GameLogInterface {
                     result.getInt("fellofmap"),
                     boostUsageData,
                     offenseUsageData, 
-                    trapUsage);
+                    trapUsage,
+                    defenseUsage);
 
                 returnLog.add(addedLog);
             }
@@ -160,15 +177,26 @@ public class GameLogDAO implements GameLogInterface {
                 BoostUsage boostUsageData = new BoostUsage(
                     result.getInt("speedboost1"),
                     result.getInt("speedboost2"),
-                    result.getInt("speedboost3"));
+                    result.getInt("speedboost3"),
+                    result.getInt("speedboost4"));
 
                 OffenseUsage offenseUsageData = new OffenseUsage(
                     result.getInt("puck1"), 
-                    result.getInt("puck2"));
+                    result.getInt("puck2"),
+                    result.getInt("puck3"),
+                    result.getInt("puck4"));
 
                 TrapUsage trapUsage = new TrapUsage(
                     result.getInt("oilspill1"),
-                    result.getInt("oilspill2"));
+                    result.getInt("brickwall"),
+                    result.getInt("confuseritchie"),
+                    result.getInt("fakepowerupbrick"));
+
+                DefenseUsage defenseUsage = new DefenseUsage(
+                    result.getInt("defense1"), 
+                    result.getInt("defense2"), 
+                    result.getInt("defense3"), 
+                    result.getInt("defense4"));
 
                 returnLog = new RaceLog(
                     result.getString("pid"),
@@ -182,7 +210,8 @@ public class GameLogDAO implements GameLogInterface {
                     result.getInt("fellofmap"),
                     boostUsageData,
                     offenseUsageData, 
-                    trapUsage);
+                    trapUsage,
+                    defenseUsage);
             }
 
             return returnLog;
