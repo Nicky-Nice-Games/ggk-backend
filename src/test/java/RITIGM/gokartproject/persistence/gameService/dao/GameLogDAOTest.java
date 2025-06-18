@@ -23,6 +23,7 @@ import org.mockito.Mockito;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -50,12 +51,13 @@ public class GameLogDAOTest {
         ReflectUtils.setField(this.testDAO, "conn", mockConn);
 
         // Init sample racelog class
-        BoostUsage boost = new BoostUsage(1, 2, 3);
-        OffenseUsage offense = new OffenseUsage(1, 2);
-        TrapUsage trap = new TrapUsage(1, 2);
+        BoostUsage boost = new BoostUsage(1, 2, 3,4);
+        OffenseUsage offense = new OffenseUsage(1, 2, 3, 4);
+        TrapUsage trap = new TrapUsage(1, 2, 3, 4);
+        DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
 
         sampleEntry = new RaceLog("1", new Timestamp(2), 3, 4, 1,
-         6, 7, 8, 9, boost, offense, trap);
+         6, 7, 8, 9, boost, offense, trap, defense);
 
     }
 
@@ -73,11 +75,13 @@ public class GameLogDAOTest {
         // Testing a successful connection data insertion to the database
         String query = 
             """
-            INSERT INTO racelog 
-            (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
-            fellofmap,speedboost1,speedboost2,speedboost3, puck1, puck2, oilspill1, oilspill2,score) 
-            VALUES 
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);        
+           INSERT INTO racelog 
+                (pid, racestarttime, racetime, racepos, mapraced, characterused, collisionwithplayers, collisionwithwalls,
+                fellofmap,speedboost1,speedboost2,speedboost3, speedboost4,
+                puck1, puck2,puck3, puck4, oilspill1, brickwall,
+                confuseritchie,fakepowerupblock,defense1,defense2,defense3,defense4,score) 
+                VALUES 
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);          
             """;
         
         PreparedStatement stmt = mock(PreparedStatement.class);
@@ -125,16 +129,25 @@ public class GameLogDAOTest {
             thenReturn(2);
         when(result.getInt("speedboost3")).
             thenReturn(3);
+        when(result.getInt("speedboost4")).thenReturn(4);
 
         when(result.getInt("puck1")).
             thenReturn(1);
         when(result.getInt("puck2")).
             thenReturn(2);
+        when(result.getInt("puck3")).
+            thenReturn(3);
+        when(result.getInt("puck4")).
+            thenReturn(4);
 
         when(result.getInt("oilspill1")).
             thenReturn(1);
-        when(result.getInt("oilspill2")).
+        when(result.getInt("brickwall")).
             thenReturn(2);
+        when(result.getInt("confuseritchie")).
+            thenReturn(3);
+        when(result.getInt("fakepowerupblock")).
+            thenReturn(4);
 
         when(result.getString("pid")).
             thenReturn("1");
@@ -155,8 +168,8 @@ public class GameLogDAOTest {
         when(result.getInt("fellofmap")).
             thenReturn(9);
 
-        assertEquals(this.testDAO.getRaceByPlayer("1").get(0),
-         this.sampleEntry);
+        assertEquals(this.testDAO.getRaceByPlayer("1").get(0).toString(),
+         this.sampleEntry.toString());
     }
     @Test
     void testGetRaceInfo() throws SQLException{
@@ -179,16 +192,25 @@ public class GameLogDAOTest {
             thenReturn(2);
         when(result.getInt("speedboost3")).
             thenReturn(3);
+        when(result.getInt("speedboost4")).thenReturn(4);
 
         when(result.getInt("puck1")).
             thenReturn(1);
         when(result.getInt("puck2")).
             thenReturn(2);
+        when(result.getInt("puck3")).
+            thenReturn(3);
+        when(result.getInt("puck4")).
+            thenReturn(4);
 
         when(result.getInt("oilspill1")).
             thenReturn(1);
-        when(result.getInt("oilspill2")).
+        when(result.getInt("brickwall")).
             thenReturn(2);
+        when(result.getInt("confuseritchie")).
+            thenReturn(3);
+        when(result.getInt("fakepowerupblock")).
+            thenReturn(4);
 
         when(result.getString("pid")).
             thenReturn("1");
@@ -209,8 +231,8 @@ public class GameLogDAOTest {
         when(result.getInt("fellofmap")).
             thenReturn(9);
 
-        assertEquals(this.testDAO.getRaceInfo(1),
-         this.sampleEntry);
+        assertEquals(this.testDAO.getRaceInfo(1).toString(),
+         this.sampleEntry.toString());
 
         // Mocking no object with that ID
         when(result.next()).thenReturn(false);

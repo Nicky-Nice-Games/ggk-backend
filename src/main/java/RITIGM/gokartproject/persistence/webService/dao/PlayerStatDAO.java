@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.PlayerStatInterface;
@@ -39,10 +40,20 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 SUM(r.speedboost1) AS totalspeedboost1,
                 SUM(r.speedboost2) AS totalspeedboost2,
                 SUM(r.speedboost3) AS totalspeedboost3,
+                SUM(r.speedboost4) AS totalspeedboost4,
                 SUM(r.puck1) AS totalpuck1,
                 SUM(r.puck2) AS totalpuck2,
+                SUM(r.puck2) AS totalpuck3,
+                SUM(r.puck2) AS totalpuck4,
                 SUM(r.oilspill1) AS totaloilspill1,
-                SUM(r.oilspill2) AS totaloilspill2
+                SUM(r.brickwall) AS totalbrickwall,
+                SUM(r.confuseritchie) AS totalconfuseritchie,
+                SUM(r.fakepowerupblock) AS totalfakepowerupblock,
+                SUM(r.defense1) AS totaldefense1,
+                SUM(r.defense2) AS totaldefense2,
+                SUM(r.defense3) AS totaldefense3,
+                SUM(r.defense4) AS totaldefense4
+
             FROM
                 gokart.racelog r
             JOIN
@@ -72,14 +83,24 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 0,0, //Init the fastest time and fav character
                 new OffenseUsage(
                     data.getInt("totalpuck1"), 
-                    data.getInt("totalpuck2")),
+                    data.getInt("totalpuck2"),
+                    data.getInt("totalpuck3"),
+                    data.getInt("totalpuck4")),
                 new TrapUsage(
                     data.getInt("totaloilspill1"),
-                    data.getInt("totaloilspill2")),
+                    data.getInt("totalbrickwall"),
+                    data.getInt("totalconfuseritchie"),
+                    data.getInt("totalfakepowerupblock")),
                 new BoostUsage(
                     data.getInt("totalspeedboost1"),
                     data.getInt("totalspeedboost2"),
+                    data.getInt("totalspeedboost3"),
                     data.getInt("totalspeedboost3")),
+                new DefenseUsage(
+                    data.getInt("totaldefense1"),
+                    data.getInt("totaldefense2"),
+                    data.getInt("totaldefense3"),
+                    data.getInt("totaldefense4")),
                     0.0,
                 0.0);
         } else{

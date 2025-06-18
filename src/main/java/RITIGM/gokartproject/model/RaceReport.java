@@ -3,6 +3,7 @@ package RITIGM.gokartproject.model;
 import java.sql.Timestamp;
 
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -12,15 +13,15 @@ public class RaceReport extends RaceLog{
     private double score;
 
     private static String TO_STRING_FORMAT =    "%s\r\n" + //
-                                                "\tRace ID: %.2f\r\n" + //
+                                                "\tRace ID: %d\r\n" + //
                                                 "\tScore: %.2f\r\n";
                                                 
     
     public RaceReport(String pid, Timestamp raceStartTime, int raceTime, int racePos, int mapRaced,
             int characterUsed, int collisionWithPlayer, int collisionWithWall, int felloffmap,
-            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage, double score, int raceID){
+            BoostUsage boostStat, OffenseUsage offenseStat, TrapUsage trapUsage, DefenseUsage defenseUsage, double score, int raceID){
         super(pid, raceStartTime, raceTime,racePos,mapRaced,characterUsed,collisionWithPlayer,collisionWithWall,
-        felloffmap,boostStat,offenseStat,trapUsage);
+        felloffmap,boostStat,offenseStat,trapUsage, defenseUsage);
         this.score = score;
         this.raceID = raceID;
     }
@@ -28,7 +29,7 @@ public class RaceReport extends RaceLog{
     public RaceReport(RaceLog raceLog, double score, int raceID){
         super(raceLog.getPid(), raceLog.getRaceStartTime(), raceLog.getRaceTime(), raceLog.getRacePos(),
         raceLog.getMapRaced(), raceLog.getCharacterUsed(), raceLog.getCollisionWithPlayer(), raceLog.getCollisionWithWall(), raceLog.getFelloffmap(),
-        raceLog.getBoostStat(), raceLog.getOffenseStat(), raceLog.getTrapUsage());
+        raceLog.getBoostStat(), raceLog.getOffenseStat(), raceLog.getTrapUsage(), raceLog.getDefenseUsage());
 
         this.raceID = raceID;
 
@@ -49,29 +50,7 @@ public class RaceReport extends RaceLog{
 
     @Override
     public String toString() {
-        return String.format(TO_STRING_FORMAT, super.toString(), this.score);
+        return String.format(TO_STRING_FORMAT, super.toString(), this.raceID, this.score);
     }
 
-    public static void main(String[] args) {
-        String expected_pid = "20";
-        Timestamp expected_raceStartTime = new Timestamp(2);
-        int expected_raceTime = 1;
-        int expected_racePos = 1;
-        int expected_mapRaced = 3;
-        int expected_characterUsed = 4;
-        int expected_wallCol = 0;
-        int expected_playerCol = 0;
-        int expected_falloff = 0;
-        BoostUsage expected_boostStat = new BoostUsage(1,1,1);
-        OffenseUsage expected_offenseStat = new OffenseUsage(1, 1);
-        TrapUsage expected_trapUsage = new TrapUsage(1, 1);
-
-        RaceLog raceLog = new RaceLog(expected_pid, expected_raceStartTime, expected_raceTime, expected_racePos, 
-        expected_mapRaced, expected_characterUsed, expected_wallCol, expected_playerCol, expected_falloff,
-        expected_boostStat,  expected_offenseStat, expected_trapUsage);
-
-        RaceReport check = new RaceReport(raceLog, 20000.02,102383);
-
-        System.out.println(check);
-    }
 }

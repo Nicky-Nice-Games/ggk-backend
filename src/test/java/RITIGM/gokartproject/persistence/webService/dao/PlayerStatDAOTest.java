@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import RITIGM.gokartproject.ReflectUtils;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 
@@ -27,6 +28,7 @@ public class PlayerStatDAOTest {
     private OffenseUsage offense;
     private TrapUsage trap;
     private BoostUsage boost;
+    private DefenseUsage defense;
 
     @BeforeEach
     void init(){
@@ -35,11 +37,12 @@ public class PlayerStatDAOTest {
 
         ReflectUtils.setField(this.playerStatDAO, "conn", mockConn);
 
-        this.offense = new OffenseUsage(9,10);
-        this.trap = new TrapUsage(11, 12);
-        this.boost = new BoostUsage(13, 14, 15);
+        this.offense = new OffenseUsage(9,10,11,12);
+        this.trap = new TrapUsage(11, 12,13,14);
+        this.boost = new BoostUsage(13, 14, 15,16);
+        this.defense = new DefenseUsage(0, 0, 0, 0);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
-         this.offense, this.trap, this.boost, 16.0, 17.0);
+         this.offense, this.trap, this.boost, defense, 16.0, 17.0);
     }
 
 
@@ -58,10 +61,20 @@ public class PlayerStatDAOTest {
                 SUM(r.speedboost1) AS totalspeedboost1,
                 SUM(r.speedboost2) AS totalspeedboost2,
                 SUM(r.speedboost3) AS totalspeedboost3,
+                SUM(r.speedboost4) AS totalspeedboost4,
                 SUM(r.puck1) AS totalpuck1,
                 SUM(r.puck2) AS totalpuck2,
+                SUM(r.puck2) AS totalpuck3,
+                SUM(r.puck2) AS totalpuck4,
                 SUM(r.oilspill1) AS totaloilspill1,
-                SUM(r.oilspill2) AS totaloilspill2
+                SUM(r.brickwall) AS totalbrickwall,
+                SUM(r.confuseritchie) AS totalconfuseritchie,
+                SUM(r.fakepowerupblock) AS totalfakepowerupblock,
+                SUM(r.defense1) AS totaldefense1,
+                SUM(r.defense2) AS totaldefense2,
+                SUM(r.defense3) AS totaldefense3,
+                SUM(r.defense4) AS totaldefense4
+
             FROM
                 gokart.racelog r
             JOIN
@@ -92,11 +105,20 @@ public class PlayerStatDAOTest {
         when(mainSet.getInt("totalfellofmap")).thenReturn(8);
         when(mainSet.getInt("totalpuck1")).thenReturn(9);
         when(mainSet.getInt("totalpuck2")).thenReturn(10);
+        when(mainSet.getInt("totalpuck3")).thenReturn(11);
+        when(mainSet.getInt("totalpuck4")).thenReturn(12);
         when(mainSet.getInt("totaloilspill1")).thenReturn(11);
-        when(mainSet.getInt("totaloilspill2")).thenReturn(12);
+        when(mainSet.getInt("totalbrickwall")).thenReturn(12);
+        when(mainSet.getInt("totalconfuseritchie")).thenReturn(13);
+        when(mainSet.getInt("totalfakepowerupblock")).thenReturn(14);
         when(mainSet.getInt("totalspeedboost1")).thenReturn(13);
         when(mainSet.getInt("totalspeedboost2")).thenReturn(14);
         when(mainSet.getInt("totalspeedboost3")).thenReturn(15);
+        when(mainSet.getInt("totalspeedboost4")).thenReturn(16);
+        when(mainSet.getInt("totaldefense1")).thenReturn(0);
+        when(mainSet.getInt("totaldefense2")).thenReturn(0);
+        when(mainSet.getInt("totaldefense3")).thenReturn(0);
+        when(mainSet.getInt("totaldefense4")).thenReturn(0);
 
         String queryfirst = 
         """
