@@ -17,10 +17,12 @@ import org.springframework.http.ResponseEntity;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.dao.PlayerStatDAO;
@@ -160,11 +162,12 @@ public class WebPlayerInfoServiceTest {
 
     @Test
     void testGetPlayerDetailInfo() throws SQLException {
-        OffenseUsage offense = new OffenseUsage(9,10);
-        TrapUsage trap = new TrapUsage(11, 12);
-        BoostUsage boost = new BoostUsage(13, 14, 15);
+        OffenseUsage offense = new OffenseUsage(9,10,11,12);
+        TrapUsage trap = new TrapUsage(11, 12,13,14);
+        BoostUsage boost = new BoostUsage(13, 14, 15,16);
+        DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
          PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
-         offense, trap, boost, 16.0, 17.0);
+         offense, trap, boost,defense, 16.0, 17.0);
 
         when(playerStatInterface.getPlayerStat("1")).thenReturn(check);
         ResponseEntity<PlayerStat> response = wpInfoService.getPlayerDetailInfo("1");
@@ -201,8 +204,8 @@ public class WebPlayerInfoServiceTest {
 
     @Test
     void testGetRecentRaces() throws SQLException{
-        ResponseEntity<ArrayList<RaceLog>> response;
-        ArrayList<RaceLog> logTest = new ArrayList<RaceLog>(5);
+        ResponseEntity<ArrayList<RaceReport>> response;
+        ArrayList<RaceReport> logTest = new ArrayList<RaceReport>(5);
 
         when(mockWebPlayerDAO.getRecentGames("20")).thenReturn(logTest);
         response = wpInfoService.getRecentRaces("20");

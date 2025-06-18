@@ -10,6 +10,7 @@ public class BoostUsage {
     private int speedBoost1;
     private int speedBoost2;
     private int speedBoost3;
+    private int speedBoost4;
 
     /**
      * to String formatting
@@ -17,18 +18,21 @@ public class BoostUsage {
     public static final String TO_STRING_FORMAT = "Boost Usage: \r\n" + //
                                                     "\t\tSpeed Boost 1 = %d, \r\n" + //
                                                     "\t\tSpeed Boost 2 = %d, \r\n" + //
-                                                    "\t\tSpeed Boost 3 = %d,";
+                                                    "\t\tSpeed Boost 3 = %d, \r\n" + //
+                                                    "\t\tSpeed Boost 4 = %d";
     
     /**
      * Contructor for the boost usage 
      * @param speedBoost1  first boost item
      * @param speedBoost2 second boost item
      * @param speedBoost3 third boost item
+     * @param speedBoost4 4th boost item
      */
-    public BoostUsage(int speedBoost1,int speedBoost2, int speedBoost3){
+    public BoostUsage(int speedBoost1,int speedBoost2, int speedBoost3, int speedBoost4){
         this.speedBoost1 = speedBoost1;
         this.speedBoost2 = speedBoost2;
         this.speedBoost3 = speedBoost3;
+        this.speedBoost4 = speedBoost4;
     }
 
 
@@ -83,10 +87,26 @@ public class BoostUsage {
     }
 
     /**
+     * Getter for boost item 4
+     * @return boost item 4
+     */
+    public int getSpeedBoost4() {
+        return speedBoost4;
+    }
+
+    /**
+     * setter fpor boost item 4
+     * @param speedBoost4 boost item 4
+     */
+    public void setSpeedBoost4(int speedBoost4) {
+        this.speedBoost4 = speedBoost4;
+    }
+
+    /**
      * Overring and creating the new format for the boost usage
      */
     @Override
     public String toString() {
-        return String.format(TO_STRING_FORMAT, this.speedBoost1, this.speedBoost2, this.speedBoost3);
+        return String.format(TO_STRING_FORMAT, this.speedBoost1, this.speedBoost2, this.speedBoost3, this.speedBoost4);
     }
 }

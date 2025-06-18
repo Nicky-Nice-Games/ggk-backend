@@ -12,7 +12,9 @@ import java.sql.ResultSet;
 import RITIGM.gokartproject.connection.Conn;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.usage.BoostUsage;
+import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
 import RITIGM.gokartproject.model.usage.TrapUsage;
 import RITIGM.gokartproject.persistence.webService.interfaces.WebPlayerInfoInterface;
@@ -197,9 +199,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
      * {@inheritDoc}
      */
     @Override
-    public ArrayList<RaceLog> getRecentGames(String pid) throws SQLException{
+    public ArrayList<RaceReport> getRecentGames(String pid) throws SQLException{
         
-        ArrayList<RaceLog> recentRaces = new ArrayList<RaceLog>(5);
+        ArrayList<RaceReport> recentRaces = new ArrayList<RaceReport>(5);
         String query = "SELECT *\n" + //
                         "FROM racelog\n" + //
                         "WHERE pid = ?\n" + //
@@ -210,27 +212,40 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         stmt.setString(1, pid);
         ResultSet check = stmt.executeQuery();
         while(check.next()){
-            recentRaces.add(
-                new RaceLog(
+            RaceLog tempLog = new RaceLog(
                     check.getString("pid"), 
                     check.getTimestamp("racestarttime"), 
                     check.getInt("racetime"), 
                     check.getInt("racepos"), 
                     check.getInt("mapraced"), 
                     check.getInt("characterused"), 
-                    check.getInt("collisionwithplayer"), 
-                    check.getInt("collisionwithwall"), 
-                    check.getInt("felloffmap"), 
+                    check.getInt("collisionwithplayers"), 
+                    check.getInt("collisionwithwalls"), 
+                    check.getInt("fellofmap"), 
                     new BoostUsage(
                         check.getInt("speedboost1"), 
                         check.getInt("speedboost2"), 
-                        check.getInt("speedboost3")), 
+                        check.getInt("speedboost3"),
+                        check.getInt("speedboost4")), 
                     new OffenseUsage(
                         check.getInt("puck1"), 
-                        check.getInt("puck2")), 
+                        check.getInt("puck2"),
+                        check.getInt("puck3"),
+                        check.getInt("puck4")), 
                     new TrapUsage(
                         check.getInt("oilspill1"), 
-                        check.getInt("oilspill2"))));
+                        check.getInt("brickwall"),
+                        check.getInt("confuseritchie"),
+                        check.getInt("fakepowerupblock")),
+                    new DefenseUsage(
+                        check.getInt("defense1"), 
+                        check.getInt("defense2"),
+                        check.getInt("defense3"),
+                        check.getInt("defense4")));
+
+            RaceReport tempReport = new RaceReport(tempLog, check.getInt("score"), check.getInt("raceID"));
+            recentRaces.add(tempReport);
+                
         }
 
         return recentRaces;

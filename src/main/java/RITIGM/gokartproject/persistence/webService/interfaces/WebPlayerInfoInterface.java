@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
+import RITIGM.gokartproject.model.RaceReport;
 
 public interface WebPlayerInfoInterface {
     /**
@@ -59,7 +60,7 @@ public interface WebPlayerInfoInterface {
      * @return a list containing the most recent (up to 5) races played by a player
      * @throws SQLException
      */
-    abstract ArrayList<RaceLog> getRecentGames(String pid) throws SQLException;
+    abstract ArrayList<RaceReport> getRecentGames(String pid) throws SQLException;
 
     /**
      * Retrives player stats from a specific track from the database

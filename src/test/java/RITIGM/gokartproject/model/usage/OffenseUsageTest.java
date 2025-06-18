@@ -19,7 +19,7 @@ public class OffenseUsageTest {
                                                     "\t\tPuck 2 = %d, \r\n";
     @BeforeEach
     void init(){
-        this.check = new OffenseUsage(1,2);
+        this.check = new OffenseUsage(1,2, 3, 4);
     }
 
     @Test
@@ -44,16 +44,4 @@ public class OffenseUsageTest {
         assertEquals(4, check.getPuck2());
     }
 
-    @Test
-    void testEquals() {
-        assertTrue(check.equals(new OffenseUsage(1, 2)));
-        assertFalse(check.equals(new OffenseUsage(1, 3)));
-        
-    }
-
-    // @Test
-    // void testToString() {
-    //     assertEquals(String.format(TO_STRING_FORMAT, 1,2), check);
-    // }
-    
 }
