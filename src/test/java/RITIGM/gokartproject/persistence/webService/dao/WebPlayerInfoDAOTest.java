@@ -235,7 +235,7 @@ public class WebPlayerInfoDAOTest {
         when(check.getString("pid")).thenReturn("20");
         when(check.getTimestamp("racestarttime")).thenReturn(stamp);
         listLogs = wpInfoDAO.getRecentGames("20");
-        assertEquals(expected, listLogs);
+        assertEquals(expected.toString(), listLogs.toString());
 
         when(check.next()).thenReturn(false);
         listLogs = wpInfoDAO.getRecentGames("20");

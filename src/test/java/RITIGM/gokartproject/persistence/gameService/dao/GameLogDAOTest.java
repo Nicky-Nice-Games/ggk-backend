@@ -129,16 +129,25 @@ public class GameLogDAOTest {
             thenReturn(2);
         when(result.getInt("speedboost3")).
             thenReturn(3);
+        when(result.getInt("speedboost4")).thenReturn(4);
 
         when(result.getInt("puck1")).
             thenReturn(1);
         when(result.getInt("puck2")).
             thenReturn(2);
+        when(result.getInt("puck3")).
+            thenReturn(3);
+        when(result.getInt("puck4")).
+            thenReturn(4);
 
         when(result.getInt("oilspill1")).
             thenReturn(1);
-        when(result.getInt("oilspill2")).
+        when(result.getInt("brickwall")).
             thenReturn(2);
+        when(result.getInt("confuseritchie")).
+            thenReturn(3);
+        when(result.getInt("fakepowerupblock")).
+            thenReturn(4);
 
         when(result.getString("pid")).
             thenReturn("1");
@@ -159,8 +168,8 @@ public class GameLogDAOTest {
         when(result.getInt("fellofmap")).
             thenReturn(9);
 
-        assertEquals(this.testDAO.getRaceByPlayer("1").get(0),
-         this.sampleEntry);
+        assertEquals(this.testDAO.getRaceByPlayer("1").get(0).toString(),
+         this.sampleEntry.toString());
     }
     @Test
     void testGetRaceInfo() throws SQLException{
@@ -183,16 +192,25 @@ public class GameLogDAOTest {
             thenReturn(2);
         when(result.getInt("speedboost3")).
             thenReturn(3);
+        when(result.getInt("speedboost4")).thenReturn(4);
 
         when(result.getInt("puck1")).
             thenReturn(1);
         when(result.getInt("puck2")).
             thenReturn(2);
+        when(result.getInt("puck3")).
+            thenReturn(3);
+        when(result.getInt("puck4")).
+            thenReturn(4);
 
         when(result.getInt("oilspill1")).
             thenReturn(1);
-        when(result.getInt("oilspill2")).
+        when(result.getInt("brickwall")).
             thenReturn(2);
+        when(result.getInt("confuseritchie")).
+            thenReturn(3);
+        when(result.getInt("fakepowerupblock")).
+            thenReturn(4);
 
         when(result.getString("pid")).
             thenReturn("1");
@@ -213,8 +231,8 @@ public class GameLogDAOTest {
         when(result.getInt("fellofmap")).
             thenReturn(9);
 
-        assertEquals(this.testDAO.getRaceInfo(1),
-         this.sampleEntry);
+        assertEquals(this.testDAO.getRaceInfo(1).toString(),
+         this.sampleEntry.toString());
 
         // Mocking no object with that ID
         when(result.next()).thenReturn(false);

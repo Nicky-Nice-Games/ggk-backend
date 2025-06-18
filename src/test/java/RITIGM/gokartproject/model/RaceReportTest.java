@@ -1,6 +1,7 @@
 package RITIGM.gokartproject.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Timestamp;
 
@@ -47,6 +48,19 @@ private String expected_pid = "20";
     }
 
     @Test
+    void testInitOveride(){
+        RaceReport check = new RaceReport(expected_pid, 
+        new Timestamp(0), 1, 1, 
+        1, 1, 1, 1, 1,
+        new BoostUsage(0, 0, 0, 0),
+        new OffenseUsage(0, 0, 0, 0),
+        new TrapUsage(0, 0, 0, 0), 
+        new DefenseUsage(0, 0, 0, 0), 
+        20.00, 700);
+        assertNotNull(check);
+    }
+
+    @Test
     void testGetScore() {
         assertEquals(20.0, this.raceReport.getScore());
     }
@@ -60,5 +74,10 @@ private String expected_pid = "20";
     @Test
     void testToString() {
         assertEquals(String.format(TO_STRING_FORMAT, this.raceLog.toString(), 700, 20.00), this.raceReport.toString());
+    }
+
+    @Test
+    void testGetTO_STRING_FORMAT() {
+        assertEquals(TO_STRING_FORMAT, raceReport.getTO_STRING_FORMAT());
     }
 }

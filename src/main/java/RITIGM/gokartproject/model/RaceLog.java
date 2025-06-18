@@ -276,27 +276,27 @@ public class RaceLog {
         this.collisionWithPlayer, this.collisionWithWall, this.felloffmap,this.boostStat, this.offenseStat, this.trapUsage);
     }
 
-    /**
-     * New method to check if the race log are the same
-     * 
-     * Checking: player ID, race start time, race run time, race position
-     * Map raced on and which character used
-     * @param obj comparator (don't care if that's a real word, you know what I mean)
-     */
-    @Override
-    public boolean equals(Object obj){
-        if (obj == null) return false;
-        if (this == obj) return true;
-        if (!(obj instanceof RaceLog)) return false;
+    // /**
+    //  * New method to check if the race log are the same
+    //  * 
+    //  * Checking: player ID, race start time, race run time, race position
+    //  * Map raced on and which character used
+    //  * @param obj comparator (don't care if that's a real word, you know what I mean)
+    //  */
+    // @Override
+    // public boolean equals(Object obj){
+    //     if (obj == null) return false;
+    //     if (this == obj) return true;
+    //     if (!(obj instanceof RaceLog)) return false;
 
-        RaceLog other = (RaceLog) obj;
+    //     RaceLog other = (RaceLog) obj;
 
-        return 
-        this.pid.equals(other.pid) &&
-        this.raceStartTime.equals(other.raceStartTime) &&
-        this.raceTime == other.raceTime &&
-        this.racePos == other.racePos &&
-        this.mapRaced == other.mapRaced &&
-        this.characterUsed == other.characterUsed;
-    }
+    //     return 
+    //     this.pid.equals(other.pid) &&
+    //     this.raceStartTime.equals(other.raceStartTime) &&
+    //     this.raceTime == other.raceTime &&
+    //     this.racePos == other.racePos &&
+    //     this.mapRaced == other.mapRaced &&
+    //     this.characterUsed == other.characterUsed;
+    // }
 }

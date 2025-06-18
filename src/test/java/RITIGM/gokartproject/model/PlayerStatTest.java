@@ -155,4 +155,16 @@ public class PlayerStatTest {
     void testGetFavoriteChara() {
         assertEquals(19, check.getFavoriteChara());
     }
+
+    @Test
+    void testGetDefenseUsage() {
+        assertEquals(defense, check.getDefenseUsage());
+    }
+
+    @Test
+    void testSetDefenseUsage() {
+        DefenseUsage a = new DefenseUsage(5, 7, 13, 17);
+        check.setDefenseUsage(a);
+        assertEquals(a, check.getDefenseUsage());
+    }
 }
