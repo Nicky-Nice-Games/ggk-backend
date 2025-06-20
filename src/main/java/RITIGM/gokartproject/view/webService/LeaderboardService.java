@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
+@CrossOrigin(origins = "https://nickynicegames.com")
 @RequestMapping("webservice/leaderboard")
 public class LeaderboardService {
     private static final Logger log = Logger.getLogger(LeaderboardService.class.getName());

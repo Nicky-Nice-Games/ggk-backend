@@ -7,6 +7,7 @@ import org.apache.tomcat.util.digester.ArrayStack;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
+@CrossOrigin(origins = "https://nickynicegames.com")
 @RequestMapping("webservice/playerinfo")
 public class WebPlayerInfoService {
     private static final Logger log = Logger.getLogger(GameLogService.class.getName());
