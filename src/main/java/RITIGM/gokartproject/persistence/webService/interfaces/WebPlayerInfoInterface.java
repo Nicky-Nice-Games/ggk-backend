@@ -82,5 +82,13 @@ public interface WebPlayerInfoInterface {
      */
     abstract AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException;
 
+    /**
+     * 
+     * @param adminId Admin id
+     * @return Returns Admin data
+     * @throws SQLException retreival error
+     */
+    abstract AdminInfo getAdminInfo(String adminId) throws SQLException;
+
 
 }

@@ -219,5 +219,20 @@ public class WebPlayerInfoService {
         }
     }
 
+    @GetMapping("/{adminId}")
+    public ResponseEntity<AdminInfo> getAdminInfo(@PathVariable String adminId){
+        log.info("GET /webservice/admininfo/{adminId}");
+        try{
+            AdminInfo admin = webPlayerInfoDAO.getAdminInfo(adminId);
+            if(admin != null){
+                return new ResponseEntity<AdminInfo>(admin, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }

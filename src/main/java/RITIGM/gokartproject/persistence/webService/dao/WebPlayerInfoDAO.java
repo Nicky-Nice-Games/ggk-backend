@@ -307,5 +307,26 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
     }
 
+    public AdminInfo getAdminInfo(String adminId) throws SQLException{
+        AdminInfo admin = null;
+        String query = "NO QUERY BUILT";
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, adminId);
+
+        ResultSet check = stmt.executeQuery();
+
+        if(check.next()){
+            admin = new AdminInfo(
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"));
+        }
+
+        return admin;
+
+    }
+
     
 }
