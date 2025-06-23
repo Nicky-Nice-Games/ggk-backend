@@ -24,7 +24,7 @@ public class PlayerInfo {
      * The template for the player data
      * @param pid the player id
      * @param email the player email
-     * @param pw the player email (ONLY THE HASH CODE)
+     * @param pw the player password (ONLY THE HASH CODE)
      * @param uid the player uid 
      * @param username the player username
      */

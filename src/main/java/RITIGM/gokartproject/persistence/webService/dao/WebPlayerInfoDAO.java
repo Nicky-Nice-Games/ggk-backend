@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import RITIGM.gokartproject.connection.Conn;
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
@@ -277,6 +278,33 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
         return stats;
         //You've found the secret comment! 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException{
+        AdminInfo admin = null;
+        String query = "NO QUERY BUILT";
+        String checkPassword =  Integer.toString(password.hashCode());
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        stmt.setString(2, checkPassword);
+
+        ResultSet check = stmt.executeQuery();
+
+        if(check.next()){
+            admin = new AdminInfo(
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"), 
+                check.getString("empty collumn"));
+        }
+
+        return admin;
+
+
     }
 
     

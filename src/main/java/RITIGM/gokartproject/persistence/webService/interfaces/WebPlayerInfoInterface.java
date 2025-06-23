@@ -3,6 +3,7 @@ package RITIGM.gokartproject.persistence.webService.interfaces;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 
@@ -70,6 +71,16 @@ public interface WebPlayerInfoInterface {
      * IF EITHER PIECE OF DATA IS MISSING returns null to prevent formatting issues
      */
     abstract ArrayList<Integer> getSpecificTrackData(String pid, int trackId) throws SQLException;
+
+
+    /**
+     * 
+     * @param username Admin username
+     * @param password Admin password
+     * @return Returns the login data for an admin
+     * @throws SQLException something went wrong with retrieval
+     */
+    abstract AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException;
 
 
 }
