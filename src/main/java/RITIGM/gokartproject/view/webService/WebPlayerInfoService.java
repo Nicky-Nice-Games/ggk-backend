@@ -204,7 +204,7 @@ public class WebPlayerInfoService {
     }
 
 
-    @GetMapping("/{username}/{password}")
+    @GetMapping("/admincheck/{username}/{password}")
     public ResponseEntity<AdminInfo> adminLogin(@PathVariable String username, @PathVariable String password){
         log.info("GET /webservice/admininfo/{username}/{password}");
         try{
@@ -219,9 +219,9 @@ public class WebPlayerInfoService {
         }
     }
 
-    @GetMapping("/{adminId}")
+    @GetMapping("/admincheck/{adminId}")
     public ResponseEntity<AdminInfo> getAdminInfo(@PathVariable String adminId){
-        log.info("GET /webservice/admininfo/{adminId}");
+        log.info("GET /webservice/playerinfo/admincheck/{adminId}");
         try{
             AdminInfo admin = webPlayerInfoDAO.getAdminInfo(adminId);
             if(admin != null){
@@ -230,6 +230,7 @@ public class WebPlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         } catch(Exception e){
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

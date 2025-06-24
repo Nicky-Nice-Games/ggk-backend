@@ -280,48 +280,59 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         //You've found the secret comment! 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException{
         AdminInfo admin = null;
-        String query = "NO QUERY BUILT";
+        String queryCheck = "SELECT * FROM players WHERE username = ? AND Password = ?";
         String checkPassword =  Integer.toString(password.hashCode());
 
-        PreparedStatement stmt = conn.prepareStatement(query);
-        stmt.setString(1, username);
-        stmt.setString(2, checkPassword);
+        PreparedStatement stmtAdminCheck = conn.prepareStatement(queryCheck);
+        stmtAdminCheck.setString(1, username);
+        stmtAdminCheck.setString(2, checkPassword);
+        ResultSet checkIfAdmin = stmtAdminCheck.executeQuery();
 
-        ResultSet check = stmt.executeQuery();
-
-        if(check.next()){
-            admin = new AdminInfo(
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"));
+        if(checkIfAdmin.next()){
+            admin = getAdminInfo(checkIfAdmin.getString("pid"));
         }
 
         return admin;
 
-
     }
 
+    /**
+     * Check if the provided player ID is also and admin of the system
+     * 
+     * Return null if there is not admin with those details
+     * 
+     * @throws SQLException if therer is an error getting info from the database
+     */
     public AdminInfo getAdminInfo(String adminId) throws SQLException{
         AdminInfo admin = null;
-        String query = "NO QUERY BUILT";
+        String query = "SELECT * FROM admin WHERE admin_id = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, adminId);
 
         ResultSet check = stmt.executeQuery();
 
+        // Checking if an player is an admin
         if(check.next()){
-            admin = new AdminInfo(
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"), 
-                check.getString("empty collumn"));
+            String infoQuery = "SELECT * FROM players WHERE pid = ?";
+
+            // Getting admin information
+            PreparedStatement stmtInfo = conn.prepareStatement(infoQuery);
+            stmtInfo.setString(1, adminId);
+
+            ResultSet adminInfo = stmtInfo.executeQuery();
+            
+            if(adminInfo.next()){
+                admin = new AdminInfo(
+                    adminInfo.getString("pid"),
+                    adminInfo.getString("Email"),
+                    adminInfo.getString("Password"),
+                    adminInfo.getString("username"));
+            } else{
+                throw new SQLException();
+            }
         }
 
         return admin;
