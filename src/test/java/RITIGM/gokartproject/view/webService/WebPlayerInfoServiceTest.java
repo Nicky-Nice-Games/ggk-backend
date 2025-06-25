@@ -11,9 +11,11 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.autoconfigure.pulsar.PulsarProperties.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
@@ -235,5 +237,54 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
+    }
+
+    @Test
+    void testAdminLogin() throws SQLException{
+        AdminInfo player = new AdminInfo("20", "test@email.com", "password","username");
+        //LoginCreds info = new LoginCreds("username", "password");
+
+        
+        //case: player successfully retrieved
+        when(mockWebPlayerDAO.getAdminInfoWithUsername("username", "password")).thenReturn(player);
+        ResponseEntity<AdminInfo> response = wpInfoService.adminLogin("username", "password");
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(player, response.getBody());
+
+        //case: player does not exist or wasn't properly retrieved
+        when(mockWebPlayerDAO.getAdminInfoWithUsername("username", "password")).thenReturn(null);
+        response = wpInfoService.adminLogin("username", "password");
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNull(response.getBody());
+
+        //case: internal server error
+        when(mockWebPlayerDAO.getAdminInfoWithUsername("username", "password")).thenThrow();
+        response = wpInfoService.adminLogin("username", "password");
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    void testGetAdminInfo() throws SQLException {
+        AdminInfo player = new AdminInfo("20", "test@email.com", "password", "username");
+        String id = "20";
+        
+        //case: player successfully retrieved
+        when(mockWebPlayerDAO.getAdminInfo(id)).thenReturn(player);
+        ResponseEntity<AdminInfo> response = wpInfoService.getAdminInfo(id);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(player, response.getBody());
+
+        //case: player does not exist or wasn't properly retrieved
+        when(mockWebPlayerDAO.getAdminInfo(id)).thenReturn(null);
+        response = wpInfoService.getAdminInfo(id);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertNull(response.getBody());
+
+        //case: internal server error
+        when(mockWebPlayerDAO.getAdminInfo(id)).thenThrow();
+        response = wpInfoService.getAdminInfo(id);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNull(response.getBody());
     }
 }
