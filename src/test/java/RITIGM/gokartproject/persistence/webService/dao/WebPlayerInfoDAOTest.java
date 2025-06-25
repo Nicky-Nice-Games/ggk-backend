@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import RITIGM.gokartproject.ReflectUtils;
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.usage.BoostUsage;
@@ -291,5 +292,94 @@ public class WebPlayerInfoDAOTest {
         actual = wpInfoDAO.getSpecificTrackData("20", 4);
         assertNull(actual);
 
+    }
+
+
+    @Test
+    void testGetAdminInfo() throws SQLException{
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        PreparedStatement adminStmt = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        ResultSet adminSet = mock(ResultSet.class);
+        String query = "SELECT * FROM admin WHERE admin_id = ?";
+        String queryProper = "SELECT * FROM players WHERE pid = ?";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(mockConn.prepareStatement(queryProper)).thenReturn(adminStmt);
+
+        //case: retreival failed
+        when(stmt.executeQuery()).thenReturn(resultSet);
+        when(resultSet.next()).thenReturn(false);
+        AdminInfo player = wpInfoDAO.getAdminInfo("20");
+        assertNull(player);
+
+        // when(stmt.executeQuery()).thenReturn(resultSet);
+        // when(resultSet.next()).thenReturn(true);
+        // when(adminStmt.executeQuery()).thenReturn(adminSet);
+        // when(adminSet.next()).thenReturn(false);
+        // player = wpInfoDAO.getAdminInfo("20");
+        // assertNull(player);
+
+        //case: retrieval successful
+        when(stmt.executeQuery()).thenReturn(resultSet);
+        when(resultSet.next()).thenReturn(true);
+        when(adminStmt.executeQuery()).thenReturn(adminSet);
+        when(adminSet.next()).thenReturn(true);
+        when(adminSet.getString("pid")).thenReturn("20");
+        when(adminSet.getString("Email")).thenReturn("test@email.com");
+        when(adminSet.getString("Password")).thenReturn("password");
+        when(adminSet.getString("username")).thenReturn("username");
+        player = wpInfoDAO.getAdminInfo("20");
+        assertEquals("20", player.getAdminId());
+        assertEquals("test@email.com", player.getEmail());
+        assertEquals("password", player.getPassword());
+        assertEquals("username", player.getUsername());
+    }
+
+
+    @Test
+    void testGetAdminInfoWithUsername() throws SQLException {
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        String queryCheck = "SELECT * FROM players WHERE username = ? AND Password = ?";
+        AdminInfo checkAdmin = new AdminInfo("20", "adminEmail", "password", "The admin");
+
+        PreparedStatement stmt2 = mock(PreparedStatement.class);
+        ResultSet check = mock(ResultSet.class);
+        String query2 = "SELECT * FROM admin WHERE admin_id = ?";
+        when(mockConn.prepareStatement(query2)).thenReturn(stmt2);
+        when(stmt2.executeQuery()).thenReturn(check);
+
+        PreparedStatement stmt3 = mock(PreparedStatement.class);
+        ResultSet resultSet2 = mock(ResultSet.class);
+        String infoQuery = "SELECT * FROM players WHERE pid = ?";
+        when(mockConn.prepareStatement(infoQuery)).thenReturn(stmt3);
+        when(stmt3.executeQuery()).thenReturn(resultSet2);
+
+
+        when(mockConn.prepareStatement(queryCheck)).thenReturn(stmt);
+        when(stmt.executeQuery()).thenReturn(resultSet);
+        when(resultSet.next()).thenReturn(true);
+        when(check.next()).thenReturn(true);
+        when(resultSet2.next()).thenReturn(true);
+        when(resultSet2.getString("pid")).thenReturn("20");
+        when(resultSet2.getString("Email")).thenReturn("adminEmail");
+        when(resultSet2.getString("Password")).thenReturn("password");
+        when(resultSet2.getString("username")).thenReturn("The admin");
+        AdminInfo test = wpInfoDAO.getAdminInfoWithUsername("The admin", "password");
+        assertEquals("20", checkAdmin.getAdminId());
+        assertEquals("adminEmail", checkAdmin.getEmail());
+        assertEquals("password", checkAdmin.getPassword());
+        assertEquals("The admin", checkAdmin.getUsername());
+
+        when(resultSet.next()).thenReturn(false);
+        test = wpInfoDAO.getAdminInfoWithUsername("The Admin", "password");
+        assertNull(test);
+
+        // when(stmt.executeQuery()).thenReturn(resultSet);
+        // when(resultSet.next()).thenReturn(true);
+        // when(wpInfoDAO.getAdminInfo("20")).thenReturn(null);
+        // test = wpInfoDAO.getAdminInfoWithUsername("The Admin", "password");
+        // assertNull(test);
     }
 }
