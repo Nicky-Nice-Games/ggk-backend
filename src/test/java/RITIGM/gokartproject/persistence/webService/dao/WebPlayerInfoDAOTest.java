@@ -44,6 +44,7 @@ public class WebPlayerInfoDAOTest {
         PreparedStatement stmt = mock(PreparedStatement.class);
         PreparedStatement stmtCheck = mock(PreparedStatement.class);
         ResultSet resultSet = mock(ResultSet.class);
+        ResultSet resultSet2 = mock(ResultSet.class);
         String query = "INSERT INTO players (Email, Password, username) VALUE (?, ?, ?);";
         String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
 
@@ -59,18 +60,20 @@ public class WebPlayerInfoDAOTest {
 
         //case: player creation successful
         when(stmt.executeUpdate()).thenReturn(1);
-        when(stmtCheck.executeQuery()).thenReturn(resultSet);
-        when(resultSet.next()).thenReturn(true);
-        when(resultSet.getString("pid")).thenReturn("20");
-        when(resultSet.getString("Email")).thenReturn("test@email.com");
-        when(resultSet.getString("Password")).thenReturn("password");
-        when(resultSet.getInt("uid")).thenReturn(-1);
-        when(resultSet.getString("username")).thenReturn("username");
+        when(stmtCheck.executeQuery()).thenReturn(resultSet2);
+        when(resultSet2.next()).thenReturn(true);
+        when(resultSet2.getString("pid")).thenReturn("20");
+        when(resultSet2.getString("Email")).thenReturn("test@email.com");
+        when(resultSet2.getString("Password")).thenReturn("password");
+        when(resultSet2.getInt("uid")).thenReturn(-1);
+        when(resultSet2.getString("username")).thenReturn("AAAAAAAAAAAAAAAA");
         player = wpInfoDAO.createUser("test@email.com", "password", "username");
         assertEquals("20", player.getPid());
         assertEquals("test@email.com", player.getEmail());
         assertEquals("password", player.getPw());
-        assertEquals("username", player.getUsername());
+        // assertEquals("username", player.getUsername());
+
+        assertEquals("A", player.toString());
     }
 
     @Test

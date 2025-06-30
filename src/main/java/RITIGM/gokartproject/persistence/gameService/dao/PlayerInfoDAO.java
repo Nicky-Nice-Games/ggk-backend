@@ -34,7 +34,7 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
        
             PlayerInfo player = null;
             
-            String query = "SELECT *, profile FROM players WHERE pid = ?";
+            String query = "SELECT * FROM players WHERE pid = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, playerID);
 

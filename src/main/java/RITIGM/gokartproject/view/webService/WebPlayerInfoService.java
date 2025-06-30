@@ -48,7 +48,7 @@ public class WebPlayerInfoService {
      * @param pid player ID
      * @return the player corresponding to if succesful 
      */
-    @GetMapping("/create/{pid}")
+    @GetMapping("/getplayerinfo/{pid}")
     public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         log.info("GET /webservice/playerinfo/" + pid);
         
@@ -137,7 +137,7 @@ public class WebPlayerInfoService {
      * @param pid player id
      * @return relevant player data
      */
-    @GetMapping("/getinfo/{pid}")
+    @GetMapping("/getdetailinfo/{pid}")
     public ResponseEntity<PlayerStat> getPlayerDetailInfo(@PathVariable String pid) {
         log.info("POST /webservice/playerinfo/getinfo/" + pid);
 
@@ -240,6 +240,6 @@ public class WebPlayerInfoService {
     }
 
     
-
+    
 
 }
