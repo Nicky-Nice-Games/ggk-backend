@@ -38,8 +38,12 @@ public class RaceScore{
      * @return calculated score
      */
     public double scoreCalculation(){
-        double totalScore = (trackPerformaceScoring() + placementScoring() + itemBonus());
-        return totalScore * (1-(0.02 * this.raceLog.getFelloffmap()));
+        if(this.raceLog.getMapRaced() != 1){
+            return 0.00;
+        } else{
+            double totalScore = (trackPerformaceScoring() + placementScoring() + itemBonus());
+            return totalScore * (1-(0.02 * this.raceLog.getFelloffmap()));
+        }
     }
 
     /**
