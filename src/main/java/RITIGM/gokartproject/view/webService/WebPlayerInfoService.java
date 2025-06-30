@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
@@ -202,6 +203,38 @@ public class WebPlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/admincheck/{username}/{password}")
+    public ResponseEntity<AdminInfo> adminLogin(@PathVariable String username, @PathVariable String password){
+        log.info("GET /webservice/admininfo/{username}/{password}");
+        try{
+            AdminInfo admin = webPlayerInfoDAO.getAdminInfoWithUsername(username, password);
+            if(admin != null){
+                return new ResponseEntity<AdminInfo>(admin, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/admincheck/{adminId}")
+    public ResponseEntity<AdminInfo> getAdminInfo(@PathVariable String adminId){
+        log.info("GET /webservice/playerinfo/admincheck/{adminId}");
+        try{
+            AdminInfo admin = webPlayerInfoDAO.getAdminInfo(adminId);
+            if(admin != null){
+                return new ResponseEntity<AdminInfo>(admin, HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch(Exception e){
+            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

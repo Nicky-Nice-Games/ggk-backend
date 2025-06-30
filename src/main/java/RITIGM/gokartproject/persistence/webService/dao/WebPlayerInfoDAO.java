@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import RITIGM.gokartproject.connection.Conn;
+import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
@@ -292,6 +293,65 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         }
         return stats;
         //You've found the secret comment! 
+    }
+
+    public AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException{
+        AdminInfo admin = null;
+        String queryCheck = "SELECT * FROM players WHERE username = ? AND Password = ?";
+        String checkPassword =  Integer.toString(password.hashCode());
+
+        PreparedStatement stmtAdminCheck = conn.prepareStatement(queryCheck);
+        stmtAdminCheck.setString(1, username);
+        stmtAdminCheck.setString(2, checkPassword);
+        ResultSet checkIfAdmin = stmtAdminCheck.executeQuery();
+
+        if(checkIfAdmin.next()){
+            admin = getAdminInfo(checkIfAdmin.getString("pid"));
+        }
+
+        return admin;
+
+    }
+
+    /**
+     * Check if the provided player ID is also and admin of the system
+     * 
+     * Return null if there is not admin with those details
+     * 
+     * @throws SQLException if therer is an error getting info from the database
+     */
+    public AdminInfo getAdminInfo(String adminId) throws SQLException{
+        AdminInfo admin = null;
+        String query = "SELECT * FROM admin WHERE admin_id = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, adminId);
+
+        ResultSet check = stmt.executeQuery();
+
+        // Checking if an player is an admin
+        if(check.next()){
+            String infoQuery = "SELECT * FROM players WHERE pid = ?";
+
+            // Getting admin information
+            PreparedStatement stmtInfo = conn.prepareStatement(infoQuery);
+            stmtInfo.setString(1, adminId);
+
+            ResultSet adminInfo = stmtInfo.executeQuery();
+            
+            if(adminInfo.next()){
+                admin = new AdminInfo(
+                    adminInfo.getString("pid"),
+                    adminInfo.getString("Email"),
+                    adminInfo.getString("Password"),
+                    adminInfo.getString("username"));
+            } else{
+                throw new SQLException();
+            }
+        }
+
+        return admin;
+
     }
 
     
