@@ -29,7 +29,7 @@ public class PlayerInfo {
      * @param uid the player uid 
      * @param username the player username
      */
-    public PlayerInfo(String pid, String email, String pw, Integer uid, String usernam, int pfpLink){
+    public PlayerInfo(String pid, String email, String pw, Integer uid, String username, int pfpLink){
         this.pid = pid;
         this.email = email;
         this.pw = pw;

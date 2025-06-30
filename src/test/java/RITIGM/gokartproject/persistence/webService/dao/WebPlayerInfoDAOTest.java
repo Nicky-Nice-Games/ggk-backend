@@ -66,7 +66,7 @@ public class WebPlayerInfoDAOTest {
         when(resultSet2.getString("Email")).thenReturn("test@email.com");
         when(resultSet2.getString("Password")).thenReturn("password");
         when(resultSet2.getInt("uid")).thenReturn(-1);
-        when(resultSet2.getString("username")).thenReturn("AAAAAAAAAAAAAAAA");
+        when(resultSet2.getString("username")).thenReturn("username");
         player = wpInfoDAO.createUser("test@email.com", "password", "username");
         assertEquals("20", player.getPid());
         assertEquals("test@email.com", player.getEmail());
