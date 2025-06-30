@@ -77,6 +77,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getString("Password"),
                 data.getInt("uid"),
                 data.getString("username"),
+                data.getInt("profile"),
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),

@@ -59,7 +59,7 @@ public class WebPlayerInfoServiceTest {
      */
     @Test
     void testCreateUser() throws SQLException{
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         NoUID info  = new NoUID("test@email.com", "username", "password");
 
 
@@ -85,7 +85,7 @@ public class WebPlayerInfoServiceTest {
      */
     @Test
     void testCreateUser2() throws SQLException{
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username", 1);
         CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789);
 
 
@@ -111,7 +111,7 @@ public class WebPlayerInfoServiceTest {
      */
     @Test
     void testGetPlayerByID() throws SQLException{
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         String id = "20";
         
         //case: player successfully retrieved
@@ -139,7 +139,7 @@ public class WebPlayerInfoServiceTest {
      */
     @Test
     void testGetPlayerByUsername() throws SQLException {
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         //LoginCreds info = new LoginCreds("username", "password");
         
         //case: player successfully retrieved
@@ -168,7 +168,7 @@ public class WebPlayerInfoServiceTest {
         TrapUsage trap = new TrapUsage(11, 12,13,14);
         BoostUsage boost = new BoostUsage(13, 14, 15,16);
         DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
-         PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
+         PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6,6, 7, 8,18,19,
          offense, trap, boost,defense, 16.0, 17.0);
 
         when(playerStatInterface.getPlayerStat("1")).thenReturn(check);

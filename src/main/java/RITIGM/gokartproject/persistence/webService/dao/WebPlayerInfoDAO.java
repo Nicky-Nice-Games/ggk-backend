@@ -54,7 +54,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                 result.getString("Email"), 
                 result.getString("Password"),
                 result.getInt("uid"), 
-                result.getString("username"));
+                result.getString("username"),
+                result.getInt("profile"));
             } else {
                 return null;
             }
@@ -84,7 +85,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
                 result.getString("Email"), 
                 result.getString("Password"),
                 result.getInt("uid"), 
-                result.getString("username"));
+                result.getString("username"),
+                result.getInt("profile"));
             } else {
                 return null;
             }
@@ -125,7 +127,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             returnPlayer = new PlayerInfo(check.getString("pid"),
             check.getString("Email"),check.getString("Password"),
             check.getInt("uid"),
-            check.getString("username"));
+            check.getString("username"),
+            check.getInt("profile"));
 
         }
         return returnPlayer;
@@ -165,7 +168,8 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
             returnPlayer = new PlayerInfo(check.getString("pid"),
             check.getString("Email"),check.getString("Password"),
             check.getInt("uid"),
-            check.getString("username"));
+            check.getString("username"),
+            check.getInt("profile"));
 
         }
         else{
