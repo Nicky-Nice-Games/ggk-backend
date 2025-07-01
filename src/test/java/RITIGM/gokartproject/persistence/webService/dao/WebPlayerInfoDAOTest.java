@@ -397,7 +397,7 @@ public class WebPlayerInfoDAOTest {
     void testChangePfp() throws SQLException{
         PreparedStatement stmt = mock(PreparedStatement.class);
         String query = "UPDATE players\n" + //
-                        "SET pfp = ?\n" + //
+                        "SET profile = ?\n" + //
                         "WHERE pid = ?";
 
         when(mockConn.prepareStatement(query)).thenReturn(stmt);

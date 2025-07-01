@@ -362,7 +362,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
      */
     public boolean changePfp(int pfp, String pid) throws SQLException{
         String query = "UPDATE players\n" + //
-                        "SET pfp = ?\n" + //
+                        "SET profile = ?\n" + //
                         "WHERE pid = ?";
 
         PreparedStatement stmt = conn.prepareStatement(query);

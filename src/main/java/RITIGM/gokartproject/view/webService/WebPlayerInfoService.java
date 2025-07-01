@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
@@ -242,9 +244,10 @@ public class WebPlayerInfoService {
 
     
     @PutMapping("/changepfp")
-    public ResponseEntity<Void> changePfp(@RequestBody int pfp, @RequestBody String pid){
+    public ResponseEntity<Void> changePfp(@RequestParam int pfp, @RequestParam String pid){
         log.info("PUT /webservice/playerinfo/changepfp");
         try{
+            
             Boolean success = webPlayerInfoDAO.changePfp(pfp, pid);
             if(success){
                 return new ResponseEntity<>(HttpStatus.OK);
