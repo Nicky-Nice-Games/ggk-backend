@@ -54,7 +54,7 @@ public class PlayerStatDAOTest {
         String mainQuery = 
         """
             SELECT
-                p.pid, p.Email, p.Password, p.uid, p.username, p.profile
+                p.pid, p.Email, p.Password, p.uid, p.username, p.profile,
                 SUM(r.collisionwithplayers) AS totalplayercollision,
                 SUM(r.collisionwithwalls) AS totalwallcollision,
                 SUM(r.fellofmap) AS totalfellofmap,

@@ -71,9 +71,9 @@ public class WebPlayerInfoDAOTest {
         assertEquals("20", player.getPid());
         assertEquals("test@email.com", player.getEmail());
         assertEquals("password", player.getPw());
-        // assertEquals("username", player.getUsername());
+        assertEquals("username", player.getUsername());
 
-        assertEquals("A", player.toString());
+        // assertEquals(, player.toString());
     }
 
     @Test
