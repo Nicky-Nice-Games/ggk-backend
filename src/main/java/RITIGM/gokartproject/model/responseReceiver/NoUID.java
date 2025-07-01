@@ -7,6 +7,7 @@ public class NoUID {
     private String email;
     private String username;
     private String password;
+    private Integer pfp;
 
     
     /**
@@ -15,10 +16,19 @@ public class NoUID {
      * @param username
      * @param password
      */
-    public NoUID(String email, String username, String password) {
+    public NoUID(String email, String username, String password, Integer pfp) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.pfp = pfp;
+    }
+
+    public Integer getPfp() {
+        return pfp;
+    }
+
+    public void setPfp(Integer pfp) {
+        this.pfp = pfp;
     }
 
     /**
