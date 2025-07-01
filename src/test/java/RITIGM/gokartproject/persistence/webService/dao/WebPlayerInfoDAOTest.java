@@ -1,7 +1,9 @@
 package RITIGM.gokartproject.persistence.webService.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -44,6 +46,7 @@ public class WebPlayerInfoDAOTest {
         PreparedStatement stmt = mock(PreparedStatement.class);
         PreparedStatement stmtCheck = mock(PreparedStatement.class);
         ResultSet resultSet = mock(ResultSet.class);
+        ResultSet resultSet2 = mock(ResultSet.class);
         String query = "INSERT INTO players (Email, Password, username) VALUE (?, ?, ?);";
         String queryLookUp = "SELECT * FROM players WHERE Email = ? AND Password = ? AND username = ?;";
 
@@ -59,18 +62,20 @@ public class WebPlayerInfoDAOTest {
 
         //case: player creation successful
         when(stmt.executeUpdate()).thenReturn(1);
-        when(stmtCheck.executeQuery()).thenReturn(resultSet);
-        when(resultSet.next()).thenReturn(true);
-        when(resultSet.getString("pid")).thenReturn("20");
-        when(resultSet.getString("Email")).thenReturn("test@email.com");
-        when(resultSet.getString("Password")).thenReturn("password");
-        when(resultSet.getInt("uid")).thenReturn(-1);
-        when(resultSet.getString("username")).thenReturn("username");
+        when(stmtCheck.executeQuery()).thenReturn(resultSet2);
+        when(resultSet2.next()).thenReturn(true);
+        when(resultSet2.getString("pid")).thenReturn("20");
+        when(resultSet2.getString("Email")).thenReturn("test@email.com");
+        when(resultSet2.getString("Password")).thenReturn("password");
+        when(resultSet2.getInt("uid")).thenReturn(-1);
+        when(resultSet2.getString("username")).thenReturn("username");
         player = wpInfoDAO.createUser("test@email.com", "password", "username");
         assertEquals("20", player.getPid());
         assertEquals("test@email.com", player.getEmail());
         assertEquals("password", player.getPw());
         assertEquals("username", player.getUsername());
+
+        // assertEquals(, player.toString());
     }
 
     @Test
@@ -385,5 +390,23 @@ public class WebPlayerInfoDAOTest {
         // when(wpInfoDAO.getAdminInfo("20")).thenReturn(null);
         // test = wpInfoDAO.getAdminInfoWithUsername("The Admin", "password");
         // assertNull(test);
+    }
+
+
+    @Test
+    void testChangePfp() throws SQLException{
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        String query = "UPDATE players\n" + //
+                        "SET profile = ?\n" + //
+                        "WHERE pid = ?";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeUpdate()).thenReturn(1);
+        assertTrue(wpInfoDAO.changePfp(1, "20"));
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeUpdate()).thenReturn(2);
+        assertFalse(wpInfoDAO.changePfp(1, "20"));
+
     }
 }

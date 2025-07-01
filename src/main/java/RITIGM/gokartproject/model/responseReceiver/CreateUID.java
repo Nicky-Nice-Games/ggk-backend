@@ -9,6 +9,7 @@ public class CreateUID {
     private String username;
     private String password;
     private Integer uid;
+    private Integer pfp;
     
 
     /**
@@ -18,11 +19,20 @@ public class CreateUID {
      * @param password the password (in actual format, no hashcode)
      * @param uid (UID with the account)
      */
-    public CreateUID(String email, String username, String password, Integer uid) {
+    public CreateUID(String email, String username, String password, Integer uid, Integer pfp) {
         this.email = email;
         this.username = username;
         this.password = password;
         this.uid = uid;
+        this.pfp = pfp;
+    }
+
+    public Integer getPfp() {
+        return pfp;
+    }
+
+    public void setPfp(Integer pfp) {
+        this.pfp = pfp;
     }
 
     // All of the setters and getter for the object

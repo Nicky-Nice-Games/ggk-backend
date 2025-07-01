@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
@@ -48,7 +51,7 @@ public class WebPlayerInfoService {
      * @param pid player ID
      * @return the player corresponding to if succesful 
      */
-    @GetMapping("/create/{pid}")
+    @GetMapping("/getplayerinfo/{pid}")
     public ResponseEntity<PlayerInfo> getPlayerByID(@PathVariable String pid){
         log.info("GET /webservice/playerinfo/" + pid);
         
@@ -137,7 +140,7 @@ public class WebPlayerInfoService {
      * @param pid player id
      * @return relevant player data
      */
-    @GetMapping("/getinfo/{pid}")
+    @GetMapping("/getdetailinfo/{pid}")
     public ResponseEntity<PlayerStat> getPlayerDetailInfo(@PathVariable String pid) {
         log.info("POST /webservice/playerinfo/getinfo/" + pid);
 
@@ -239,5 +242,22 @@ public class WebPlayerInfoService {
         }
     }
 
+    
+    @PutMapping("/changepfp")
+    public ResponseEntity<Void> changePfp(@RequestParam int pfp, @RequestParam String pid){
+        log.info("PUT /webservice/playerinfo/changepfp");
+        try{
+            
+            Boolean success = webPlayerInfoDAO.changePfp(pfp, pid);
+            if(success){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

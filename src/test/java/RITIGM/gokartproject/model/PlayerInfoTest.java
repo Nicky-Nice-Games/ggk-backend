@@ -13,7 +13,8 @@ public class PlayerInfoTest {
     private String expected_pw = "tester";
     private Integer expected_uid = 20;
     private String expected_username = "test_person";
-    private PlayerInfo playerinfo = new PlayerInfo(expected_pid, expected_email, expected_pw, expected_uid, expected_username);
+    private int expected_pfp = 1;
+    private PlayerInfo playerinfo = new PlayerInfo(expected_pid, expected_email, expected_pw, expected_uid, expected_username, expected_pfp);
 
     /**
      * Tests Getter for player email

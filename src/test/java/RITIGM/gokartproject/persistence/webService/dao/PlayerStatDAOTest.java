@@ -41,7 +41,7 @@ public class PlayerStatDAOTest {
         this.trap = new TrapUsage(11, 12,13,14);
         this.boost = new BoostUsage(13, 14, 15,16);
         this.defense = new DefenseUsage(0, 0, 0, 0);
-        this.check = new PlayerStat("1", "2", "3", 4, "5", 6, 7, 8,18,19,
+        this.check = new PlayerStat("1", "2", "3", 4, "5",6, 6, 7, 8,18,19,
          this.offense, this.trap, this.boost, defense, 16.0, 17.0);
     }
 
@@ -54,7 +54,7 @@ public class PlayerStatDAOTest {
         String mainQuery = 
         """
             SELECT
-                p.pid, p.Email, p.Password, p.uid, p.username,
+                p.pid, p.Email, p.Password, p.uid, p.username, p.profile,
                 SUM(r.collisionwithplayers) AS totalplayercollision,
                 SUM(r.collisionwithwalls) AS totalwallcollision,
                 SUM(r.fellofmap) AS totalfellofmap,
@@ -100,6 +100,7 @@ public class PlayerStatDAOTest {
         when(mainSet.getString("Password")).thenReturn("3");
         when(mainSet.getInt("uid")).thenReturn(4);
         when(mainSet.getString("username")).thenReturn("5");
+        when(mainSet.getInt("profile")).thenReturn(6);
         when(mainSet.getInt("totalwallcollision")).thenReturn(6);
         when(mainSet.getInt("totalplayercollision")).thenReturn(7);
         when(mainSet.getInt("totalfellofmap")).thenReturn(8);

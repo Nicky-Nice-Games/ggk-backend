@@ -33,7 +33,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         String mainQuery = 
         """
             SELECT
-                p.pid, p.Email, p.Password, p.uid, p.username,
+                p.pid, p.Email, p.Password, p.uid, p.username, p.profile,
                 SUM(r.collisionwithplayers) AS totalplayercollision,
                 SUM(r.collisionwithwalls) AS totalwallcollision,
                 SUM(r.fellofmap) AS totalfellofmap,
@@ -77,6 +77,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getString("Password"),
                 data.getInt("uid"),
                 data.getString("username"),
+                data.getInt("profile"),
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),

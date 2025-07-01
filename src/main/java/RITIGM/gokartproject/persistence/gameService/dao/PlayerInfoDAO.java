@@ -46,7 +46,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 result.getString("Email"), 
                 result.getString("Password"),
                 result.getInt("uid"), 
-                result.getString("username"));
+                result.getString("username"),
+                result.getInt("profile"));
             } else {
                 return null;
             }
@@ -86,7 +87,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 returnPlayer = new PlayerInfo(check.getString("pid"),
                 check.getString("Email"),check.getString("Password"),
                 check.getInt("uid"),
-                check.getString("username"));
+                check.getString("username"),
+                check.getInt("profile"));
 
             }
             return returnPlayer;
@@ -127,7 +129,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 returnPlayer = new PlayerInfo(check.getString("pid"),
                 check.getString("Email"),check.getString("Password"),
                 check.getInt("uid"),
-                check.getString("username"));
+                check.getString("username"),
+                check.getInt("profile"));
             }
             return returnPlayer;
     }
@@ -153,7 +156,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                     result.getString("Email"),
                     result.getString("Password"),
                     result.getInt("uid"),
-                    result.getString("username"));
+                    result.getString("username"),
+                    result.getInt("profile"));
             }
 
             return returnInfo;
@@ -177,7 +181,8 @@ public class PlayerInfoDAO implements PlayerInfoInterface{
                 result.getString("Email"),
                 result.getString("Password"),
                 result.getInt("uid"),
-                result.getString("username"));
+                result.getString("username"),
+                result.getInt("profile"));
         }
 
         if (result.next()){
