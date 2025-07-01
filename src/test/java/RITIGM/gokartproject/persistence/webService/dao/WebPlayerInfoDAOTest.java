@@ -1,7 +1,9 @@
 package RITIGM.gokartproject.persistence.webService.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -388,5 +390,23 @@ public class WebPlayerInfoDAOTest {
         // when(wpInfoDAO.getAdminInfo("20")).thenReturn(null);
         // test = wpInfoDAO.getAdminInfoWithUsername("The Admin", "password");
         // assertNull(test);
+    }
+
+
+    @Test
+    void testChangePfp() throws SQLException{
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        String query = "UPDATE players\n" + //
+                        "SET pfp = ?\n" + //
+                        "WHERE pid = ?";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeUpdate()).thenReturn(1);
+        assertTrue(wpInfoDAO.changePfp(1, "20"));
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeUpdate()).thenReturn(2);
+        assertFalse(wpInfoDAO.changePfp(1, "20"));
+
     }
 }

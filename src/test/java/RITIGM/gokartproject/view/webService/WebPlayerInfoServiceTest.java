@@ -290,4 +290,23 @@ public class WebPlayerInfoServiceTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
         assertNull(response.getBody());
     }
+
+    @Test
+    void testChangePfp() throws SQLException{
+        int pfp = 1;
+        String pid = "20";
+
+        when(mockWebPlayerDAO.changePfp(pfp, pid)).thenReturn(true);
+        ResponseEntity<Void> response = wpInfoService.changePfp(pfp, pid);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.changePfp(pfp, pid)).thenReturn(false);
+        response = wpInfoService.changePfp(pfp, pid);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+
+        when(mockWebPlayerDAO.changePfp(pfp, pid)).thenThrow();
+        response = wpInfoService.changePfp(pfp, pid);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+
+    }
 }

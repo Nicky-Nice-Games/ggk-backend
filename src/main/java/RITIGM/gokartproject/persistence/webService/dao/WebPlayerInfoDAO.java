@@ -299,6 +299,9 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         //You've found the secret comment! 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public AdminInfo getAdminInfoWithUsername(String username, String password) throws SQLException{
         AdminInfo admin = null;
         String queryCheck = "SELECT * FROM players WHERE username = ? AND Password = ?";
@@ -318,11 +321,7 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     }
 
     /**
-     * Check if the provided player ID is also and admin of the system
-     * 
-     * Return null if there is not admin with those details
-     * 
-     * @throws SQLException if therer is an error getting info from the database
+     * {@inheritDoc}
      */
     public AdminInfo getAdminInfo(String adminId) throws SQLException{
         AdminInfo admin = null;
@@ -356,6 +355,25 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
 
         return admin;
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean changePfp(int pfp, String pid) throws SQLException{
+        String query = "UPDATE players\n" + //
+                        "SET pfp = ?\n" + //
+                        "WHERE pid = ?";
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, pfp);
+        stmt.setString(2, pid);
+
+        int result = stmt.executeUpdate();
+
+        return result == 1;
+
+        
     }
 
     

@@ -91,5 +91,14 @@ public interface WebPlayerInfoInterface {
      */
     abstract AdminInfo getAdminInfo(String adminId) throws SQLException;
 
+    /**
+     * 
+     * @param pfp new pfp number for a player
+     * @param pid player ID
+     * @return 
+     * @throws SQLException
+     */
+    abstract boolean changePfp(int pfp, String pid) throws SQLException;
+
 
 }
