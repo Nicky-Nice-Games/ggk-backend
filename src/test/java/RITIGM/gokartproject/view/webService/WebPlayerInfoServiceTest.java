@@ -60,7 +60,7 @@ public class WebPlayerInfoServiceTest {
     @Test
     void testCreateUser() throws SQLException{
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
-        NoUID info  = new NoUID("test@email.com", "username", "password");
+        NoUID info  = new NoUID("test@email.com", "username", "password", 4);
 
 
         when(mockWebPlayerDAO.createUser("test@email.com", "password", "username")).thenReturn(player);
@@ -86,7 +86,7 @@ public class WebPlayerInfoServiceTest {
     @Test
     void testCreateUser2() throws SQLException{
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username", 1);
-        CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789);
+        CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789, 4);
 
 
         when(mockWebPlayerDAO.createUser("test@email.com", "password", 123456789, "username")).thenReturn(player);
