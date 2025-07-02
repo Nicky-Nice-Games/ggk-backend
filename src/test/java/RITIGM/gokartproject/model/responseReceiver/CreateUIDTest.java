@@ -19,7 +19,7 @@ public class CreateUIDTest {
      */
     @BeforeEach
     void test(){
-        this.check = new CreateUID("1", "2", "3", 3);
+        this.check = new CreateUID("1", "2", "3", 3, 4);
     }
 
 

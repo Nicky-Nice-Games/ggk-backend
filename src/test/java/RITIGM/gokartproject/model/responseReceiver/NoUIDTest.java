@@ -19,7 +19,7 @@ public class NoUIDTest {
      */
     @BeforeEach
     void test(){
-        this.check = new NoUID("1", "2", "3");
+        this.check = new NoUID("1", "2", "3", 4);
     }
 
     //Testing all of the setters and getter for the game

@@ -51,8 +51,8 @@ public class PlayerInfoServiceTest {
      */
     @Test
     void testCreateUser() throws Exception {
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
-        NoUID info  = new NoUID("test@email.com", "username", "password");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
+        NoUID info  = new NoUID("test@email.com", "username", "password", 4);
 
         //Case: creation succesful
         when(mockPlayerDAO.createUser("test@email.com", "password", "username")).thenReturn(player);
@@ -80,8 +80,8 @@ public class PlayerInfoServiceTest {
      */
     @Test
     void testCreateUser2() throws Exception {
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username");
-        CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789);
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", 123456789, "username", 1);
+        CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789, 4);
 
         //Case: creation succesful
         when(mockPlayerDAO.createUser("test@email.com", "password",123456789, "username")).thenReturn(player);
@@ -109,7 +109,7 @@ public class PlayerInfoServiceTest {
      */
     @Test
     void testGetPlayerByID() throws Exception {
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         String id = "20";
         
         //case: player successfully retrieved
@@ -139,7 +139,7 @@ public class PlayerInfoServiceTest {
      */
     @Test
     void testGetPlayerByUsername() throws Exception {
-        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username");
+        PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         //LoginCreds info = new LoginCreds("username", "password");
         
         //case: player successfully retrieved

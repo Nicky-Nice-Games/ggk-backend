@@ -12,6 +12,7 @@ public class PlayerInfo {
     private String pw;
     private Integer uid;
     private String username;
+    private int pfpLink;
 
     private static final String TO_STRING_FORMAT = "\nPlayer Info:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
@@ -28,12 +29,13 @@ public class PlayerInfo {
      * @param uid the player uid 
      * @param username the player username
      */
-    public PlayerInfo(String pid, String email, String pw, Integer uid, String username){
+    public PlayerInfo(String pid, String email, String pw, Integer uid, String username, int pfpLink){
         this.pid = pid;
         this.email = email;
         this.pw = pw;
         this.uid = uid;
         this.username = username;
+        this.pfpLink = pfpLink;
     }
 
     /**
@@ -90,6 +92,14 @@ public class PlayerInfo {
      */
     public int getUid() {
         return uid;
+    }
+
+    public int getPfpLink() {
+        return pfpLink;
+    }
+
+    public void setPfpLink(int pfpLink) {
+        this.pfpLink = pfpLink;
     }
 
     /**

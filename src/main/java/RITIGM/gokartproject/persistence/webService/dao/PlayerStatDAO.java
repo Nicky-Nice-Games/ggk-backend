@@ -33,7 +33,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         String mainQuery = 
         """
             SELECT
-                p.pid, p.Email, p.Password, p.uid, p.username,
+                p.pid, p.Email, p.Password, p.uid, p.username, p.profile,
                 SUM(r.collisionwithplayers) AS totalplayercollision,
                 SUM(r.collisionwithwalls) AS totalwallcollision,
                 SUM(r.fellofmap) AS totalfellofmap,
@@ -77,10 +77,11 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getString("Password"),
                 data.getInt("uid"),
                 data.getString("username"),
+                data.getInt("profile"),
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),
-                0,0, //Init the fastest time and fav character
+                0,0, 0, //Init the fastest time and fav character and fav track
                 new OffenseUsage(
                     data.getInt("totalpuck1"), 
                     data.getInt("totalpuck2"),
@@ -102,7 +103,8 @@ public class PlayerStatDAO implements PlayerStatInterface{
                     data.getInt("totaldefense3"),
                     data.getInt("totaldefense4")),
                     0.0,
-                0.0);
+                0.0,
+                0);
         } else{
             return null;
         }
@@ -192,6 +194,39 @@ public class PlayerStatDAO implements PlayerStatInterface{
             returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
         } else{
             throw new SQLException("Error in fetching favchara");
+        }
+
+        String totalRaceQuery = "SELECT COUNT(pid) as totalrace\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?";
+
+        PreparedStatement totalstmt = conn.prepareStatement(totalRaceQuery);
+        totalstmt.setString(1, pid);
+
+        ResultSet totalRaceSet = totalstmt.executeQuery();
+        if(totalRaceSet.next()){
+            returnStat.setTotalRaces(totalRaceSet.getInt("totalrace"));
+        } else{
+            throw new SQLException("Error fetching totalrace");
+        }
+
+        String favRaceQuery = "SELECT MAX(racePermap.mapcount) as countfavmap, mapraced\n" + //
+                        "FROM \n" + //
+                        "    (\n" + //
+                        "      SELECT COUNT(racelog.mapraced) as mapcount, mapraced\n" + //
+                        "      FROM racelog\n" + //
+                        "      WHERE pid = ?\n" + //
+                        "      GROUP BY  mapraced\n" + //
+                        "     ) as racePermap;";
+
+        PreparedStatement favracestmt = conn.prepareStatement(favRaceQuery);
+        favracestmt.setString(1, pid);
+
+        ResultSet favRaceSet = favracestmt.executeQuery();
+        if(favRaceSet.next()){
+            returnStat.setFavoriteTrack(favRaceSet.getInt("countfavmap"));
+        }else{
+            throw new SQLException("Error retreiving countfavmap");
         }
         
         return returnStat;
