@@ -31,6 +31,8 @@ public class PlayerStatTest {
                                 "\tFell of the map = %d,\r\n" + //
                                 "\tFastest Time = %d,\r\n" + //
                                 "\tFavorite Character = %d,\r\n" + //
+                                "\tFavorite Track = %d,\r\n" + //
+                                "\tTotal Races = %d,\r\n" + //
                                 "\tNumber of First Place = %f,\r\n" + //
                                 "\tNumber of Podium = %f,\r\n";
 
@@ -42,8 +44,8 @@ public class PlayerStatTest {
         this.defense = new DefenseUsage(17, 18, 19, 20);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6,6,
          7, 8,18,
-         19,
-         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0);
+         19, 19,
+         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0, 1);
     }
 
     @Test
@@ -106,7 +108,9 @@ public class PlayerStatTest {
 
     @Test
     void testToString() {
-        String expected_String  = String.format(TO_STRING_FORMAT, "1", "2", "3", 4, "5", 6, 7, 8,18,19, 16.0, 17.0) +
+        String expected_String  = String.format(TO_STRING_FORMAT, "1", "2", "3", 4, "5",
+         6, 7, 8,18,19, 19, 1,
+          16.0, 17.0) +
         "\n\t" + offense+
         "\n\t" + trap +  
         "\n\t" + boost;

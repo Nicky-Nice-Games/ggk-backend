@@ -9,8 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,8 +39,8 @@ public class PlayerStatDAOTest {
         this.trap = new TrapUsage(11, 12,13,14);
         this.boost = new BoostUsage(13, 14, 15,16);
         this.defense = new DefenseUsage(0, 0, 0, 0);
-        this.check = new PlayerStat("1", "2", "3", 4, "5",6, 6, 7, 8,18,19,
-         this.offense, this.trap, this.boost, defense, 16.0, 17.0);
+        this.check = new PlayerStat("1", "2", "3", 4, "5",6, 6, 7, 8,18,19, 19,
+         this.offense, this.trap, this.boost, defense, 16.0, 17.0, 0);
     }
 
 
@@ -213,6 +211,43 @@ public class PlayerStatDAOTest {
 
         when(favSet.getInt("favchara")).thenReturn(19);
 
+
+         String totalRaceQuery = "SELECT COUNT(pid) as totalrace\n" + //
+                        "FROM racelog\n" + //
+                        "WHERE pid = ?";
+        PreparedStatement totalStmt = mock(PreparedStatement.class);
+        ResultSet totalSet = mock(ResultSet.class);
+
+        when(this.mockConn.prepareStatement(totalRaceQuery)).
+            thenReturn(totalStmt);
+
+        when(totalStmt.executeQuery()).thenReturn(totalSet);
+
+        when(totalSet.next()).thenReturn(true).thenReturn(false);
+
+        when(totalSet.getInt("totalrace")).thenReturn(0);
+
+        String favRaceQuery = "SELECT MAX(racePermap.mapcount) as countfavmap, mapraced\n" + //
+                        "FROM \n" + //
+                        "    (\n" + //
+                        "      SELECT COUNT(racelog.mapraced) as mapcount, mapraced\n" + //
+                        "      FROM racelog\n" + //
+                        "      WHERE pid = ?\n" + //
+                        "      GROUP BY  mapraced\n" + //
+                        "     ) as racePermap;";
+
+        PreparedStatement raceStmt = mock(PreparedStatement.class);
+        ResultSet raceSet = mock(ResultSet.class);
+
+        when(this.mockConn.prepareStatement(favRaceQuery)).
+            thenReturn(raceStmt);
+
+        when(raceStmt.executeQuery()).thenReturn(raceSet);
+
+        when(raceSet.next()).thenReturn(true).thenReturn(false);
+
+        when(raceSet.getInt("countfavmap")).thenReturn(19);
+
         PlayerStat testCase = this.playerStatDAO.getPlayerStat("123");
 
         assertEquals(this.check.getPid(), testCase.getPid());
@@ -223,5 +258,7 @@ public class PlayerStatDAOTest {
         assertEquals(this.check.getCollisionWithWall(), testCase.getCollisionWithWall());
         assertEquals(this.check.getCollisionWithPlayer(), testCase.getCollisionWithPlayer());
         assertEquals(this.check.getFelloffmap(), testCase.getFelloffmap());
+        assertEquals(this.check.getTotalRaces(), testCase.getTotalRaces());
+        assertEquals(this.check.getFavoriteTrack(), testCase.getFavoriteTrack());
     }
 }

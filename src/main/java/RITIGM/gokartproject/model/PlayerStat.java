@@ -16,12 +16,14 @@ public class PlayerStat extends PlayerInfo{
     private int felloffmap;
     private int fastestTime;
     private int favoriteChara;
+    private int favoriteTrack;
     private OffenseUsage offenseUsage;
     private TrapUsage trapUsage;
     private BoostUsage boostUsage;
     private DefenseUsage defenseUsage;
     private double podium;
     private double firstPlace;
+    private int totalRaces;
 
     public static final String TO_STRING_FORMAT =   "%s\r\n" + //
                                                     "\tCollision With Wall = %d,\r\n" + //
@@ -29,6 +31,8 @@ public class PlayerStat extends PlayerInfo{
                                                     "\tFell of the map = %d,\r\n" + //
                                                     "\tFastest Time = %d,\r\n" + //
                                                     "\tFavorite Character = %d,\r\n" + //
+                                                    "\tFavorite Track = %d,\r\n" + //
+                                                    "\tTotal Races = %d,\r\n" + //
                                                     "\tNumber of First Place = %f,\r\n" + //
                                                     "\tNumber of Podium = %f,\r\n";
 
@@ -47,13 +51,17 @@ public class PlayerStat extends PlayerInfo{
      * @param boostUsage the boost usage 
      * @param podium the podium
      * @param firstPlace percentage of first place wins
+     * @param totalRaces
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, int pfpLink,
-    int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, int favoriteChara,
-    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, double podium, double firstPlace){
+    int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, 
+    int favoriteChara, int favoriteTrack,
+    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, 
+    double podium, double firstPlace, int totalRaces){
         super(pid,email,pw,uid,username, pfpLink);
         this.fastestTime = fastestTime;
         this.favoriteChara = favoriteChara;
+        this.favoriteTrack = favoriteTrack;
         this.offenseUsage = offenseUsage;
         this.trapUsage = trapUsage;
         this.boostUsage = boostUsage;
@@ -63,6 +71,7 @@ public class PlayerStat extends PlayerInfo{
         this.collisionWithPlayer = collisionWithPlayer;
         this.collisionWithWall = collisionWithWall;
         this.felloffmap = felloffmap;
+        this.totalRaces = totalRaces;
     }
 
     /**
@@ -238,6 +247,31 @@ public class PlayerStat extends PlayerInfo{
     }
 
     
+    /**
+     * gets the favorite track
+     * @return favorite track
+     */
+    public int getFavoriteTrack() {
+        return favoriteTrack;
+    }
+
+    /**
+     * sets the favorite track
+     * @param favoriteTrack favorite track
+     */
+    public void setFavoriteTrack(int favoriteTrack) {
+        this.favoriteTrack = favoriteTrack;
+    }
+
+    
+
+    public int getTotalRaces() {
+        return totalRaces;
+    }
+
+    public void setTotalRaces(int totalRaces) {
+        this.totalRaces = totalRaces;
+    }
 
     /**
      * New to string formatting for backend printing
@@ -245,7 +279,7 @@ public class PlayerStat extends PlayerInfo{
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, super.toString(), this.collisionWithWall, 
-        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.podium, this.firstPlace) +
+        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.favoriteTrack,this.totalRaces, this.podium, this.firstPlace) +
         "\n\t" + offenseUsage +
         "\n\t" + trapUsage +  
         "\n\t" + boostUsage;
