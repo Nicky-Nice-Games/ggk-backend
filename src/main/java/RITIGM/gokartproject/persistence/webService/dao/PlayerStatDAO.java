@@ -81,7 +81,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),
-                0,0, //Init the fastest time and fav character
+                0,0, 0, //Init the fastest time and fav character and fav track
                 new OffenseUsage(
                     data.getInt("totalpuck1"), 
                     data.getInt("totalpuck2"),

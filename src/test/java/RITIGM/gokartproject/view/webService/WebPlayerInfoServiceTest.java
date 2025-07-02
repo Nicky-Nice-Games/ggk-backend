@@ -11,17 +11,14 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.pulsar.PulsarProperties.Admin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
-import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
-import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
 import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.DefenseUsage;
@@ -168,7 +165,7 @@ public class WebPlayerInfoServiceTest {
         TrapUsage trap = new TrapUsage(11, 12,13,14);
         BoostUsage boost = new BoostUsage(13, 14, 15,16);
         DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
-         PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6,6, 7, 8,18,19,
+         PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6,6, 7, 8,18,19,19,
          offense, trap, boost,defense, 16.0, 17.0);
 
         when(playerStatInterface.getPlayerStat("1")).thenReturn(check);

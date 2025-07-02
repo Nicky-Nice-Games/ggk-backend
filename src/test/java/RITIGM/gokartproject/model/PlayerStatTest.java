@@ -42,7 +42,7 @@ public class PlayerStatTest {
         this.defense = new DefenseUsage(17, 18, 19, 20);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6,6,
          7, 8,18,
-         19,
+         19, 19,
          this.offense, this.trap, this.boost, this.defense, 16.0, 17.0);
     }
 
