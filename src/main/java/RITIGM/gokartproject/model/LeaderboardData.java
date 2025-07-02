@@ -142,7 +142,7 @@ public class LeaderboardData {
      */
     @Override
     public String toString(){
-        return String.format(TO_STRING_FORMAT, pid,raceID,username, raceStartTime, raceTime);
+        return String.format(TO_STRING_FORMAT, pid,raceID,username, raceStartTime, raceTime, score);
     }
                                     
 }
