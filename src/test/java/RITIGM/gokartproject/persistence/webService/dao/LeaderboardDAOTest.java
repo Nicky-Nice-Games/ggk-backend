@@ -40,7 +40,7 @@ public class LeaderboardDAOTest {
     void testGetMapLeaderboard() throws SQLException{
         PreparedStatement stmt = Mockito.mock(PreparedStatement.class);
         ResultSet data = Mockito.mock(ResultSet.class);
-        LeaderboardData test = new LeaderboardData("1", 0, "2", null, 1);
+        LeaderboardData test = new LeaderboardData("1", 0, "2", null, 1, 1.1);
 
         String query =
             """

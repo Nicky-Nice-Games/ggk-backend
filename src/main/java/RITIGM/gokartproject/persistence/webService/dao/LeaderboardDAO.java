@@ -58,7 +58,8 @@ public class LeaderboardDAO implements LeaderboardInterface{
                 updateCheck.getInt("raceid"),
                 updateCheck.getString("username"),
                 updateCheck.getTimestamp("racestarttime"),
-                updateCheck.getInt("leaderboardtime")));            
+                updateCheck.getInt("leaderboardtime"),
+                updateCheck.getDouble("score")));            
         }
 
         return returnData;
