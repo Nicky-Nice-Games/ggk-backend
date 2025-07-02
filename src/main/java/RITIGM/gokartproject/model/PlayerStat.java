@@ -50,11 +50,13 @@ public class PlayerStat extends PlayerInfo{
      * @param boostUsage the boost usage 
      * @param podium the podium
      * @param firstPlace percentage of first place wins
+     * @param totalRaces
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, int pfpLink,
     int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, 
     int favoriteChara, int favoriteTrack,
-    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, double podium, double firstPlace){
+    OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, 
+    double podium, double firstPlace, int totalRaces){
         super(pid,email,pw,uid,username, pfpLink);
         this.fastestTime = fastestTime;
         this.favoriteChara = favoriteChara;
@@ -68,6 +70,7 @@ public class PlayerStat extends PlayerInfo{
         this.collisionWithPlayer = collisionWithPlayer;
         this.collisionWithWall = collisionWithWall;
         this.felloffmap = felloffmap;
+        this.totalRaces = totalRaces;
     }
 
     /**
@@ -257,6 +260,16 @@ public class PlayerStat extends PlayerInfo{
      */
     public void setFavoriteTrack(int favoriteTrack) {
         this.favoriteTrack = favoriteTrack;
+    }
+
+    
+
+    public int getTotalRaces() {
+        return totalRaces;
+    }
+
+    public void setTotalRaces(int totalRaces) {
+        this.totalRaces = totalRaces;
     }
 
     /**

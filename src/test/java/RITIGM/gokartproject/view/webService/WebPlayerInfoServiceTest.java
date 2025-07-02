@@ -166,7 +166,7 @@ public class WebPlayerInfoServiceTest {
         BoostUsage boost = new BoostUsage(13, 14, 15,16);
         DefenseUsage defense = new DefenseUsage(0, 0, 0, 0);
          PlayerStat check = new PlayerStat("1", "2", "3", 4, "5", 6,6, 7, 8,18,19,19,
-         offense, trap, boost,defense, 16.0, 17.0);
+         offense, trap, boost,defense, 16.0, 17.0, 0);
 
         when(playerStatInterface.getPlayerStat("1")).thenReturn(check);
         ResponseEntity<PlayerStat> response = wpInfoService.getPlayerDetailInfo("1");

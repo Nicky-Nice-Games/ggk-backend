@@ -43,7 +43,7 @@ public class PlayerStatTest {
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6,6,
          7, 8,18,
          19, 19,
-         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0);
+         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0, 1);
     }
 
     @Test
