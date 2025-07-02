@@ -12,13 +12,15 @@ public class LeaderboardData {
     private String username; 
     private Timestamp raceStartTime;
     private int raceTime;
+    private double score;
 
     private static final String TO_STRING_FORMAT = "\nSimple Race Log:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
                                                         "\tRace ID = %d,\r\n" + //
                                                         "\tusername = %s,\r\n" + //
                                                         "\tTime Start Race = %s,\r\n" + //
-                                                        "\tRace Time = %d,";
+                                                        "\tRace Time = %d,\r\n" + //
+                                                        "\tScore = %f,";
 
     /**
      * Contructor for the returning template for leaderboard
@@ -28,12 +30,13 @@ public class LeaderboardData {
      * @param raceStartTime race start time (as TimeStamp)
      * @param raceTime race time (as integer, in miliseconds)
      */
-    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime){
+    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime, double score){
         this.pid = pid;
         this.raceID = raceID;
         this.username = username;
         this.raceStartTime = raceStartTime;
         this.raceTime = raceTime;
+        this.score = score;
     }
 
     /**
@@ -116,12 +119,30 @@ public class LeaderboardData {
         this.raceTime = raceTime;
     }
 
+    
+
+    /**
+     * 
+     * @return
+     */
+    public double getScore() {
+        return score;
+    }
+
+    /**
+     * 
+     * @param score
+     */
+    public void setScore(double score) {
+        this.score = score;
+    }
+
     /**
      * Tostring method for leaderboard data
      */
     @Override
     public String toString(){
-        return String.format(TO_STRING_FORMAT, pid,raceID,username, raceStartTime, raceTime);
+        return String.format(TO_STRING_FORMAT, pid,raceID,username, raceStartTime, raceTime, score);
     }
                                     
 }

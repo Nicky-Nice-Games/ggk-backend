@@ -12,8 +12,9 @@ public class LeaderboardDataTest {
     private String expected_username = "user"; 
     private Timestamp expected_raceStartTime = new Timestamp(10);
     private int expected_raceTime = 10;
+    private double expected_score = 2;
 
-    private LeaderboardData boardData = new LeaderboardData(expected_pid, expected_raceID, expected_username, expected_raceStartTime, expected_raceTime);
+    private LeaderboardData boardData = new LeaderboardData(expected_pid, expected_raceID, expected_username, expected_raceStartTime, expected_raceTime, expected_score);
 
     @Test
     void testGetPid() {
@@ -39,6 +40,8 @@ public class LeaderboardDataTest {
     void testGetraceStartTime() {
         assertEquals(expected_raceStartTime, boardData.getraceStartTime());
     }
+
+    
 
     @Test
     void testSetPid() {
@@ -82,10 +85,22 @@ public class LeaderboardDataTest {
                                 "\tRace ID = " + expected_raceID + ",\r\n" + //
                                 "\tusername = "+ expected_username +",\r\n" + //
                                 "\tTime Start Race = "+ expected_raceStartTime + ",\r\n" + //
-                                "\tRace Time = "+expected_raceTime+ ",";
+                                "\tRace Time = "+ expected_raceTime +",\r\n" + //
+                                "\tScore = "+String.format("%f",expected_score)+",";
 
         
         assertEquals(expected_string, boardData.toString());
 
+    }
+
+    @Test
+    void testGetScore() {
+        assertEquals(expected_score, boardData.getScore());
+    }
+
+    @Test
+    void testSetScore() {
+        boardData.setScore(1.4);
+        assertEquals(1.4, boardData.getScore());
     }
 }
