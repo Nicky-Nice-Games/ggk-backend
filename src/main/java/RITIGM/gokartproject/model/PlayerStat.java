@@ -31,7 +31,8 @@ public class PlayerStat extends PlayerInfo{
                                                     "\tFell of the map = %d,\r\n" + //
                                                     "\tFastest Time = %d,\r\n" + //
                                                     "\tFavorite Character = %d,\r\n" + //
-                                                    "\tFavorite Track = %d\r\n" + //
+                                                    "\tFavorite Track = %d,\r\n" + //
+                                                    "\tTotal Races = %d,\r\n" + //
                                                     "\tNumber of First Place = %f,\r\n" + //
                                                     "\tNumber of Podium = %f,\r\n";
 
@@ -278,7 +279,7 @@ public class PlayerStat extends PlayerInfo{
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, super.toString(), this.collisionWithWall, 
-        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.favoriteTrack, this.podium, this.firstPlace) +
+        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.favoriteTrack,this.totalRaces, this.podium, this.firstPlace) +
         "\n\t" + offenseUsage +
         "\n\t" + trapUsage +  
         "\n\t" + boostUsage;

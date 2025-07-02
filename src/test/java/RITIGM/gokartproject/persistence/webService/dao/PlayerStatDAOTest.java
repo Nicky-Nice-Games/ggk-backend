@@ -242,7 +242,7 @@ public class PlayerStatDAOTest {
         when(this.mockConn.prepareStatement(favRaceQuery)).
             thenReturn(raceStmt);
 
-        when(raceStmt.executeQuery()).thenReturn(totalSet);
+        when(raceStmt.executeQuery()).thenReturn(raceSet);
 
         when(raceSet.next()).thenReturn(true).thenReturn(false);
 
