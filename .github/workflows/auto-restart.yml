@@ -2,7 +2,8 @@
 name: Restart Heroku App
 
 on:
-  workflow_dispatch:  # Allows manual triggering
+  push:
+    branches: ["auto-restart"]
 
 jobs:
   restart:
