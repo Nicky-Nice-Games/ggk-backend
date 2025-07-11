@@ -2,9 +2,13 @@
 name: Restart Heroku App
 
 on:
-  push:
-    branches: ["auto-restart"]
-
+#   push:
+#     branches: ["auto-restart"]
+  schedule:
+    - cron: '30 12 * * *'
+    - cron: '30 20 * * *'
+    - cron: '30 4 * * *'
+    - cron: '20 13 * * *'  # Test at 9:20
 jobs:
   restart:
     runs-on: ubuntu-latest
@@ -17,7 +21,7 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
-          
+
       - name: Log in to Heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
