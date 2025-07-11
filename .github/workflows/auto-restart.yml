@@ -8,8 +8,6 @@ on:
     - cron: '30 12 * * *'
     - cron: '30 20 * * *'
     - cron: '30 4 * * *'
-    - cron: '20 13 * * *'  # Test at 9:20
-    - cron: '50 14 * * *'  # 10:50 AM EDT (new)
 jobs:
   restart:
     runs-on: ubuntu-latest

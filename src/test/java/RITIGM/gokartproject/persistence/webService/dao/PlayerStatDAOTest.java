@@ -52,35 +52,39 @@ public class PlayerStatDAOTest {
         String mainQuery = 
         """
             SELECT
-                p.pid, p.Email, p.Password, p.uid, p.username, p.profile,
-                SUM(r.collisionwithplayers) AS totalplayercollision,
-                SUM(r.collisionwithwalls) AS totalwallcollision,
-                SUM(r.fellofmap) AS totalfellofmap,
-                SUM(r.speedboost1) AS totalspeedboost1,
-                SUM(r.speedboost2) AS totalspeedboost2,
-                SUM(r.speedboost3) AS totalspeedboost3,
-                SUM(r.speedboost4) AS totalspeedboost4,
-                SUM(r.puck1) AS totalpuck1,
-                SUM(r.puck2) AS totalpuck2,
-                SUM(r.puck2) AS totalpuck3,
-                SUM(r.puck2) AS totalpuck4,
-                SUM(r.oilspill1) AS totaloilspill1,
-                SUM(r.brickwall) AS totalbrickwall,
-                SUM(r.confuseritchie) AS totalconfuseritchie,
-                SUM(r.fakepowerupblock) AS totalfakepowerupblock,
-                SUM(r.defense1) AS totaldefense1,
-                SUM(r.defense2) AS totaldefense2,
-                SUM(r.defense3) AS totaldefense3,
-                SUM(r.defense4) AS totaldefense4
-
+                p.pid,
+                p.Email,
+                p.Password,
+                p.uid,
+                p.username,
+                p.profile,
+                COALESCE(SUM(r.collisionwithplayers), 0) AS totalplayercollision,
+                COALESCE(SUM(r.collisionwithwalls), 0) AS totalwallcollision,
+                COALESCE(SUM(r.fellofmap), 0) AS totalfellofmap,
+                COALESCE(SUM(r.speedboost1), 0) AS totalspeedboost1,
+                COALESCE(SUM(r.speedboost2), 0) AS totalspeedboost2,
+                COALESCE(SUM(r.speedboost3), 0) AS totalspeedboost3,
+                COALESCE(SUM(r.speedboost4), 0) AS totalspeedboost4,
+                COALESCE(SUM(r.puck1), 0) AS totalpuck1,
+                COALESCE(SUM(r.puck2), 0) AS totalpuck2,
+                COALESCE(SUM(r.puck3), 0) AS totalpuck3,
+                COALESCE(SUM(r.puck4), 0) AS totalpuck4,
+                COALESCE(SUM(r.oilspill1), 0) AS totaloilspill1,
+                COALESCE(SUM(r.brickwall), 0) AS totalbrickwall,
+                COALESCE(SUM(r.confuseritchie), 0) AS totalconfuseritchie,
+                COALESCE(SUM(r.fakepowerupblock), 0) AS totalfakepowerupblock,
+                COALESCE(SUM(r.defense1), 0) AS totaldefense1,
+                COALESCE(SUM(r.defense2), 0) AS totaldefense2,
+                COALESCE(SUM(r.defense3), 0) AS totaldefense3,
+                COALESCE(SUM(r.defense4), 0) AS totaldefense4
             FROM
-                gokart.racelog r
-            JOIN
-                gokart.players p ON r.pid = p.pid
+                gokart.players p
+            LEFT JOIN
+                gokart.racelog r ON r.pid = p.pid
             WHERE
                 p.pid = ?
             GROUP BY
-                p.pid, p.Email, p.Password, p.uid, p.username;
+                p.pid, p.Email, p.Password, p.uid, p.username, p.profile;
         """;
 
         ResultSet mainSet = mock(ResultSet.class);
