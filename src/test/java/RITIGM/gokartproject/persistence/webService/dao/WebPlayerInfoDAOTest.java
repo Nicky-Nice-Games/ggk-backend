@@ -192,13 +192,13 @@ public class WebPlayerInfoDAOTest {
 
         //Email already exists in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("EmailExists")).thenReturn(true);
+        when(resultSet.getInt("EmailExists")).thenReturn(1);
         result = wpInfoDAO.verifyEmail("test@email.com");
         assertEquals(true, result);
 
         //email does not exist in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("EmailExists")).thenReturn(false);
+        when(resultSet.getInt("EmailExists")).thenReturn(0);
         result = wpInfoDAO.verifyEmail("test@email.com");
         assertEquals(false, result);
 
@@ -429,13 +429,13 @@ public class WebPlayerInfoDAOTest {
 
         //Email already exists in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("UsernameExists")).thenReturn(true);
+        when(resultSet.getInt("UsernameExists")).thenReturn(1);
         result = wpInfoDAO.verifyUsername("glimbo");
         assertEquals(true, result);
 
         //email does not exist in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("UsernameExists")).thenReturn(false);
+        when(resultSet.getInt("UsernameExists")).thenReturn(0);
         result = wpInfoDAO.verifyUsername("glimbo");
         assertEquals(false, result);
 
