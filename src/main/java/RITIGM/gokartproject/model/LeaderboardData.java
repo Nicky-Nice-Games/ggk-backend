@@ -13,6 +13,7 @@ public class LeaderboardData {
     private Timestamp raceStartTime;
     private int raceTime;
     private double score;
+    private int pfp;
 
     private static final String TO_STRING_FORMAT = "\nSimple Race Log:\r\n" + //
                                                         "\tPID = %s,\r\n" + //
@@ -30,13 +31,14 @@ public class LeaderboardData {
      * @param raceStartTime race start time (as TimeStamp)
      * @param raceTime race time (as integer, in miliseconds)
      */
-    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime, double score){
+    public LeaderboardData(String pid, int raceID, String username, Timestamp raceStartTime, int raceTime, double score, int pfp){
         this.pid = pid;
         this.raceID = raceID;
         this.username = username;
         this.raceStartTime = raceStartTime;
         this.raceTime = raceTime;
         this.score = score;
+        this.pfp = pfp;
     }
 
     /**
@@ -135,6 +137,23 @@ public class LeaderboardData {
      */
     public void setScore(double score) {
         this.score = score;
+    }
+
+    
+    /**
+     * 
+     * @return
+     */
+    public int getPfp() {
+        return pfp;
+    }
+
+    /**
+     * 
+     * @param pfp
+     */
+    public void setPfp(int pfp) {
+        this.pfp = pfp;
     }
 
     /**

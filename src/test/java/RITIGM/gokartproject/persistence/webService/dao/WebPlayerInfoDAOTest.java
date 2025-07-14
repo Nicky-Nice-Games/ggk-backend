@@ -192,13 +192,13 @@ public class WebPlayerInfoDAOTest {
 
         //Email already exists in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("EmailExists")).thenReturn(true);
+        when(resultSet.getInt("EmailExists")).thenReturn(1);
         result = wpInfoDAO.verifyEmail("test@email.com");
         assertEquals(true, result);
 
         //email does not exist in use
         when(resultSet.next()).thenReturn(true);
-        when(resultSet.getBoolean("EmailExists")).thenReturn(false);
+        when(resultSet.getInt("EmailExists")).thenReturn(0);
         result = wpInfoDAO.verifyEmail("test@email.com");
         assertEquals(false, result);
 
@@ -408,5 +408,40 @@ public class WebPlayerInfoDAOTest {
         when(stmt.executeUpdate()).thenReturn(2);
         assertFalse(wpInfoDAO.changePfp(1, "20"));
 
+    }
+
+
+    @Test
+    void testVerifyUsername() throws SQLException{
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        boolean result;
+
+        String query = "SELECT EXISTS (\n" + //
+                        "  SELECT 1\n" + //
+                        "  FROM players\n" + //
+                        "  WHERE username = ?\n" + //
+                        ") AS UsernameExists;";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeQuery()).thenReturn(resultSet);
+
+
+        //Email already exists in use
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getInt("UsernameExists")).thenReturn(1);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(true, result);
+
+        //email does not exist in use
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getInt("UsernameExists")).thenReturn(0);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(false, result);
+
+        //no emails recorded
+        when(resultSet.next()).thenReturn(false);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(false, result);
     }
 }

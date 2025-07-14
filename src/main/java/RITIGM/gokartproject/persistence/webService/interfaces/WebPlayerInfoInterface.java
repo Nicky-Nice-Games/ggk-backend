@@ -56,6 +56,14 @@ public interface WebPlayerInfoInterface {
     abstract boolean verifyEmail(String email) throws SQLException;
 
     /**
+     * Verifys if a username is in use. returns true if it is
+     * @param username username to check
+     * @return true if username is already in use
+     * @throws SQLException SERVER FAILED. stupid server >:P
+     */
+    abstract boolean verifyUsername(String username) throws SQLException;
+
+    /**
      * Retreives the most recent games played by a player
      * @param pid player id
      * @return a list containing the most recent (up to 5) races played by a player

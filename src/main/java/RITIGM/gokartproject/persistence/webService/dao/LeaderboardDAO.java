@@ -40,7 +40,7 @@ public class LeaderboardDAO implements LeaderboardInterface{
         String query =
             """
             SELECT
-                p.pid, racelog.raceid, p.username, racelog.racestarttime,MIN(racelog.racetime) AS leaderboardtime, mapraced, p.score
+                p.pid, racelog.raceid, p.username, racelog.racestarttime,MIN(racelog.racetime) AS leaderboardtime, mapraced, p.score, p.profile
             FROM racelog
                 INNER JOIN gokart.players p on racelog.pid = p.pid
             WHERE mapraced = ?
@@ -59,7 +59,8 @@ public class LeaderboardDAO implements LeaderboardInterface{
                 updateCheck.getString("username"),
                 updateCheck.getTimestamp("racestarttime"),
                 updateCheck.getInt("leaderboardtime"),
-                updateCheck.getDouble("score")));            
+                updateCheck.getDouble("score"),
+                updateCheck.getInt("profile")));            
         }
 
         return returnData;

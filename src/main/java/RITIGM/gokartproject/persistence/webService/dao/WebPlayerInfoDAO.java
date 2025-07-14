@@ -194,7 +194,29 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         stmt.setString(1, email);
         ResultSet check = stmt.executeQuery();
         if(check.next()){
-            return check.getBoolean("EmailExists");
+            return check.getInt("EmailExists") == 1;
+        }
+        
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean verifyUsername(String username) throws SQLException{
+
+        String query = "SELECT EXISTS (\n" + //
+                        "  SELECT 1\n" + //
+                        "  FROM players\n" + //
+                        "  WHERE username = ?\n" + //
+                        ") AS UsernameExists;";
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, username);
+        ResultSet check = stmt.executeQuery();
+        if(check.next()){
+            return check.getInt("UsernameExists") == 1;
         }
         
         return false;
