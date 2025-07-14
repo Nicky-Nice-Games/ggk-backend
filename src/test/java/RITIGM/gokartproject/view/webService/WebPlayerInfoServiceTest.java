@@ -306,4 +306,19 @@ public class WebPlayerInfoServiceTest {
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
 
     }
+
+    @Test
+    void testCheckUsername() throws SQLException {
+        ResponseEntity<Boolean> response;
+
+        when(mockWebPlayerDAO.verifyUsername("glimbo")).thenReturn(true);
+        response = wpInfoService.checkUsername("glimbo");
+        assertEquals(true, response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+
+        when(mockWebPlayerDAO.verifyUsername("glimbo")).thenThrow();
+        response = wpInfoService.checkUsername("glimbo");
+        assertNull(response.getBody());
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
