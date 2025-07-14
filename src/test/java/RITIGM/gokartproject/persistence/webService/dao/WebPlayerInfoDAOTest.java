@@ -409,4 +409,39 @@ public class WebPlayerInfoDAOTest {
         assertFalse(wpInfoDAO.changePfp(1, "20"));
 
     }
+
+
+    @Test
+    void testVerifyUsername() throws SQLException{
+        PreparedStatement stmt = mock(PreparedStatement.class);
+        ResultSet resultSet = mock(ResultSet.class);
+        boolean result;
+
+        String query = "SELECT EXISTS (\n" + //
+                        "  SELECT 1\n" + //
+                        "  FROM players\n" + //
+                        "  WHERE username = ?\n" + //
+                        ") AS UsernameExists;";
+
+        when(mockConn.prepareStatement(query)).thenReturn(stmt);
+        when(stmt.executeQuery()).thenReturn(resultSet);
+
+
+        //Email already exists in use
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getBoolean("UsernameExists")).thenReturn(true);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(true, result);
+
+        //email does not exist in use
+        when(resultSet.next()).thenReturn(true);
+        when(resultSet.getBoolean("UsernameExists")).thenReturn(false);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(false, result);
+
+        //no emails recorded
+        when(resultSet.next()).thenReturn(false);
+        result = wpInfoDAO.verifyUsername("glimbo");
+        assertEquals(false, result);
+    }
 }

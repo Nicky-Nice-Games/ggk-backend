@@ -159,10 +159,26 @@ public class WebPlayerInfoService {
      * @param email email to check
      * @return true if email is in use, false if not
      */
-    @GetMapping("/{email}")
-    public ResponseEntity<Boolean> checkEmail(@RequestBody String email){
+    @GetMapping("/verifyemail")
+    public ResponseEntity<Boolean> checkEmail(@RequestParam String email){
         try{
             boolean email_status = webPlayerInfoDAO.verifyEmail(email);
+            return new ResponseEntity<Boolean>(email_status, HttpStatus.OK);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * checks if a username is currently in use
+     * @param username username to check
+     * @return true if username is in use, false if not
+     */
+    @GetMapping("/verifyusername")
+    public ResponseEntity<Boolean> checkUsername(@RequestParam String username){
+        try{
+            boolean email_status = webPlayerInfoDAO.verifyUsername(username);
             return new ResponseEntity<Boolean>(email_status, HttpStatus.OK);
         }
         catch(Exception e){
