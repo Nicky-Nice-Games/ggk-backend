@@ -13,8 +13,9 @@ public class LeaderboardDataTest {
     private Timestamp expected_raceStartTime = new Timestamp(10);
     private int expected_raceTime = 10;
     private double expected_score = 2;
+    private int expected_pfp = 1;
 
-    private LeaderboardData boardData = new LeaderboardData(expected_pid, expected_raceID, expected_username, expected_raceStartTime, expected_raceTime, expected_score);
+    private LeaderboardData boardData = new LeaderboardData(expected_pid, expected_raceID, expected_username, expected_raceStartTime, expected_raceTime, expected_score, expected_pfp);
 
     @Test
     void testGetPid() {
