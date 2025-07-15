@@ -174,7 +174,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(fastestTime.next()){
             returnStat.setFastestTime(fastestTime.getInt("fastest"));
         } else{
-            throw new SQLException("Error in fetching fastest time");
+            returnStat.setFastestTime(-1);
         }
 
         String favoriteCharacter = 
@@ -197,7 +197,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(favCharaSet.next()){
             returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
         } else{
-            throw new SQLException("Error in fetching favchara");
+            returnStat.setFavoriteChara(0);
         }
 
         String totalRaceQuery = "SELECT COUNT(pid) as totalrace\n" + //
@@ -211,7 +211,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(totalRaceSet.next()){
             returnStat.setTotalRaces(totalRaceSet.getInt("totalrace"));
         } else{
-            throw new SQLException("Error fetching totalrace");
+            returnStat.setTotalRaces(0);
         }
 
         String favRaceQuery = "SELECT MAX(racePermap.mapcount) as countfavmap, mapraced\n" + //
@@ -230,9 +230,10 @@ public class PlayerStatDAO implements PlayerStatInterface{
         if(favRaceSet.next()){
             returnStat.setFavoriteTrack(favRaceSet.getInt("countfavmap"));
         }else{
-            throw new SQLException("Error retreiving countfavmap");
+            returnStat.setFavoriteTrack(0);
         }
         
         return returnStat;
     }
 }
+
