@@ -99,6 +99,9 @@ public class WebPlayerInfoService {
     public ResponseEntity<PlayerInfo> createUser(@RequestBody NoUID info){
         log.info("POST /webservice/playerinfo/" + info.getUsername());
         try {
+            if(webPlayerInfoDAO.verifyEmail(info.getEmail()) || webPlayerInfoDAO.verifyUsername(info.getUsername())){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(), info.getUsername());
 
             if(new_player != null){
@@ -122,6 +125,10 @@ public class WebPlayerInfoService {
     public ResponseEntity<PlayerInfo> createUser(@RequestBody CreateUID info){
         log.info("POST /webservice/playerinfo/create/uid" + info.getUsername());
         try {
+
+            if(webPlayerInfoDAO.verifyEmail(info.getEmail()) || webPlayerInfoDAO.verifyUsername(info.getUsername())){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
             PlayerInfo new_player = webPlayerInfoDAO.createUser(info.getEmail(), info.getPassword(),  info.getUid(), info.getUsername());
 
             if(new_player != null){
