@@ -59,20 +59,31 @@ public class WebPlayerInfoServiceTest {
         PlayerInfo player = new PlayerInfo("20", "test@email.com", "password", -1, "username", 1);
         NoUID info  = new NoUID("test@email.com", "username", "password", 4);
 
-
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password", "username")).thenReturn(player);
         ResponseEntity<PlayerInfo> response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(player, response.getBody());
 
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password", "username")).thenReturn(null);
         response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNull(response.getBody());
 
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password", "username")).thenThrow();
         response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNull(response.getBody());
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(true);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(true);
+        response = wpInfoService.createUser(info);
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertNull(response.getBody());
     }
 
@@ -86,19 +97,31 @@ public class WebPlayerInfoServiceTest {
         CreateUID info  = new CreateUID("test@email.com", "username","password",   123456789, 4);
 
 
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password", 123456789, "username")).thenReturn(player);
         ResponseEntity<PlayerInfo> response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(player, response.getBody());
 
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password",123456789, "username")).thenReturn(null);
         response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNull(response.getBody());
 
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(false);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(false);
         when(mockWebPlayerDAO.createUser("test@email.com", "password",123456789, "username")).thenThrow();
         response = wpInfoService.createUser(info);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+        assertNull(response.getBody());
+
+        when(mockWebPlayerDAO.verifyEmail("test@email.com")).thenReturn(true);
+        when(mockWebPlayerDAO.verifyUsername("username")).thenReturn(true);
+        response = wpInfoService.createUser(info);
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
         assertNull(response.getBody());
     }
 
