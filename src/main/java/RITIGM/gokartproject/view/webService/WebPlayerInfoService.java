@@ -283,4 +283,19 @@ public class WebPlayerInfoService {
         }
     }
 
+    @PutMapping("/passwordreset")
+    public ResponseEntity<Void> updatePassword(@RequestParam String email, @RequestParam String password) {
+        log.info("PUT /webservice/playerinfo/passwordreset/ Email = " + email);
+        try {
+            Boolean check = webPlayerInfoDAO.resetPassword(email, password);
+            if(check){
+                return new ResponseEntity<>(HttpStatus.OK);
+            } else{
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
