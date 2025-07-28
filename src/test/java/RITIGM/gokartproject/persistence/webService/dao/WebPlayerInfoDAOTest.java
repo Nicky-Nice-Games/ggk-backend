@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.sql.Connection;
@@ -444,4 +445,35 @@ public class WebPlayerInfoDAOTest {
         result = wpInfoDAO.verifyUsername("glimbo");
         assertEquals(false, result);
     }
+
+
+    @Test
+void testUpdatePassword() throws SQLException {
+    PreparedStatement stmt = mock(PreparedStatement.class);
+
+    String query = """
+            UPDATE players
+            SET players.Password = ?
+            WHERE players.Email = ?;
+            """;
+
+    String email = "test@example.com";
+    String password = "securePass123";
+    String hashedPassword = Integer.toString(password.hashCode());
+
+    when(mockConn.prepareStatement(query)).thenReturn(stmt);
+    
+    // Simulate update success
+    when(stmt.executeUpdate()).thenReturn(1);
+    boolean result = wpInfoDAO.resetPassword(email, password);
+    verify(stmt).setString(1, hashedPassword);
+    verify(stmt).setString(2, email);
+    assertEquals(true, result);
+
+    // Simulate update failure
+    when(stmt.executeUpdate()).thenReturn(0);
+    result = wpInfoDAO.resetPassword(email, password);
+    assertEquals(false, result);
+}
+
 }
