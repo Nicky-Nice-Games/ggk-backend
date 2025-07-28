@@ -398,5 +398,22 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         
     }
 
+    @Override
+    public boolean resetPassword(String email, String password) throws SQLException {   
+
+        String checkPw =  Integer.toString(password.hashCode());
+        String query = """
+                UPDATE players
+                SET players.Password = ?
+                WHERE players.Email = ?;
+                """;
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, checkPw);
+        stmt.setString(2, email);
+
+        return (stmt.executeUpdate() == 1) ? true : false;
+    }
+
     
 }

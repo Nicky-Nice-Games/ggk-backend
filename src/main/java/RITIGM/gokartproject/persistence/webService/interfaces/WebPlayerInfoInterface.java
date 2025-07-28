@@ -103,10 +103,15 @@ public interface WebPlayerInfoInterface {
      * 
      * @param pfp new pfp number for a player
      * @param pid player ID
-     * @return 
-     * @throws SQLException
+     * @return if update is successful
+     * @throws SQLException Database Error
      */
     abstract boolean changePfp(int pfp, String pid) throws SQLException;
 
-
+    /**
+     * Update the password for the account
+     * @return if the update successful or not
+     * @throws SQLException Database Error
+     */
+    abstract boolean resetPassword(String email, String password) throws SQLException;
 }
