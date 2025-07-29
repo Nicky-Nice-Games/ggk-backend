@@ -14,6 +14,9 @@ import RITIGM.gokartproject.model.usage.TrapUsage;
 public class RaceScore{
 
     private static final HashMap<String, Double> trackOne = new HashMap<String, Double>();
+    private static final HashMap<String, Double> trackTwo = new HashMap<String, Double>();
+    private static final HashMap<String, Double> trackThree = new HashMap<String, Double>();
+    private static final HashMap<String, Double> trackFour = new HashMap<String, Double>();
     private static final HashMap<Integer, HashMap<String, Double>> scoreRecord = new HashMap<>();
 
     private RaceLog raceLog;
@@ -27,10 +30,22 @@ public class RaceScore{
         
         // Init arraylist to record perfect time and item usage for the track
 
-        trackOne.put("time", 250000.0);
+        trackOne.put("time", 3000.0);
         trackOne.put("item", 10.0);
 
+        trackTwo.put("time", 3000.0);
+        trackTwo.put("item", 10.0);
+
+        trackThree.put("time", 3000.0);
+        trackThree.put("item", 10.0);
+        
+        trackFour.put("time", 3000.0);
+        trackFour.put("item", 10.0);
+
         scoreRecord.put(1,trackOne);
+        scoreRecord.put(2,trackTwo);
+        scoreRecord.put(3,trackThree);
+        scoreRecord.put(4,trackFour);
     }
 
     /**
@@ -38,7 +53,7 @@ public class RaceScore{
      * @return calculated score
      */
     public double scoreCalculation(){
-        if(this.raceLog.getMapRaced() != 1){
+        if(this.raceLog.getMapRaced() >= 1 && this.raceLog.getMapRaced() <= 4){
             return 0.00;
         } else{
             double totalScore = (trackPerformaceScoring() + placementScoring() + itemBonus());

@@ -344,4 +344,16 @@ public class WebPlayerInfoServiceTest {
         assertNull(response.getBody());
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
+    @Test
+    void testUpdatePassword() throws SQLException{
+        when(mockWebPlayerDAO.resetPassword("a","b")).thenReturn(true);
+        assertEquals(this.wpInfoService.updatePassword("a", "b"), new ResponseEntity<>(HttpStatus.OK));
+
+        when(mockWebPlayerDAO.resetPassword("a","b")).thenReturn(false);
+        assertEquals(this.wpInfoService.updatePassword("a", "b"), new ResponseEntity<>(HttpStatus.BAD_REQUEST));
+
+        when(mockWebPlayerDAO.resetPassword("a","b")).thenThrow();
+        assertEquals(this.wpInfoService.updatePassword("a", "b"), new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    }
 }
