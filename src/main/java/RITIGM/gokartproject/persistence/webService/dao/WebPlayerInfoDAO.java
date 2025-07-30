@@ -13,7 +13,6 @@ import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
-import RITIGM.gokartproject.model.TopRaceScore;
 import RITIGM.gokartproject.model.usage.BoostUsage;
 import RITIGM.gokartproject.model.usage.DefenseUsage;
 import RITIGM.gokartproject.model.usage.OffenseUsage;
@@ -415,47 +414,4 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
         return (stmt.executeUpdate() == 1) ? true : false;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public TopRaceScore playerTopScore(String pid) throws SQLException{
-        String playerTopTime = 
-        """
-            SELECT MIN(racelog.racetime) as topmaptime, mapraced
-            FROM racelog
-            WHERE racelog.pid = ?
-            GROUP BY mapraced;
-        """;
-
-        TopRaceScore returnScore = new TopRaceScore(-1, -1, -1, -1);
-
-        PreparedStatement stmt = conn.prepareStatement(playerTopTime);
-        stmt.setString(1,pid);
-
-        ResultSet data =  stmt.executeQuery();
-
-        while(data.next()){
-            int raceCheck = data.getInt("mapraced");
-            int topMapTime = data.getInt("topmaptime");
-            switch (raceCheck) {
-                case 1:
-                    returnScore.setRaceTime1(topMapTime);
-                    break;
-                case 2:
-                    returnScore.setRaceTime2(topMapTime);              
-                    break;
-                case 3:
-                    returnScore.setRaceTime3(topMapTime);
-                    break;
-                case 4:
-                    returnScore.setRaceTime4(topMapTime);  
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        return returnScore;
-    }
 }

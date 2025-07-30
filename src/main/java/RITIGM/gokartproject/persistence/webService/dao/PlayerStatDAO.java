@@ -85,7 +85,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                 data.getInt("totalwallcollision"),
                 data.getInt("totalplayercollision"),
                 data.getInt("totalfellofmap"),
-                0,0, 0, //Init the fastest time and fav character and fav track
+                0, 0, //Init the fastest time and fav character and fav track
                 new OffenseUsage(
                     data.getInt("totalpuck1"), 
                     data.getInt("totalpuck2"),
@@ -108,7 +108,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
                     data.getInt("totaldefense4")),
                     0.0,
                 0.0,
-                0);
+                0,0,0,0,0);
         } else{
             return null;
         }
@@ -159,22 +159,38 @@ public class PlayerStatDAO implements PlayerStatInterface{
         
 
 
-        String fastestLap = 
+       String playerTopTime = 
         """
-            SELECT MIN(racelog.racetime) AS fastest
+            SELECT MIN(racelog.racetime) as topmaptime, mapraced
             FROM racelog
-            WHERE racelog.pid = ?;
-        
+            WHERE racelog.pid = ?
+            GROUP BY mapraced;
         """;
-        
-        PreparedStatement stmt = conn.prepareStatement(fastestLap);
-        stmt.setString(1, pid);
-        ResultSet fastestTime = stmt.executeQuery();
 
-        if(fastestTime.next()){
-            returnStat.setFastestTime(fastestTime.getInt("fastest"));
-        } else{
-            returnStat.setFastestTime(-1);
+        PreparedStatement stmt = conn.prepareStatement(playerTopTime);
+        stmt.setString(1,pid);
+
+        ResultSet dataTime =  stmt.executeQuery();
+
+        while(dataTime.next()){
+            int raceCheck = dataTime.getInt("mapraced");
+            int topMapTime = dataTime.getInt("topmaptime");
+            switch (raceCheck){
+                case 1:
+                    returnStat.setRaceTime1(topMapTime);
+                    break;
+                case 2:
+                    returnStat.setRaceTime2(topMapTime);              
+                    break;
+                case 3:
+                    returnStat.setRaceTime3(topMapTime);
+                    break;
+                case 4:
+                    returnStat.setRaceTime4(topMapTime);  
+                    break;
+                default:
+                    break;
+            }
         }
 
         String favoriteCharacter = 
