@@ -39,8 +39,9 @@ public class PlayerStatDAOTest {
         this.trap = new TrapUsage(11, 12,13,14);
         this.boost = new BoostUsage(13, 14, 15,16);
         this.defense = new DefenseUsage(0, 0, 0, 0);
-        this.check = new PlayerStat("1", "2", "3", 4, "5",6, 6, 7, 8,18,19, 19,
-         this.offense, this.trap, this.boost, defense, 16.0, 17.0, 0);
+        this.check = new PlayerStat("1", "2", "3", 4, "5", 6,6,
+         8,18,19, 19,
+         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0, 1,1,2,3,4);
     }
 
 
@@ -252,6 +253,30 @@ public class PlayerStatDAOTest {
 
         when(raceSet.getInt("countfavmap")).thenReturn(19);
 
+        String playerTopTime = 
+        """
+            SELECT MIN(racelog.racetime) as topmaptime, mapraced
+            FROM racelog
+            WHERE racelog.pid = ?
+            GROUP BY mapraced;
+        """;
+
+        PreparedStatement timestmt = mock(PreparedStatement.class);
+        ResultSet timeSet = mock(ResultSet.class);
+
+        when(this.mockConn.prepareStatement(playerTopTime)).thenReturn(timestmt);
+        when(timestmt.executeQuery()).thenReturn(timeSet);
+
+        when(timeSet.next()).thenReturn(true).thenReturn(true)
+        .thenReturn(true).thenReturn(true).thenReturn(false);
+
+        when(timeSet.getInt("mapraced"))
+        .thenReturn(1).thenReturn(2).thenReturn(3).thenReturn(4);
+
+        when(timeSet.getInt("topmaptime"))
+        .thenReturn(1).thenReturn(2).thenReturn(3).thenReturn(4);
+
+
         PlayerStat testCase = this.playerStatDAO.getPlayerStat("123");
 
         assertEquals(this.check.getPid(), testCase.getPid());
@@ -260,9 +285,14 @@ public class PlayerStatDAOTest {
         assertEquals(this.check.getUid(), testCase.getUid());
         assertEquals(this.check.getUsername(), testCase.getUsername());
         assertEquals(this.check.getCollisionWithWall(), testCase.getCollisionWithWall());
-        assertEquals(this.check.getCollisionWithPlayer(), testCase.getCollisionWithPlayer());
-        assertEquals(this.check.getFelloffmap(), testCase.getFelloffmap());
-        assertEquals(this.check.getTotalRaces(), testCase.getTotalRaces());
+        assertEquals(7, testCase.getCollisionWithPlayer());
+        assertEquals(8, testCase.getFelloffmap());
+        assertEquals(0, testCase.getTotalRaces());
         assertEquals(this.check.getFavoriteTrack(), testCase.getFavoriteTrack());
+        assertEquals(this.check.getRaceTime1(), testCase.getRaceTime1());
+        assertEquals(this.check.getRaceTime2(), testCase.getRaceTime2());
+        assertEquals(this.check.getRaceTime3(), testCase.getRaceTime3());
+        assertEquals(this.check.getRaceTime4(), testCase.getRaceTime4());
+
     }
 }
