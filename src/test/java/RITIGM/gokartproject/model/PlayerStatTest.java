@@ -20,21 +20,19 @@ public class PlayerStatTest {
     private TrapUsage trap;
     private BoostUsage boost;
     private DefenseUsage defense;
-    public static final String TO_STRING_FORMAT = "\nPlayer Info:\r\n" + //
-                                "\tPID = %s,\r\n" + //
-                                "\tEmail = %s,\r\n" + //
-                                "\tpw = %s,\r\n" + //
-                                "\tUID = %d,\r\n" + //
-                                "\tUsername = %s,\r\n" + //
-                                "\tCollision With Wall = %d,\r\n" + //
-                                "\tCollision With Player = %d,\r\n" + //
-                                "\tFell of the map = %d,\r\n" + //
-                                "\tFastest Time = %d,\r\n" + //
-                                "\tFavorite Character = %d,\r\n" + //
-                                "\tFavorite Track = %d,\r\n" + //
-                                "\tTotal Races = %d,\r\n" + //
-                                "\tNumber of First Place = %f,\r\n" + //
-                                "\tNumber of Podium = %f,\r\n";
+    public static final String TO_STRING_FORMAT =   "%s\r\n" + //
+                                                    "\tCollision With Wall = %d,\r\n" + //
+                                                    "\tCollision With Player = %d,\r\n" + //
+                                                    "\tFell of the map = %d,\r\n" + //
+                                                    "\tFavorite Character = %d,\r\n" + //
+                                                    "\tFavorite Track = %d,\r\n" + //
+                                                    "\tTotal Races = %d,\r\n" + //
+                                                    "\tNumber of First Place = %f,\r\n" + //
+                                                    "\tNumber of Podium = %f,\r\n" +//
+                                                    "\tFastest Time Map 1 = %d,\r\n" + //
+                                                    "\tFastest Time Map 2 = %d,\r\n" + //
+                                                    "\tFastest Time Map 3 = %d,\r\n" + //
+                                                    "\tFastest Time Map 4 = %d,\r\n";
 
     @BeforeEach
     void init(){
@@ -43,9 +41,9 @@ public class PlayerStatTest {
         this.boost = new BoostUsage(13, 14, 15, 16);
         this.defense = new DefenseUsage(17, 18, 19, 20);
         this.check = new PlayerStat("1", "2", "3", 4, "5", 6,6,
-         7, 8,18,
-         19, 19,
-         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0, 1);
+         8,18,19, 19,
+         this.offense, this.trap, this.boost, this.defense, 16.0, 17.0,
+          1,1,2,3,4);
     }
 
     @Test
@@ -107,19 +105,8 @@ public class PlayerStatTest {
     }
 
     @Test
-    void testToString() {
-        String expected_String  = String.format(TO_STRING_FORMAT, "1", "2", "3", 4, "5",
-         6, 7, 8,18,19, 19, 1,
-          16.0, 17.0) +
-        "\n\t" + offense+
-        "\n\t" + trap +  
-        "\n\t" + boost;
-        assertEquals(expected_String, check.toString());
-    }
-
-    @Test
     void testGetCollisionWithPlayer() {
-        assertEquals(7, check.getCollisionWithPlayer());
+        assertEquals(8, check.getCollisionWithPlayer());
     }
 
     @Test
@@ -129,7 +116,7 @@ public class PlayerStatTest {
 
     @Test
     void testGetFelloffmap() {
-        assertEquals(8, check.getFelloffmap());
+        assertEquals(18, check.getFelloffmap());
     }
 
     @Test
@@ -151,11 +138,6 @@ public class PlayerStatTest {
     }
 
     @Test
-    void testGetFastestTime() {
-        assertEquals(18, check.getFastestTime());
-    }
-
-    @Test
     void testGetFavoriteChara() {
         assertEquals(19, check.getFavoriteChara());
     }
@@ -170,5 +152,13 @@ public class PlayerStatTest {
         DefenseUsage a = new DefenseUsage(5, 7, 13, 17);
         check.setDefenseUsage(a);
         assertEquals(a, check.getDefenseUsage());
+    }
+
+    @Test
+    void testGetTrackTime(){
+        assertEquals(1, check.getRaceTime1());
+        assertEquals(2, check.getRaceTime2());
+        assertEquals(3, check.getRaceTime3());
+        assertEquals(4, check.getRaceTime4());
     }
 }

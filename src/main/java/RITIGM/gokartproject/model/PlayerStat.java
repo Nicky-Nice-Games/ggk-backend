@@ -14,7 +14,6 @@ public class PlayerStat extends PlayerInfo{
     private int collisionWithPlayer;
     private int collisionWithWall;
     private int felloffmap;
-    private int fastestTime;
     private int favoriteChara;
     private int favoriteTrack;
     private OffenseUsage offenseUsage;
@@ -24,17 +23,24 @@ public class PlayerStat extends PlayerInfo{
     private double podium;
     private double firstPlace;
     private int totalRaces;
+    private int raceTime1;
+    private int raceTime2;
+    private int raceTime3;
+    private int raceTime4;
 
     public static final String TO_STRING_FORMAT =   "%s\r\n" + //
                                                     "\tCollision With Wall = %d,\r\n" + //
                                                     "\tCollision With Player = %d,\r\n" + //
                                                     "\tFell of the map = %d,\r\n" + //
-                                                    "\tFastest Time = %d,\r\n" + //
                                                     "\tFavorite Character = %d,\r\n" + //
                                                     "\tFavorite Track = %d,\r\n" + //
                                                     "\tTotal Races = %d,\r\n" + //
                                                     "\tNumber of First Place = %f,\r\n" + //
-                                                    "\tNumber of Podium = %f,\r\n";
+                                                    "\tNumber of Podium = %f,\r\n" +//
+                                                    "\tFastest Time Map 1 = %d,\r\n" + //
+                                                    "\tFastest Time Map 2 = %d,\r\n" + //
+                                                    "\tFastest Time Map 3 = %d,\r\n" + //
+                                                    "\tFastest Time Map 4 = %d,\r\n";
 
     /**
      * Create a new user stat class 
@@ -54,12 +60,11 @@ public class PlayerStat extends PlayerInfo{
      * @param totalRaces
      */
     public PlayerStat(String pid, String email, String pw, Integer uid, String username, int pfpLink,
-    int collisionWithWall, int collisionWithPlayer, int felloffmap, int fastestTime, 
+    int collisionWithWall, int collisionWithPlayer, int felloffmap,
     int favoriteChara, int favoriteTrack,
     OffenseUsage offenseUsage, TrapUsage trapUsage, BoostUsage boostUsage, DefenseUsage defenseUsage, 
-    double podium, double firstPlace, int totalRaces){
+    double podium, double firstPlace, int totalRaces, int raceTime1, int raceTime2,int raceTime3,int raceTime4){
         super(pid,email,pw,uid,username, pfpLink);
-        this.fastestTime = fastestTime;
         this.favoriteChara = favoriteChara;
         this.favoriteTrack = favoriteTrack;
         this.offenseUsage = offenseUsage;
@@ -72,6 +77,42 @@ public class PlayerStat extends PlayerInfo{
         this.collisionWithWall = collisionWithWall;
         this.felloffmap = felloffmap;
         this.totalRaces = totalRaces;
+        this.raceTime1 = raceTime1;
+        this.raceTime2 = raceTime2;
+        this.raceTime3 = raceTime3;
+        this.raceTime4 = raceTime4;
+    }
+
+    public int getRaceTime1() {
+        return raceTime1;
+    }
+
+    public void setRaceTime1(int raceTime1) {
+        this.raceTime1 = raceTime1;
+    }
+
+    public int getRaceTime2() {
+        return raceTime2;
+    }
+
+    public void setRaceTime2(int raceTime2) {
+        this.raceTime2 = raceTime2;
+    }
+
+    public int getRaceTime3() {
+        return raceTime3;
+    }
+
+    public void setRaceTime3(int raceTime3) {
+        this.raceTime3 = raceTime3;
+    }
+
+    public int getRaceTime4() {
+        return raceTime4;
+    }
+
+    public void setRaceTime4(int raceTime4) {
+        this.raceTime4 = raceTime4;
     }
 
     /**
@@ -116,22 +157,6 @@ public class PlayerStat extends PlayerInfo{
      */
     public double getPodium(){
         return podium;
-    }
-
-    /**
-     * get the fastest time a player has
-     * @return fastest time
-     */
-    public int getFastestTime() {
-        return fastestTime;
-    }
-
-    /**
-     * sets the fastest time for a player
-     * @param fastestTime fastest time
-     */
-    public void setFastestTime(int fastestTime) {
-        this.fastestTime = fastestTime;
     }
 
     /**
@@ -279,7 +304,8 @@ public class PlayerStat extends PlayerInfo{
     @Override
     public String toString() {
         return String.format(TO_STRING_FORMAT, super.toString(), this.collisionWithWall, 
-        this.collisionWithPlayer, this.felloffmap,this.fastestTime, this.favoriteChara, this.favoriteTrack,this.totalRaces, this.podium, this.firstPlace) +
+        this.collisionWithPlayer, this.felloffmap, this.favoriteChara, this.favoriteTrack,this.totalRaces, this.podium, this.firstPlace,
+        this.raceTime1, this.raceTime2, this.raceTime3, this.raceTime4) +
         "\n\t" + offenseUsage +
         "\n\t" + trapUsage +  
         "\n\t" + boostUsage;

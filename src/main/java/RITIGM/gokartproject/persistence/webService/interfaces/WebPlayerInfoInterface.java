@@ -7,7 +7,6 @@ import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
-import RITIGM.gokartproject.model.TopRaceScore;
 
 public interface WebPlayerInfoInterface {
     /**
@@ -115,11 +114,4 @@ public interface WebPlayerInfoInterface {
      * @throws SQLException Database Error
      */
     abstract boolean resetPassword(String email, String password) throws SQLException;
-
-    /**
-     * Getting a player fasted time for each map
-     * @return Data for the top race score for the map
-     * @throws SQLException Database Error
-     */
-    abstract TopRaceScore playerTopScore(String pid) throws SQLException;
 }

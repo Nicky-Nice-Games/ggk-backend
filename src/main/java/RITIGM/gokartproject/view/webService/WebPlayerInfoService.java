@@ -22,7 +22,6 @@ import RITIGM.gokartproject.model.PlayerInfo;
 import RITIGM.gokartproject.model.PlayerStat;
 import RITIGM.gokartproject.model.RaceLog;
 import RITIGM.gokartproject.model.RaceReport;
-import RITIGM.gokartproject.model.TopRaceScore;
 import RITIGM.gokartproject.model.responseReceiver.CreateUID;
 import RITIGM.gokartproject.model.responseReceiver.LoginCreds;
 import RITIGM.gokartproject.model.responseReceiver.NoUID;
@@ -295,17 +294,6 @@ public class WebPlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping("/getplayertoprace/{pid}")
-    public ResponseEntity<TopRaceScore> getPlayerTopRaceScore(@PathVariable String pid) {
-        log.info("GET /webservice/playerinfo/getplayertoprace/" + pid);
-        try{
-            return new ResponseEntity<TopRaceScore>(webPlayerInfoDAO.playerTopScore(pid), HttpStatus.OK);
-        } catch (Exception e){
-            System.err.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
