@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.apache.tomcat.util.digester.ArrayStack;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.mailjet.client.ClientOptions;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.MailjetRequest;
+import com.mailjet.client.MailjetResponse;
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.resource.Emailv31;
 
 import RITIGM.gokartproject.model.AdminInfo;
 import RITIGM.gokartproject.model.PlayerInfo;
@@ -294,6 +302,37 @@ public class WebPlayerInfoService {
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        
+    }
+
+    @PostMapping("/sendemail")
+    public ResponseEntity<Void> sendEmail(@RequestParam String email) {
+        log.info("POST /webservice/playerinfo/sendemail/ Email = " + email);
+        try{
+            MailjetClient client;
+            MailjetRequest request;
+            MailjetResponse response;
+            //client = new MailjetClient(System.getenv("MJ_APIKEY_PUBLIC"), System.getenv("MJ_APIKEY_SECRET"));
+            client = new MailjetClient(System.getenv("MJ_APIKEY_PUBLIC"), System.getenv("MJ_APIKEY_PRIVATE"));
+            request = new MailjetRequest(Emailv31.resource)
+                    .property(Emailv31.MESSAGES, new JSONArray()
+                        .put(new JSONObject()
+                            .put(Emailv31.Message.FROM, new JSONObject()
+                                .put("Email", "pilot@mailjet.com")
+                                .put("Name", "Mailjet Pilot"))
+                            .put(Emailv31.Message.TO, new JSONArray()
+                                .put(new JSONObject()
+                                    .put("Email", "passenger1@mailjet.com")
+                                    .put("Name", "passenger 1")))
+                            .put(Emailv31.Message.SUBJECT, "Your email flight plan!")
+                            .put(Emailv31.Message.TEXTPART, "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!")
+                            .put(Emailv31.Message.HTMLPART, "<h3>Dear passenger 1, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />May the delivery force be with you!")));
+            response = client.post(request);
+            System.out.println(response.getStatus());
+            System.out.println(response.getData());
+        }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
