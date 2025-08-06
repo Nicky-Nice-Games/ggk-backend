@@ -244,7 +244,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
 
         ResultSet favRaceSet = favracestmt.executeQuery();
         if(favRaceSet.next()){
-            returnStat.setFavoriteTrack(favRaceSet.getInt("countfavmap"));
+            returnStat.setFavoriteTrack(favRaceSet.getInt("mapraced"));
         }else{
             returnStat.setFavoriteTrack(0);
         }
