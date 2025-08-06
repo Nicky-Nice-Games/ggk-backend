@@ -251,7 +251,7 @@ public class PlayerStatDAOTest {
 
         when(raceSet.next()).thenReturn(true).thenReturn(false);
 
-        when(raceSet.getInt("countfavmap")).thenReturn(19);
+        when(raceSet.getInt("characterused")).thenReturn(19);
 
         String playerTopTime = 
         """
