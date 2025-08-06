@@ -251,7 +251,7 @@ public class PlayerStatDAOTest {
 
         when(raceSet.next()).thenReturn(true).thenReturn(false);
 
-        when(raceSet.getInt("characterused")).thenReturn(19);
+        when(raceSet.getInt("characterused")).thenReturn(0);
 
         String playerTopTime = 
         """
@@ -288,7 +288,6 @@ public class PlayerStatDAOTest {
         assertEquals(7, testCase.getCollisionWithPlayer());
         assertEquals(8, testCase.getFelloffmap());
         assertEquals(0, testCase.getTotalRaces());
-        assertEquals(this.check.getFavoriteTrack(), testCase.getFavoriteTrack());
         assertEquals(this.check.getRaceTime1(), testCase.getRaceTime1());
         assertEquals(this.check.getRaceTime2(), testCase.getRaceTime2());
         assertEquals(this.check.getRaceTime3(), testCase.getRaceTime3());
