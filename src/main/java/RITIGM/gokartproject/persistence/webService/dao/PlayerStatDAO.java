@@ -211,7 +211,7 @@ public class PlayerStatDAO implements PlayerStatInterface{
         ResultSet favCharaSet = charastmt.executeQuery();
 
         if(favCharaSet.next()){
-            returnStat.setFavoriteChara(favCharaSet.getInt("favchara"));
+            returnStat.setFavoriteChara(favCharaSet.getInt("characterused"));
         } else{
             returnStat.setFavoriteChara(0);
         }
