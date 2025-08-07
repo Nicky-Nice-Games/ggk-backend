@@ -230,11 +230,14 @@ public class WebPlayerInfoDAOTest {
         expected.add(log);
         ArrayList<RaceReport> listLogs;
 
-        String query = "SELECT *\n" + //
-                        "FROM racelog\n" + //
-                        "WHERE pid = ?\n" + //
-                        "ORDER BY racestarttime, raceid DESC\n" + //
-                        "LIMIT 5;";
+        String query = 
+                """
+                SELECT *
+                FROM racelog
+                WHERE pid = ?
+                ORDER BY racestarttime DESC
+                LIMIT 5;
+                """;
 
         when(mockConn.prepareStatement(query)).thenReturn(stmt);
         when(stmt.executeQuery()).thenReturn(check);
