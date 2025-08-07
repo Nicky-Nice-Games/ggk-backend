@@ -53,7 +53,7 @@ public class RaceScore{
      * @return calculated score
      */
     public double scoreCalculation(){
-        if(this.raceLog.getMapRaced() >= 1 && this.raceLog.getMapRaced() <= 4){
+        if(this.raceLog.getMapRaced() < 1 || this.raceLog.getMapRaced() > 4){
             return 0.00;
         } else{
             double totalScore = (trackPerformaceScoring() + placementScoring() + itemBonus());
