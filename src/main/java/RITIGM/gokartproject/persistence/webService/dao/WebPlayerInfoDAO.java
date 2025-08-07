@@ -228,11 +228,14 @@ public class WebPlayerInfoDAO implements WebPlayerInfoInterface{
     public ArrayList<RaceReport> getRecentGames(String pid) throws SQLException{
         
         ArrayList<RaceReport> recentRaces = new ArrayList<RaceReport>(5);
-        String query = "SELECT *\n" + //
-                        "FROM racelog\n" + //
-                        "WHERE pid = ?\n" + //
-                        "ORDER BY racestarttime, raceid DESC\n" + //
-                        "LIMIT 5;";
+        String query = 
+                """
+                SELECT *
+                FROM racelog
+                WHERE pid = ?
+                ORDER BY racestarttime DESC
+                LIMIT 5;
+                """;
 
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, pid);
