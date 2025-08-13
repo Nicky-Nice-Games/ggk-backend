@@ -45,12 +45,12 @@ public class LeaderboardDAOTest {
         String query =
             """
             SELECT
-                p.pid, racelog.raceid, p.username, racelog.racestarttime,MIN(racelog.racetime) AS leaderboardtime, mapraced, p.score, p.profile
+                p.pid, racelog.raceid, p.username, racelog.racestarttime,MIN(racelog.racetime) AS leaderboardtime, mapraced, racelog.score, p.profile
             FROM racelog
                 INNER JOIN gokart.players p on racelog.pid = p.pid
             WHERE mapraced = ?
             GROUP BY p.pid
-            ORDER BY leaderboardtime;        
+            ORDER BY leaderboardtime;       
             """;
 
         when(this.mockConn.prepareStatement(query)).thenReturn(stmt);
